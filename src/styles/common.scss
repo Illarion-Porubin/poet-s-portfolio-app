@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Monplesir';
+    src: local('Monplesir'), url(../assets/fonts/Monplesir.ttf) format('opentype');
+}
+
+
+.container{
+    max-width: 1920px;
+    margin: 0;
+    padding: 0 70px;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: Monplesir;
+}

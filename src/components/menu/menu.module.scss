@@ -1,0 +1,46 @@
+.menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #352F24;
+    z-index: 1;
+
+    &__wrapp {
+        display: flex;
+        align-items: center;
+        max-width: 100%;
+        justify-content: space-between;
+    }
+
+    &__list {
+        display: flex;
+        align-items: center;
+        max-width: 100%;
+        height: 80px;
+        color: #fff;
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+    }
+
+    &__list_li {
+        font-size: 28px;
+        text-transform: capitalize;
+        padding-right: 60px;
+        list-style: none;
+
+        &:last-child {
+            padding-right: 0;
+        }
+
+        span {
+            text-transform: lowercase;
+        }
+    }
+
+    &__info {
+        display: flex;
+    }
+
+}

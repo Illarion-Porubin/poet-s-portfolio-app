@@ -1,0 +1,45 @@
+.about{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    &__wrapp {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__avatar_wrapp{
+        max-width: 726px;
+        height: auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    &__avatar{
+        width: 100%;
+        height: auto;
+        
+    }
+
+    &__biography{
+        max-width: 740px;
+        max-height: 920px;
+        border: 1px solid #000
+    }
+
+    
+
+    &__title{
+        font-size: 48px;
+        font-weight: 300;
+        margin: 50px 70px;
+    }
+
+    &__text{
+        font-size: 38px;
+        font-weight: 300;
+        margin: 0 50px 70px;
+    }
+    
+}
+

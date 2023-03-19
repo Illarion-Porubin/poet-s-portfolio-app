@@ -1,0 +1,14 @@
+.icons {
+    &__list {
+        display: flex;
+        margin-right: 120px;
+    }
+
+    &__svg {
+        padding-right: 30px;
+
+        &:last-child {
+            padding-right: 0;
+        }
+    }
+}

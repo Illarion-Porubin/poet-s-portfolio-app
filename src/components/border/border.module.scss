@@ -1,0 +1,25 @@
+.border{
+    position: relative;
+    height: 240px;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 140px;
+
+
+    &__title{
+        font-size: 138px;
+        font-weight: 300;
+        text-transform: capitalize;
+        span{
+            text-transform: lowercase;
+        }
+    }
+}
+
