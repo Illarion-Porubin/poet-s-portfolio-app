@@ -1,45 +1,108 @@
-.about{
+.about {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    
+
     &__wrapp {
         display: flex;
         justify-content: space-between;
     }
 
-    &__avatar_wrapp{
-        max-width: 726px;
-        height: auto;
+    &__bg_avatar {
+        width: 640px;
+        height: 640px;
+        position: absolute;
+        border: 20px solid #FFFFFF;
+        filter: drop-shadow(8px 4px 4px rgba(0, 0, 0, 0.25));
+    }
+
+    &__avatar_wrapp {
+        margin-top: 140px;
+        // width: 640px;
+        // height: 640px;
+        // position: relative;
+        // z-index: 1;
+        // border: 20px solid #FFFFFF;
+        // filter: drop-shadow(8px 4px 4px rgba(0, 0, 0, 0.25));
+        // transform: rotate(-6.97deg);
+    }
+
+    &__avatar {
+        width: 640px;
+        height: 640px;
         position: relative;
         z-index: 1;
+        border: 20px solid #FFFFFF;
+        filter: drop-shadow(8px 4px 4px rgba(0, 0, 0, 0.25));
+        transform: rotate(-7deg);
     }
 
-    &__avatar{
-        width: 100%;
-        height: auto;
-        
-    }
-
-    &__biography{
+    &__biography {
         max-width: 740px;
         max-height: 920px;
-        border: 1px solid #000
+        position: relative;
+        right: -70px;
+        border: 1px solid #000;
+        border-right: none;
+        padding: 50px 70px 50px 70px;
+        margin-bottom: 305px;
+        background: rgba(255, 251, 246, 0.5);
+        backdrop-filter: blur(2px);
     }
 
-    
-
-    &__title{
+    &__title {
+        font-style: normal;
+        font-weight: 400;
         font-size: 48px;
-        font-weight: 300;
-        margin: 50px 70px;
+        line-height: 70px;
+        border-bottom: 1px solid black;
+        display: inline-block;
+        margin-bottom: 50px;
     }
 
-    &__text{
-        font-size: 38px;
-        font-weight: 300;
-        margin: 0 50px 70px;
+    &__text {
+        width: 600px;
+        height: auto;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 34px;
+        line-height: 50px;
+        letter-spacing: 0.05em;
     }
-    
+
+    &__whay_wrapp{
+        padding-bottom: 596px;
+    }
+
+    &__whay {
+        position: relative;
+        left: -70px;
+        width: 90%;
+        border: 1px solid black;
+        border-left: none;
+        padding: 50px 150px 50px 70px;
+        background: rgba(255, 251, 246, 0.5);
+        backdrop-filter: blur(2px);
+    }
+
+    &__whay_title {
+        top: 0px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 70px;
+        letter-spacing: 0.05em;
+        display: inline-block;
+        border-bottom: 1px solid black;
+        margin-bottom: 50px;
+    }
+
+    &__whay_text {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 34px;
+        line-height: 50px;
+        letter-spacing: 0.05em;
+    }
+
 }
-

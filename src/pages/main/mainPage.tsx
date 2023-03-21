@@ -2,15 +2,46 @@ import React from 'react';
 import s from "./main.module.scss";
 import bg from "../../assets/jpg/mainbg.jpg";
 import face from "../../assets/png/face.png";
-import { Menu } from "../../components/menu/menu";
 import avatar from "../../assets/png/avatar.png";
 import About from '../about/about';
+import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
+import { Icons } from '../../components/icons/icons';
+import { Link } from "react-router-dom";
+import Contacts from '../contacts/contacts';
+
 
 export const MainPage: React.FC = () => {
   return (
     <>
-      <section className={s.main} style={{ backgroundImage: `url(${bg})` }}>
-        <Menu />
+      <section className={s.main} id='main' style={{ backgroundImage: `url(${bg})` }}>
+        <div className={s.menu}>
+          <div className="container">
+            <div className={s.menu__wrapp}>
+              <nav className={s.menu__nav}>
+                <ul className={s.menu__list}>
+                  <li className={s.menu__list_li}>
+                    <a href="/#main" >главная</a>
+                  </li>
+                  <li className={s.menu__list_li}>
+                    <a href="/#about">обо <span>мне</span></a>
+                  </li>
+                  <li className={s.menu__list_li}>
+                    <a href="/#contacts">контакты</a>
+                  </li>
+                  <li className={s.menu__list_li}>
+                    <Link to="/test">Стихи</Link>
+                  </li>
+                </ul>
+              </nav>
+              <div className={s.menu__info}>
+                <Icons />
+                <a href="/#main">
+                  <div><GlobalSvgSelecotr id={`enter`} /></div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
         <img className={s.face} src={face} alt="face" />
         <div className="container">
           <div className={s.main__wrapp}>
@@ -28,7 +59,8 @@ export const MainPage: React.FC = () => {
           </div>
         </div>
       </section>
-      <About/>
+      <About />
+      <Contacts />
     </>
   )
 }

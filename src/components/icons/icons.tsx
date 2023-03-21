@@ -8,10 +8,18 @@ export const Icons: React.FC = () => {
     <>
       <div className={s.icons}>
         <div className={s.icons__list}>
-          <div className={s.icons__svg}><GlobalSvgSelecotr id={`te`} /></div>
-          <div className={s.icons__svg}><GlobalSvgSelecotr id={`tw`} /></div>
-          <div className={s.icons__svg}><GlobalSvgSelecotr id={`vk`} /></div>
-          <div className={s.icons__svg}><GlobalSvgSelecotr id={`wa`} /></div>
+          <a className={s.icons__svg} href="/#main">
+            <div ><GlobalSvgSelecotr id={`te`} /></div>
+          </a>
+          <a className={s.icons__svg} href="/#main">
+            <div ><GlobalSvgSelecotr id={`tw`} /></div>
+          </a>
+          <a className={s.icons__svg} href="/#main">
+            <div ><GlobalSvgSelecotr id={`vk`} /></div>
+          </a>
+          <a className={s.icons__svg} href="/#main">
+            <div><GlobalSvgSelecotr id={`wa`} /></div>
+          </a>
         </div>
       </div>
     </>

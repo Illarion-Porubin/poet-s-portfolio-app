@@ -1,0 +1,136 @@
+.contacts {
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &__whait_wrapp {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 400px;
+    }
+
+    &__whait {
+        width: 781px;
+        height: 220px;
+        border-width: 1px 0px 1px 1px;
+        border-style: solid;
+        border-color: #000000;
+        border-radius: 12px 0px 0px 12px;
+        padding: 40px 70px;
+        background: rgba(255, 251, 246, 0.5);
+        backdrop-filter: blur(2px);
+    }
+
+    &__whait_text {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 70px;
+        letter-spacing: 0.05em;
+    }
+
+    //form
+
+    &__form_wrapp {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: flex-start;
+        padding-bottom: 662px;
+    }
+
+    &__form {
+        width: 950px;
+        height: 966px;
+        border-width: 1px 1px 1px 0px;
+        border-style: solid;
+        border-color: #000000;
+        border-radius: 0px 12px 12px 0px;
+        padding: 50px 70px;
+        text-align: center;
+        background: rgba(255, 251, 246, 0.5);
+        backdrop-filter: blur(2px);
+    }
+
+    &__form_title {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 70px;
+        letter-spacing: 0.05em;
+        margin-bottom: 20px;
+    }
+
+    &__form_text {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 35px;
+        letter-spacing: 0.05em;
+        margin-bottom: 50px;
+    }
+
+    &__form_inputs {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 73px;
+    }
+
+    &__form_input {
+        text-align: center;
+        border: 1px solid black;
+        color: #000000;
+        border-radius: 12px;
+        background-color: transparent;
+        width: 356px;
+        height: 92px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 41px;
+        letter-spacing: 0.05em;
+        background: rgba(255, 251, 246, 0.5);
+        backdrop-filter: blur(2px);
+        &::placeholder {
+            color: #000;
+        }
+    }
+
+    &__form_textarea {
+        width: 810px;
+        height: 386px;
+        background: rgba(255, 251, 246, 0.5);
+        border: 1px solid #000000;
+        border-radius: 12px;
+        padding: 36px;
+        margin-bottom: 50px;
+        resize: none;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 41px;
+        letter-spacing: 0.05em;
+        background: rgba(255, 251, 246, 0.5);
+        backdrop-filter: blur(2px);
+        &::placeholder {
+            color: #000;
+        }
+    }
+
+    &__form_btn {
+        width: 425px;
+        height: 94px;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        border-radius: 12px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 41px;
+        text-align: center;
+        letter-spacing: 0.05em;
+        background: rgba(255, 251, 246, 0.5);
+        backdrop-filter: blur(2px);
+    }
+
+}

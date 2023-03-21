@@ -5,20 +5,50 @@
 
 
 .container{
-    max-width: 1920px;
-    margin: 0;
-    padding: 0 70px;
+  max-width: 1920px;
+  margin: 0;
+  padding: 0 70px;
 }
 
 
-h1,
-h2,
-h3,
-h4,
-h5{
+html {
+    box-sizing: border-box;
+  }
+  *,
+  *::after,
+  *::before {
+    box-sizing: inherit;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
+  
+  p {
+    margin: 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  ul,
+  li {
     margin: 0;
     padding: 0;
-}
+    list-style: none;
+  }
+  
+  button {
+    padding: 0;
+    cursor: pointer;
+  }
 
 body{
     font-family: Monplesir;
