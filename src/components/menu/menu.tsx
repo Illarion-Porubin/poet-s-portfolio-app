@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 
 
 export const Menu: React.FC = () => {
-  const [dopMenu, setDopMenu] = React.useState<boolean>(false)
-
 
   return (
     <>
@@ -17,25 +15,14 @@ export const Menu: React.FC = () => {
           <div className={s.menu__wrapp}>
             <nav className={s.menu__nav}>
               <ul className={s.menu__list}>
-                <li className={s.menu__list_li}
-                  onClick={() => setDopMenu(true)}
-                >
+                <li className={s.menu__list_li}>
                   <Link to="/" >главная</Link>
                 </li>
-                {
-                  dopMenu ?
-                    <>
-                      <li className={s.menu__list_li}>
-                        <a href="/#about">обо <span>мне</span></a>
-                      </li>
-                      <li className={s.menu__list_li}>
-                        <a href="/#contacts">контакты</a>
-                      </li>
-                    </>
-                    : null
-                }
                 <li className={s.menu__list_li}>
-                  <Link to="/test">Стихи</Link>
+                  <Link to="/poem">cтихи</Link>
+                </li>
+                <li className={s.menu__list_li}>
+                  <Link to="/poem">статьи</Link>
                 </li>
               </ul>
             </nav>
@@ -51,42 +38,3 @@ export const Menu: React.FC = () => {
     </>
   )
 }
-
-
-
-
-
-
-
-
-// <>
-// <div className={s.menu}>
-//   <div className="container">
-//     <div className={s.menu__wrapp}>
-//       <nav className={s.menu__nav}>
-//         <ul className={s.menu__list}>
-//           <li className={s.menu__list_li}>
-//             <a href="#main">главная</a>
-//           </li>
-//           <li className={s.menu__list_li}>
-//             <a href="#about">обо <span>мне</span></a>
-//           </li>
-//           <li className={s.menu__list_li}>
-//             <a href="">контакты</a>
-//           </li>
-//           <li className={s.menu__list_li}>
-//             <a href="">стихи</a>
-//           </li>
-//           <li className={s.menu__list_li}>
-//             <a href="">статьи</a>
-//           </li>
-//         </ul>
-//       </nav>
-//       <div className={s.menu__info}>
-//         <Icons />
-//         <div><GlobalSvgSelecotr id={`enter`} /></div>
-//       </div>
-//     </div>
-//   </div>
-// </div>
-// </>

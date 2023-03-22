@@ -4,7 +4,7 @@ import { Border } from '../../components/border/border';
 import about_bg from "../../assets/jpg/about_bg.jpg";
 import avatar from "../../assets/png/avatar.png";
 
-export default function About() {
+export const AboutPage: React.FC = () => {
     return (
         <section id='about' className={s.about} style={{ backgroundImage: `url(${about_bg})` }}>
             <Border string='обо мне' />

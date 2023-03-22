@@ -1,0 +1,95 @@
+.poem {
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+
+    &__wrapp {
+        position: relative;
+        width: 100%;
+        // height: 85vh;
+        height: auto;
+        right: -70px;
+        padding: 10px 0px 20px 70px;
+        margin-top: 44px;
+        background: rgba(255, 244, 232, 0.4);
+        border-width: 1px 0px 1px 1px;
+        border-style: solid;
+        border-color: #000000;
+        backdrop-filter: blur(1px);
+        border-radius: 12px 0px 0px 12px;
+    }
+
+    &__head {
+        display: flex;
+        justify-content: center;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: -70px;
+            right: 0;
+            bottom: -2px;
+            height: 1px;
+            background-color: #000000;
+        }
+    }
+
+    &__title {
+        position: relative;
+        left: -100px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 30px;
+        line-height: 44px;
+        text-align: center;
+    }
+
+    &__search {
+        position: absolute;
+        display: flex;
+        right: 70px;
+    }
+
+    &__search_input {
+        width: 178px;
+        height: 36px;
+        border: 1px solid #352F24;
+        border-radius: 12px 0px 0px 12px;
+        padding: 0 15px;
+    }
+
+    &__search_btn {
+        padding: 2px 18px;
+        background: #352F24;
+        border: none;
+        border-radius: 0px 12px 12px 0px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 26px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        text-transform: capitalize;
+    }
+
+    &__list {
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    &__content {
+        width: 100%;
+        height: 586px;
+        column-width: 280px;
+        column-gap: 12%;
+        -moz-column-fill: auto;
+        column-fill: auto;
+    }
+}

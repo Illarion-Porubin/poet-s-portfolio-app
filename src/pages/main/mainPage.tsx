@@ -3,11 +3,11 @@ import s from "./main.module.scss";
 import bg from "../../assets/jpg/mainbg.jpg";
 import face from "../../assets/png/face.png";
 import avatar from "../../assets/png/avatar.png";
-import About from '../about/about';
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { Icons } from '../../components/icons/icons';
 import { Link } from "react-router-dom";
-import Contacts from '../contacts/contacts';
+import { AboutPage } from '../about/about';
+import { ContactsPage } from '../contacts/contactsPage';
 
 
 export const MainPage: React.FC = () => {
@@ -29,7 +29,10 @@ export const MainPage: React.FC = () => {
                     <a href="/#contacts">контакты</a>
                   </li>
                   <li className={s.menu__list_li}>
-                    <Link to="/test">Стихи</Link>
+                    <Link to="/poem">стихи</Link>
+                  </li>
+                  <li className={s.menu__list_li}>
+                    <Link to="/poem">статьи</Link>
                   </li>
                 </ul>
               </nav>
@@ -59,8 +62,8 @@ export const MainPage: React.FC = () => {
           </div>
         </div>
       </section>
-      <About />
-      <Contacts />
+      <AboutPage />
+      <ContactsPage />
     </>
   )
 }

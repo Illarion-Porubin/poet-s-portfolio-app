@@ -1,9 +1,9 @@
 import React from 'react'
 import { Border } from '../../components/border/border';
 import contacts_bg from '../../assets/jpg/contacts_bg.jpg';
-import s from './contacts.module.scss';
+import s from './contactsPage.module.scss';
 
-export default function Contacts() {
+export const ContactsPage: React.FC = () => {
   return (
     <section className={s.contacts} id={`contacts`} style={{ backgroundImage: `url(${contacts_bg})` }}>
       <Border string={'Контакты'} />
