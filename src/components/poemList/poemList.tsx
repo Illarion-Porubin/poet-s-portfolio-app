@@ -2,21 +2,26 @@ import React from 'react';
 import s from './poemList.module.scss';
 
 interface Props {
-  item: {
+  items: {
     name: string,
-    content: string
+    content: string,
+    id: string,
   }
+  index: number
+  display: boolean,
+  gentIndex: any,
 }
 
+export const PoemList: React.FC<Props> = ({ items, gentIndex, display, index }) => {
 
-export const PoemList: React.FC<Props> = ({ item }) => {
   return (
-    <div className={s.list}>
+    <>
       <li
-        className={s.poems}
-        key={item.name}>
-        {item.name}
+        onClick={() => gentIndex(index)}
+        className={display ? s.poems : s.poems__none}
+        key={items.name}>
+        {items.name}
       </li>
-    </div>
+    </>
   )
 }

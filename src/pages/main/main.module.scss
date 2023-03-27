@@ -21,14 +21,14 @@
         z-index: 1;
     }
 
-    &__preface{
+    &__preface {
         display: block;
         text-align: center;
         margin-left: 325px;
         z-index: 1;
     }
 
-    &__title{
+    &__title {
         max-width: 671px;
         font-size: 48px;
         text-align: center;
@@ -36,7 +36,7 @@
         margin-bottom: 60px;
     }
 
-    &__btn{
+    &__btn {
         position: initial;
         border: 1px solid black;
         background-color: transparent;
@@ -58,7 +58,7 @@
         z-index: 1;
     }
 
-    &__avatar_wrapp{
+    &__avatar_wrapp {
         position: relative;
     }
 
@@ -79,7 +79,7 @@
         position: relative;
     }
 
-    &__info_underline{
+    &__info_underline {
         background-color: #fff;
         position: absolute;
         left: calc(50% - 10px);
@@ -87,7 +87,8 @@
         width: 12px;
         height: 12px;
         border-radius: 50%;
-        &::after{
+
+        &::after {
             content: "";
             position: absolute;
             top: 50%;
@@ -96,7 +97,8 @@
             height: 1px;
             background-color: #fff;
         }
-        &::before{
+
+        &::before {
             content: "";
             position: absolute;
             top: 50%;
@@ -111,10 +113,17 @@
 .menu {
     position: fixed;
     top: 0;
+    // top: -64px;
     left: 0;
     right: 0;
     background-color: #352F24;
     z-index: 2;
+    // transition: .3s all;
+
+    // &:hover {
+    //     top: 0;
+    //     transition: .3s all;
+    // }
 
     &__wrapp {
         display: flex;

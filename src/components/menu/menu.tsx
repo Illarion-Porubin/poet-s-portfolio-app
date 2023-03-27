@@ -22,7 +22,7 @@ export const Menu: React.FC = () => {
                   <Link to="/poem">cтихи</Link>
                 </li>
                 <li className={s.menu__list_li}>
-                  <Link to="/poem">статьи</Link>
+                  <Link to="/articles">статьи</Link>
                 </li>
               </ul>
             </nav>
