@@ -16,14 +16,6 @@ const articles = [
 ]
 
 
-interface Item {
-    item: {
-        title: string,
-        text: string,
-        time: string
-    }
-}
-
 export default function ArticlesPage() {
     const [filter, setFilter] = React.useState<boolean>(true)
 

@@ -23,8 +23,14 @@
     &__list_li {
         font-size: 28px;
         text-transform: capitalize;
-        padding-right: 60px;
+        margin-right: 60px;
         list-style: none;
+        display: inline-block;
+        border-bottom: 1px solid transparent;
+
+        &:hover {
+            border-bottom: 1px solid #fff;
+        }
 
         &:last-child {
             padding-right: 0;
@@ -39,4 +45,11 @@
         display: flex;
     }
 
+}
+
+
+@media(max-width: 1440px) {
+    .menu__list_li {
+        margin-right: 30px;    
+    }
 }

@@ -54,3 +54,9 @@ html {
 body{
     font-family: Monplesir;
 }
+
+@media(max-width: 520px){
+  .container{
+    padding: 0 20px;
+  }
+}

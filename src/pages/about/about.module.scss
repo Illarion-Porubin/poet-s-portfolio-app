@@ -39,10 +39,10 @@
 
     &__biography {
         max-width: 740px;
-        max-height: 920px;
+        height: auto;
         position: relative;
         right: -70px;
-        padding: 50px 70px 50px 70px;
+        padding: 50px 0px 50px 70px;
         margin-bottom: 305px;
         background: rgba(255, 251, 246, 0.3);
         border-width: 1px 0px 1px 1px;
@@ -63,13 +63,14 @@
     }
 
     &__text {
-        width: 600px;
+        max-width: 600px;
         height: auto;
         font-style: normal;
         font-weight: 400;
         font-size: 34px;
         line-height: 50px;
         letter-spacing: 0.05em;
+        margin-right: 20px;
     }
 
     &__whay_wrapp {
