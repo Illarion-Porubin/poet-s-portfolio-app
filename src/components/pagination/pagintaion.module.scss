@@ -52,3 +52,16 @@
         }
     }
 }
+
+@media(max-width: 620px) {
+    .pagination{
+        height: 60px;
+        a {
+            margin-right: 4px;
+        }
+    }
+
+    .pagination__list{
+        margin-top: 14px;
+    }
+}

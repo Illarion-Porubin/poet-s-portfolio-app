@@ -9,11 +9,10 @@ export const AboutPage: React.FC = () => {
         <>
             <section id='about' className={s.about} style={{ backgroundImage: `url(${about_bg})` }}>
                 <Border string='обо мне' />
-                <div className='container'>
                     <div className={s.about__wrapp}>
                         <div className={s.about__avatar_wrapp}>
-                            <img className={s.about__bg_avatar} src={avatar} alt="avatar" />
                             <img className={s.about__avatar} src={avatar} alt="avatar" />
+                            <img className={s.about__bg_avatar} src={avatar} alt="avatar" />
                         </div>
                         <div className={s.about__biography}>
                             <p className={s.about__title}>Краткая биография</p>
@@ -30,7 +29,6 @@ export const AboutPage: React.FC = () => {
                             </p>
                         </div>
                     </div>
-                </div>
             </section>
         </>
     )

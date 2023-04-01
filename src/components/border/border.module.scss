@@ -25,3 +25,25 @@
     }
 }
 
+@media(max-width: 680px) {
+   
+    .border__title {
+        font-size: 104px;
+    }
+}
+
+
+@media(max-width: 520px) {
+    .border{
+        height: 150px;
+    }
+    .border__title {
+        font-size: 84px;
+    }
+}
+
+@media(max-width: 420px) {
+    .border__title {
+        font-size: 64px;
+    }
+}

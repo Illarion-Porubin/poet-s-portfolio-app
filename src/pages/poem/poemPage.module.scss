@@ -6,10 +6,9 @@
     background-size: cover;
 
     &__wrapp {
-        position: relative;
-        width: 100%;
+        width: auto;
         height: auto;
-        right: -70px;
+        margin-left: 70px;
         padding: 10px 0px 20px 70px;
         margin-top: 44px;
         background: rgba(255, 244, 232, 0.4);
@@ -20,7 +19,7 @@
         backdrop-filter: blur(1px);
     }
 
-    &__not_wrapp{
+    &__not_wrapp {
         display: none;
     }
 
@@ -28,6 +27,8 @@
         display: flex;
         justify-content: center;
         position: relative;
+        width: 100%;
+        height: 44px;
 
         &::after {
             content: "";
@@ -57,10 +58,11 @@
     }
 
     &__search_input {
-        width: 178px;
+        width: 170px;
         height: 36px;
         border: 1px solid #352F24;
         border-radius: 12px 0px 0px 12px;
+        background-color: transparent;
         padding: 0 15px;
     }
 
@@ -105,7 +107,7 @@
 //////////////////////////////////
 
 
-.popup__wrapp{
+.popup__wrapp {
     position: absolute;
     left: 0;
     right: 0;
@@ -114,8 +116,75 @@
 }
 
 
-.popup__wrapp_test{
+.popup__wrapp_test {
     position: relative;
     width: 100%;
     height: 100%;
+}
+
+@media(max-width: 1420px) {
+    .poem {
+        &__content {
+            column-gap: 4%;
+        }
+    }
+}
+
+@media(max-width: 1120px) {
+    .poem {
+        &__content {
+            column-width: unset;
+            column-gap: 0;
+            column-fill: none;
+            overflow-y: scroll;
+        }
+    }
+}
+
+@media(max-width: 920px) {
+    .poem__title {
+        display: none;
+    }
+}
+
+@media(max-width: 620px) {
+    .poem {
+        &__head {
+            &::after {
+                left: -20px;
+            }
+        }
+
+        &__title {
+            display: none;
+        }
+
+        &__search {
+            right: 20px;
+        }
+
+        &__wrapp {
+            margin-left: 20px;
+            padding-left: 20px;
+        }
+    }
+}
+
+
+/////////height///////////
+
+
+@media(max-height: 920px) {
+    .poem__wrapp{
+        margin-top: 10px;
+    }
+    .poem__list{
+        height: 520px;
+    }
+}
+
+@media(max-height: 820px) {
+    .poem__list{
+        height: 320px;
+    }
 }

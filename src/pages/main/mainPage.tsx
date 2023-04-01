@@ -70,8 +70,8 @@ export const MainPage: React.FC = () => {
           </div>
         </div>
       </section>
-      {/* <AboutPage />
-      <ContactsPage /> */}
+      <AboutPage />
+      <ContactsPage />
     </>
   )
 }

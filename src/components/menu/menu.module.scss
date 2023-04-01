@@ -1,12 +1,76 @@
+
+.menu, .menu__wrapp{
+    height: 80px;
+}
+
 .menu {
+    width: 100%;
     background-color: #352F24;
-    z-index: 1;
+    z-index: 2;
 
     &__wrapp {
+        width: 100%;
         display: flex;
         align-items: center;
-        max-width: 100%;
         justify-content: space-between;
+    }
+
+    &__content {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__mob_btn {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        display: none;
+
+        &::before {
+            margin-bottom: 6px;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            width: 38px;
+            height: 4px;
+            background-color: #e0e0e0;
+            display: block;
+            border-radius: 12px;
+            transition: transform 0.3s; // transform чтоб для трансформа работало
+        }
+    }
+
+    &__mob_btn__active {
+        background-color: transparent;
+        border: none;
+        outline: none;
+
+        &::after {
+            height: 3px;
+            transform: translateY(-5px) rotate(-135deg);
+        }
+
+        &::before {
+            height: 3px;
+            transform: translateY(5px) rotate(135deg);
+            margin-bottom: 6px;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            width: 38px;
+            height: 4px;
+            background-color: #e0e0e0;
+            display: block;
+            border-radius: 12px;
+
+            transition: transform 0.3s; // transform чтоб для трансформа работало
+        }
     }
 
     &__list {
@@ -40,16 +104,48 @@
             text-transform: lowercase;
         }
     }
-
-    &__info {
-        display: flex;
+}
+@media(max-width: 1441px) {
+    .menu__list_li {
+        margin-right: 34px;
     }
-
 }
 
+
+@media(max-width: 1195px) {
+    .menu {
+        &__wrapp {
+            justify-content: right;
+        }
+
+        &__content {
+            display: none;
+        }
+
+        &__info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        &__mob_btn {
+            display: block;
+        }
+
+        &__list_li {
+            margin-right: 32px;
+        }
+    }
+}
 
 @media(max-width: 1440px) {
     .menu__list_li {
         margin-right: 30px;    
+    }
+}
+
+@media(max-width: 620px) {
+    .menu, .menu__wrapp{
+        height: 60px;
     }
 }

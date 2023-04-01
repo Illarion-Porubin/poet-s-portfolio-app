@@ -103,7 +103,8 @@ export const PoemPage: React.FC = () => {
     <>
       <section className={s.poem} style={{ backgroundImage: `url(${poem_bg})` }}>
         <Menu />
-        <div className='container'>
+        {/* <div className='container'>
+        </div> */}
           <div className={display ? s.poem__wrapp : s.poem__not_wrapp}>
             <div className={s.poem__head}>
               <h3 className={s.poem__title}>Cписок стихов</h3>
@@ -126,7 +127,6 @@ export const PoemPage: React.FC = () => {
               <PopupPoem item={list[id]} hideContent={hideContent} display={display} />
             }
           </div>
-        </div>
         <Pagination />
       </section>
     </>

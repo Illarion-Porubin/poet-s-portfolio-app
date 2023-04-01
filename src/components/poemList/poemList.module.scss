@@ -76,3 +76,22 @@
     right: 0;
     bottom: 0;
 }
+
+@media(max-width: 1420px) {
+    .poems{
+        font-size: 16px;
+    }
+} 
+
+@media(max-width: 1120px) {
+    .poems{
+        font-size: 22px;
+        margin-top: 10px;
+    }
+}
+
+@media(max-width: 440px) {
+    .poems{
+        font-size: 18px;
+    }
+}
