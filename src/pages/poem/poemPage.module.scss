@@ -185,6 +185,18 @@
 
 @media(max-height: 820px) {
     .poem__list{
-        height: 320px;
+        height: 440px;
+    }
+}
+
+@media(max-height: 720px) {
+    .poem__list{
+        height: 340px;
+    }
+}
+
+@media(max-height: 620px) {
+    .poem__list{
+        height: 290px;
     }
 }

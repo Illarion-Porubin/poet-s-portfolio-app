@@ -25,10 +25,12 @@ export const PopupPoem: React.FC<Props> = ({ item, hideContent, display }) => {
         ReactDOM.createPortal(
             !display ?
                 <div className={s.popupPoem}>
-                    <div className={s.popupPoem__wrapp}>
-                        <img className={s.popupPoem__img} src={poembg} alt="poembg" />
+                    <div className={s.popupPoem__wrapp}
+                    // style={{ backgroundImage: `url(${poembg})` }}
+                    >
+                        <img className={s.popupPoem__bg_img} src={poembg} alt="imgbg" />
+                        <img className={s.popupPoem__btn} src={Back} alt="Back" onClick={hideContent} />
                         <div className={s.popupPoem__box}>
-                            <img className={s.popupPoem__btn} src={Back} alt="Back" onClick={hideContent} />
                             <h1 className={s.popupPoem__title}>{item.name}</h1>
                             <div className={s.popupPoem__content}>
                                 <pre className={s.popupPoem__text}>{item.content}</pre>

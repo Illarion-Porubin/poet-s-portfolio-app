@@ -15,7 +15,7 @@ export const Menu: React.FC = () => {
       <div className={s.menu}>
         <div className="container">
           <div className={s.menu__wrapp}>
-            <div className={s.menu__content}>
+            <div className={mobMenu ? `${s.menu__content} ${s.menu__content_active}` : s.menu__content}>
               <nav className={s.menu__nav}>
                 <ul className={s.menu__list}>
                   <li className={s.menu__list_li}>
@@ -32,7 +32,7 @@ export const Menu: React.FC = () => {
               <Icons />
             </div>
             <div className={s.menu__info}>
-              <a href="/#main">
+              <a className={s.menu__enter_btn} href="/#main">
                 <div><GlobalSvgSelecotr id={`enter`} /></div>
               </a>
               <button className={mobMenu ? s.menu__mob_btn__active : s.menu__mob_btn}

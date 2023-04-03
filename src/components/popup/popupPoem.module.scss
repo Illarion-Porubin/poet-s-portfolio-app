@@ -7,7 +7,7 @@
     border-radius: 33px;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
     padding: 20px;
     background: #000;
     width: 28px;
@@ -26,20 +26,35 @@
     overflow: hidden;
     background-color: rgba($color: #000000, $alpha: 0.4);
 
+    
+
     &__wrapp {
+        max-width: 700px;
+        height: 100vh;
+        margin-top: 80px;
         position: relative;
-        width: 700px;
-        height: 920px;
-        top: 80px;
+    }
+
+    &__bg_img {
+        width: 100%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        height: 100vh;
+        position: relative;
     }
 
     &__box {
-        padding-left: 116px;
+        padding-left: 16%;
+        margin-top: 33%;
+        position: absolute;
+        top: 0;
     }
 
     &__btn {
         position: absolute;
-        left: 50px;
+        left: 30px;
         top: 20px;
         z-index: 2;
         border: none;
@@ -50,30 +65,22 @@
         cursor: pointer;
     }
 
-    &__img {
-        position: absolute;
-        margin: 0 auto;
-        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    }
-
     &__title {
-        position: absolute;
-        top: 200px;
         z-index: 2;
         font-style: normal;
         font-weight: 400;
         font-size: 30px;
         line-height: 44px;
         border-bottom: 1px solid black;
+        display: inline-block;
+        margin-bottom: 30px;
+        height: 48px;
     }
 
     &__content {
-        top: 300px;
-        left: 116px;
         overflow-y: scroll;
-        position: absolute;
         z-index: 3;
-        width: 484px;
+        width: 100%;
         height: 532px;
     }
 
@@ -87,3 +94,331 @@
         padding: 0;
     }
 }
+
+@media(max-width: 620px) {
+    .popupPoem {
+        &__wrapp {
+           margin-top: 60px;
+        }
+    }
+}
+
+
+
+
+
+@media(max-width: 640px) and (max-height: 740px) {
+    .popupPoem {
+        &__wrapp {
+            top: 0px;
+        }
+
+        &__box {
+            margin-top: 35%;
+        }
+
+        &__content{
+            height: 320px;
+        }
+
+        &__title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        &__text{
+            font-size: 20px;
+        }
+    }
+}
+
+
+
+
+@media(max-width: 540px) and (max-height: 680px) {
+    .popupPoem {
+        &__wrapp {
+            top: 0px;
+        }
+
+        &__box {
+            padding-left: 16%;
+        }
+
+        &__content{
+            height: 300px;
+        }
+
+        &__title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        &__text{
+            font-size: 20px;
+        }
+    }
+}
+
+@media(max-width: 520px) and (max-height: 1000px) {
+    .popupPoem {
+        &__wrapp {
+            top: 0px;
+        }
+
+        &__box {
+            margin-top: 45%;
+        }
+
+        &__content{
+            height: 500px;
+        }
+
+        &__title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        &__text{
+            font-size: 20px;
+        }
+    }
+}
+
+@media(max-width: 520px) and (max-height: 900px) {
+    .popupPoem {
+        &__wrapp {
+            top: 0px;
+        }
+
+        &__box {
+            margin-top: 40%;
+        }
+
+        &__content{
+            height: 420px;
+        }
+
+        &__title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        &__text{
+            font-size: 20px;
+        }
+    }
+}
+
+
+@media(max-width: 440px) and (max-height: 740px) {
+    .popupPoem {
+        &__wrapp {
+            top: 0px;
+        }
+
+        &__box {
+            margin-top: 44%;
+            padding-left: 15%;
+        }
+
+        &__content{
+            height: 260px;
+        }
+
+        &__title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        &__text{
+            font-size: 18px;
+        }
+    }
+}
+
+
+@media(max-width: 360px) and (max-height: 640px) {
+    .popupPoem {
+        &__wrapp {
+            top: 0px;
+        }
+
+        &__box {
+            padding-left: 16%;
+            margin-top: 40%;
+        }
+
+        &__content{
+            height: 220px;
+        }
+
+        &__title {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        &__text{
+            font-size: 14px;
+        }
+    }
+}
+
+@media(max-width: 340px) and (max-height: 900px) {
+    .popupPoem {
+        &__wrapp {
+            top: 0px;
+        }
+
+        &__box {
+            padding-left: 16%;
+            margin-top: 55%;
+        }
+
+        &__content{
+            height: 450px;
+        }
+
+        &__title {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        &__text{
+            font-size: 14px;
+        }
+    }
+}
+
+
+// @media(max-width: 620px) and (max-height: 680px) {
+//     .popupPoem {
+//         &__wrapp {
+//             top: 60px;
+//         }
+
+//         &__box {
+//             padding-left: 8%;
+//             margin-top: 38%;
+//         }
+//     }
+// }
+
+// @media(max-width: 580px) {
+//     .popupPoem {
+//         &__box {
+//             padding-left: 8%;
+//             margin-top: 50%;
+//         }
+
+//         &__text {
+//             font-size: 20px;
+//         }
+//     }
+// }
+
+// @media(max-width: 520px) {
+//     .popupPoem {
+//         &__box {
+//             padding-left: 8%;
+//             margin-top: 44%;
+//         }
+
+//         &__text {
+//             font-size: 20px;
+//         }
+//     }
+// }
+
+// @media(max-width: 480px) {
+//     .popupPoem {
+//         &__box {
+//             margin-top: 50%;
+//         }
+
+//         &__title{
+//             font-size: 26px;
+//         }
+
+//         &__text {
+//             font-size: 20px;
+//         }
+//     }
+// }
+
+
+// @media(max-width: 400px) {
+//     .popupPoem {
+//         &__box {
+//             margin-top: 55%;
+//         }
+
+//         &__title{
+//             font-size: 22px;
+//         }
+
+//         &__text {
+//             font-size: 18px;
+//         }
+//     }
+// }
+
+// @media(max-width: 360px) {
+//     .popupPoem {
+//         &__box {
+//             margin-top: 50%;
+//         }
+
+//         &__title{
+//             font-size: 20px;
+//         }
+
+//         &__text {
+//             font-size: 16px;
+//         }
+//     }
+// }
+
+// /////////////height////////////
+
+// @media(max-height: 980px) {
+//     .popupPoem {
+//         &__content{
+//             height: 450px;
+//         }
+//     }
+// }
+
+// @media(max-height: 880px) {
+//     .popupPoem {
+//         &__content{
+//             height: 340px;
+//         }
+//     }
+// }
+
+// @media(max-height: 780px) {  
+//     .popupPoem {
+//         &__content{
+//             height: 340px;
+//         }
+
+//         &__box {
+//             padding-left: 8%;
+//             // margin-top: 20%;
+//         }
+//     }
+// }
+
+// @media(max-height: 680px) {  
+//     .popupPoem {
+//         &__content{
+//             height: 250px;
+//         }
+
+//         &__box {
+//             padding-left: 8%;
+//             margin-top: 15%;
+//         }
+//     }
+// }

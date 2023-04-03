@@ -71,3 +71,149 @@
         bottom: 12px;
     }
 }
+
+@media(max-width: 1280px) {
+    .articlesList{
+        &__item{
+            height: 270px;
+        }
+    }
+}
+
+@media(max-width: 1080px) {
+    .articlesList{
+        &__item{
+            height: 300px;
+        }
+    }
+}
+
+@media(max-width: 920px) {
+    .articlesList{
+        &__item_title{
+            font-size: 24px;
+            right: 20px;
+        }
+
+        &__item_text{
+            font-size: 20px;
+        }
+
+        &__item_time{
+            font-size: 18px;
+        }
+
+        &__item_btn{
+            font-size: 20px;
+        }
+
+        &__item{
+            height: 270px;
+        }
+    }
+}
+
+@media(max-width: 720px) {
+    .articlesList{
+        &__item_title{
+            font-size: 20px;
+            right: 20px;
+        }
+
+        &__item_text{
+            font-size: 18px;
+        }
+
+        &__item_time{
+            font-size: 16px;
+        }
+
+        &__item_btn{
+            font-size: 18px;
+        }
+
+        &__item{
+            height: 270px;
+        }
+    }
+}
+
+@media(max-width: 720px) {
+    .articlesList{
+        &__item_title{
+            font-size: 20px;
+            right: 20px;
+        }
+
+        &__item_text{
+            font-size: 16px;
+        }
+
+        &__item_time{
+            font-size: 16px;
+        }
+
+        &__item_btn{
+            font-size: 18px;
+        }
+
+        &__item{
+            height: 270px;
+        }
+    }
+}
+
+
+@media(max-width: 530px) {
+    .articlesList{
+        margin-right: 0;
+
+        &__item_title{
+            font-size: 20px;
+            right: 20px;
+        }
+
+        &__item_text{
+            font-size: 16px;
+        }
+
+        &__item_time{
+            font-size: 16px;
+        }
+
+        &__item_btn{
+            font-size: 16px;
+        }
+
+        &__item{
+            height: 330px;
+        }
+    }
+}
+
+@media(max-width: 340px) {
+    .articlesList{
+        margin-right: 0;
+
+        &__item_title{
+            font-size: 18px;
+            right: 20px;
+        }
+
+        &__item_text{
+            font-size: 16px;
+        }
+
+        &__item_time{
+            font-size: 16px;
+        }
+
+        &__item_btn{
+            font-size: 16px;
+        }
+
+        &__item{
+            height: 330px;
+        }
+    }
+}

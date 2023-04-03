@@ -15,8 +15,13 @@
 
 
 @media(max-width: 1195px) {
-    .icons__list{
-        margin-right: 60px;
+    .icons__list {
+        // margin-right: 60px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 10%;
+        width: 100%;
+        justify-content: center;
     }
 }
-
