@@ -1,6 +1,5 @@
 import React from 'react';
 import s from './poemPage.module.scss';
-import poem_bg from '../../assets/jpg/poem_bg.jpg';
 import { Menu } from '../../components/menu/menu';
 import { PoemList } from '../../components/poemList/poemList';
 import { Pagination } from '../../components/pagination/pagination';
@@ -55,7 +54,7 @@ const list = [
 И ничто ее не бросит в дрожь,—
 Кто любил, уж тот любить не может,
 Кто сгорел, того не подожжешь.`
-},
+  },
 
   { id: '94543583468', name: `название 2`, content: `содержание 2` },
   { id: '98463445468', name: `название 3`, content: `содержание 3` },
@@ -101,32 +100,32 @@ export const PoemPage: React.FC = () => {
 
   return (
     <>
-      <section className={s.poem} style={{ backgroundImage: `url(${poem_bg})` }}>
+      <section className={s.poem}>
         <Menu />
-        {/* <div className='container'>
-        </div> */}
-          <div className={display ? s.poem__wrapp : s.poem__not_wrapp}>
-            <div className={s.poem__head}>
-              <h3 className={s.poem__title}>Cписок стихов</h3>
-              <div className={s.poem__search}>
-                <input 
-                  className={s.poem__search_input} type="text"
-                />
-                <button className={s.poem__search_btn}>поиск</button>
-              </div>
+        <div className={display ? s.poem__wrapp : s.poem__not_wrapp}>
+          <div className={s.poem__head}>
+            <h3 className={s.poem__title}>Cписок стихов</h3>
+            <div className={s.poem__search}>
+              <input
+                className={s.poem__search_input} type="text"
+              />
+              <button className={s.poem__search_btn}>поиск</button>
             </div>
-            {display ?
-              <ul className={s.poem__list}>
-                <div className={s.poem__content}>
+          </div>
+          {display ?
+            <div className={s.poem__content}>
+              <div className={s.poem__content_wrapp}>
+                <ul className={s.poem__list}>
                   {list.map((items, index) =>
                     <PoemList items={items} gentIndex={gentIndex} display={display} key={items.id} index={index} />
                   )}
-                </div>
-              </ul>
-              :
-              <PopupPoem item={list[id]} hideContent={hideContent} display={display} />
-            }
-          </div>
+                </ul>
+              </div>
+            </div>
+            :
+            <PopupPoem item={list[id]} hideContent={hideContent} display={display} />
+          }
+        </div>
         <Pagination />
       </section>
     </>

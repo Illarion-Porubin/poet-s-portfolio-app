@@ -1,202 +1,158 @@
 .poem {
+    background-image: url('../../assets/jpg/poem_bg.jpg');
+    background-position: 0%;
+    background-size: cover;
     width: 100%;
     height: 100vh;
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: cover;
 
-    &__wrapp {
-        width: auto;
-        height: auto;
-        margin-left: 70px;
-        padding: 10px 0px 20px 70px;
-        margin-top: 44px;
-        background: rgba(255, 244, 232, 0.4);
-        border-width: 1px 0px 1px 1px;
-        border-style: solid;
-        border-color: #000000;
-        border-radius: 12px 0px 0px 12px;
-        backdrop-filter: blur(1px);
-    }
-
-    &__not_wrapp {
+    &__not_wrapp{
         display: none;
     }
 
+    &__wrapp {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 120px 0 120px 70px;
+        border: 1px solid #000;
+        background: rgba(255, 244, 232, 0.4);
+        border-radius: 12px 0px 0px 12px;
+    }
+
     &__head {
-        display: flex;
-        justify-content: center;
-        position: relative;
         width: 100%;
-        height: 44px;
+        height: 56px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: relative;
 
         &::after {
-            content: "";
             position: absolute;
-            left: -70px;
-            right: 0;
-            bottom: -2px;
+            content: "";
+            width: 100%;
             height: 1px;
-            background-color: #000000;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #000;
         }
     }
 
     &__title {
-        position: relative;
-        left: -100px;
+        margin: 0 auto;
         font-style: normal;
         font-weight: 400;
         font-size: 30px;
         line-height: 44px;
-        text-align: center;
     }
 
     &__search {
-        position: absolute;
         display: flex;
-        right: 70px;
+        margin-right: 70px;
     }
 
     &__search_input {
-        width: 170px;
+        width: 178px;
         height: 36px;
         border: 1px solid #352F24;
         border-radius: 12px 0px 0px 12px;
         background-color: transparent;
-        padding: 0 15px;
     }
 
     &__search_btn {
-        padding: 2px 18px;
+        width: 92px;
+        height: 36px;
         background: #352F24;
-        border: none;
         border-radius: 0px 12px 12px 0px;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 26px;
-        display: flex;
-        align-items: center;
-        text-align: center;
+        border: none;
         color: #fff;
         text-transform: capitalize;
     }
 
-    &__list {
-        margin-top: 25px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-
-    &__content {
+    &__content{
         width: 100%;
-        height: 586px;
-        column-width: 280px;
-        column-gap: 12%;
-        -moz-column-fill: auto;
-        column-fill: auto;
+        height: auto;
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 55px;
+        bottom: 0;
     }
-}
 
-
-
-
-
-
-//////////////////////////////////
-
-
-.popup__wrapp {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 80px;
-    bottom: 80px;
-}
-
-
-.popup__wrapp_test {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-@media(max-width: 1420px) {
-    .poem {
-        &__content {
-            column-gap: 4%;
-        }
+    &__list{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        height: 100%;
+        // display: flex;
+        // flex-wrap: wrap;
+        // flex-direction: column;
+        column-count: 3;
+        column-gap: 0;
+        padding: 50px 0 0 70px;
     }
 }
 
 @media(max-width: 1120px) {
-    .poem {
-        &__content {
-            column-width: unset;
-            column-gap: 0;
-            column-fill: none;
+    .poem{
+        &__list{
+            padding: 25px 0 0 70px;
+        }
+    }
+}
+
+@media(max-width: 1020px){
+    .poem{
+        &__content{
+            width: 100%;
+        }
+
+        &__content_wrapp{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        &__list{
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            height: 160%;
         }
     }
 }
 
-@media(max-width: 920px) {
-    .poem__title {
-        display: none;
-    }
-}
 
-@media(max-width: 620px) {
-    .poem {
-        &__head {
-            &::after {
-                left: -20px;
-            }
+@media(max-width: 620px){
+    .poem{
+        &__wrapp{
+            margin: 90px 0 90px 20px;
         }
 
-        &__title {
+        &__title{
             display: none;
         }
 
-        &__search {
-            right: 20px;
+        &__search{
+            margin: 0 auto;
         }
 
-        &__wrapp {
-            margin-left: 20px;
-            padding-left: 20px;
+        &__list{
+            display: flex;
+            flex-wrap: nowrap;
+            height: 100%;
+            padding-left: 40px;
         }
     }
-}
-
-
-/////////height///////////
-
-
-@media(max-height: 920px) {
-    .poem__wrapp{
-        margin-top: 10px;
-    }
-    .poem__list{
-        height: 520px;
-    }
-}
-
-@media(max-height: 820px) {
-    .poem__list{
-        height: 440px;
-    }
-}
-
-@media(max-height: 720px) {
-    .poem__list{
-        height: 340px;
-    }
-}
-
-@media(max-height: 620px) {
-    .poem__list{
-        height: 290px;
-    }
-}
+}   

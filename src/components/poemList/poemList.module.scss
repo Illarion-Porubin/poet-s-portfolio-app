@@ -1,97 +1,80 @@
 .poems {
-    margin-bottom: 44px;
-    font-style: normal;
     font-weight: 400;
-    font-size: 20px;
-    line-height: 29px;
-    display: flex;
-    align-items: center;
-    text-transform: capitalize;
+    font-size: 22px;
+    line-height: 32px;
+    margin-bottom: 58px;
+    padding-right: 15px;
     cursor: pointer;
-    z-index: 2;
-}
-
-.poem {
-    position: absolute;
-    left: -141px;
-    right: -125px;
-    top: -125px;
-    bottom: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 3;
-}
-
-.poems__none {
-    margin-bottom: 44px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 29px;
-    display: flex;
-    align-items: center;
-    text-transform: capitalize;
-    cursor: pointer;
-    // display: none;
-    color: red;
 }
 
 
-/////////////popup/////////////
-
-.popup {
-    position: absolute;
-    // position: relative;
-    width: 700px;
-    height: 115%;
-    left: -150px;
-    right: 0;
-    top: -45px;
-    bottom: 0;
-    margin: 0 auto;
-    z-index: 2;
-   
-
-    &__wrapp{
-        position: relative;
-        width: 100%;
-        height: 100%;
-    }
-
-    &__btn {
-        position: absolute;
-        padding: 20px;
-        top: 0;
-        left: 0;
-        z-index: 3;
+@media(max-width: 1527px) {
+    .poems {
+        font-size: 20px;
+        line-height: 32px;
     }
 }
-
-.popup__img {
-    position: absolute;
-    width: 100%;
-    height: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
-@media(max-width: 1420px) {
-    .poems{
-        font-size: 16px;
-    }
-} 
 
 @media(max-width: 1120px) {
-    .poems{
-        font-size: 22px;
-        margin-top: 10px;
+    .poems {
+        line-height: 30px;
     }
 }
 
-@media(max-width: 440px) {
-    .poems{
-        font-size: 18px;
+@media(max-width: 1020px) {
+    .poems {
+        width: 50%;
+    }
+}
+
+@media(max-width: 620px) {
+    .poems {
+        font-size: 26px;
+        width: 100%;
+    }
+}
+
+@media(max-width: 430px) {
+    .poems {
+        font-size: 20px;
+    }
+}
+
+@media(max-width: 360px) {
+    .poems {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+}
+
+//////////height///////////
+
+@media(max-height: 1070px) {
+    .poems {
+        margin-bottom: 50px;
+    }
+}
+
+@media(max-height: 1003px) {
+    .poems {
+        margin-bottom: 41px;
+    }
+}
+
+@media(max-height: 931px) {
+    .poems {
+        margin-bottom: 33px;
+    }
+}
+
+@media(max-height: 880px) {
+    .poems {
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-height: 843px) {
+    .poems {
+        margin-bottom: 24px;
     }
 }

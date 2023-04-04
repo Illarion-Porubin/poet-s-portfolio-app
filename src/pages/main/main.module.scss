@@ -272,7 +272,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: end;
+            align-items: flex-end;
             transition: all .3s;
             transition: all .3s;
         }
@@ -289,7 +289,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: end;
+            align-items: flex-end;
             transition: all .3s;
         }
 
@@ -425,7 +425,7 @@
         }
 
         &__info {
-            width: 600px;
+            width: 500px;
             height: 740px;
         }
     }
