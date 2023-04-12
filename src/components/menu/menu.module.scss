@@ -105,6 +105,17 @@
         }
     }
 }
+
+@media(max-width: 1540px) {
+    .menu, .menu__wrapp{
+        height: 60px;
+    }
+    .menu__list_li{
+        font-size: 26px;
+        margin-right: 38px;
+    }
+}
+
 @media(max-width: 1441px) {
     .menu__list_li {
         margin-right: 34px;

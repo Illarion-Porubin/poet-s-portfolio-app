@@ -91,19 +91,29 @@
         bottom: 0;
         width: auto;
         height: 100%;
-        // display: flex;
-        // flex-wrap: wrap;
-        // flex-direction: column;
         column-count: 3;
         column-gap: 0;
         padding: 50px 0 0 70px;
     }
 }
 
+
+@media(max-width: 1540px) {
+    .poem{
+        &__wrapp{
+            margin-top: 100px;;
+        }
+        &__list{
+            padding-top: 10px;
+        }
+    }
+}
+
+
 @media(max-width: 1120px) {
     .poem{
         &__list{
-            padding: 25px 0 0 70px;
+            padding: 10px 0 0 70px;
         }
     }
 }

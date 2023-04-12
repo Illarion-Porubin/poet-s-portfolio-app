@@ -53,15 +53,20 @@
     }
 }
 
-@media(max-width: 620px) {
+@media(max-width: 1540px) {
     .pagination{
         height: 60px;
-        a {
-            margin-right: 4px;
-        }
     }
 
     .pagination__list{
-        margin-top: 14px;
+        margin-top: 10px;
+    }
+}
+
+@media(max-width: 620px) {
+    .pagination{
+        a {
+            margin-right: 4px;
+        }
     }
 }

@@ -11,15 +11,37 @@ import { ContactsPage } from '../contacts/contactsPage';
 
 
 export const MainPage: React.FC = () => {
-  const [mobMenu, setMobMenu] = React.useState<boolean>(false)
+  const [mobMenu, setMobMenu] = React.useState<boolean>(false);
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [email, setEmail] = React.useState<string>('');
+  const [pass, setPass] = React.useState<string>('');
 
   return (
     <>
+      <div className={open ? `${s.popup} ${s.active}` : s.popup} onClick={() => setOpen(false)}>
+        <form className={open ? `${s.popup__form} ${s.active}` : s.popup__form} onClick={e => e.stopPropagation()}>
+          <h5 className={s.popup__title}>Авторизация</h5>
+          <input
+            className={s.popup__input}
+            type="email" placeholder='Login'
+            onChange={e => setEmail(e.target.value)}
+            value={email} />
+          <input
+            className={s.popup__input}
+            type="password" placeholder='Password'
+            onChange={e => setPass(e.target.value)}
+            value={pass} />
+          <Link to="/admin">
+            <button className={s.popup__btn}>войти</button>
+          </Link>
+        </form>
+      </div>
+      
       <section className={s.main} id='main' style={{ backgroundImage: `url(${bg})` }}>
         <div className={s.menu}>
           <div className="container">
             <div className={s.menu__wrapp}>
-              <div className={mobMenu ?  `${s.menu__content} ${s.menu__content_active}` : s.menu__content }>
+              <div className={mobMenu ? `${s.menu__content} ${s.menu__content_active}` : s.menu__content}>
                 <nav className={s.menu__nav}>
                   <ul className={s.menu__list}>
                     <li className={s.menu__list_li}>
@@ -42,9 +64,7 @@ export const MainPage: React.FC = () => {
                 <Icons />
               </div>
               <div className={s.menu__info}>
-                <a className={s.menu__enter_btn} href="/#main">
-                  <div><GlobalSvgSelecotr id={`enter`} /></div>
-                </a>
+                <div className={s.menu__enter} onClick={() => setOpen(prev => !prev)}><GlobalSvgSelecotr id={`enter`} /></div>
                 <button className={mobMenu ? s.menu__mob_btn__active : s.menu__mob_btn}
                   onClick={() => setMobMenu(prev => !prev)}
                 ></button>

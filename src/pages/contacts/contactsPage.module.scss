@@ -41,16 +41,16 @@
     }
 
     &__form {
-        width: 950px;
-        height: 966px;
+        width: 960px;
+        height: 960px;
         border-width: 1px 1px 1px 0px;
         border-style: solid;
         border-color: #000000;
         border-radius: 0px 12px 12px 0px;
         padding: 50px 70px;
-        text-align: center;
         background: rgba(255, 251, 246, 0.5);
         backdrop-filter: blur(2px);
+        text-align: center;
     }
 
     &__form_title {
@@ -74,6 +74,7 @@
     }
 
     &__form_inputs {
+        width: 100%;
         display: flex;
         justify-content: space-between;
         margin-bottom: 73px;
@@ -85,7 +86,7 @@
         color: #000000;
         border-radius: 12px;
         background-color: transparent;
-        width: 356px;
+        width: 45%;
         height: 92px;
         font-style: normal;
         font-weight: 400;
@@ -101,7 +102,7 @@
     }
 
     &__form_textarea {
-        width: 810px;
+        width: 100%;
         height: 386px;
         background: rgba(255, 251, 246, 0.5);
         border: 1px solid #000000;
@@ -138,263 +139,215 @@
     }
 }
 
+@media(max-width: 1540px) {
+    .contacts {
+        &__form {
+            width: 680px;
+            height: 680px;
+            padding: 30px 50px;
+        }
+
+        &__form_title {
+            font-size: 38px;
+            line-height: 42px;
+            height: 56px;
+        }
+
+        &__form_text {
+            line-height: 35px;
+            font-size: 22px;
+            margin-bottom: 22px;
+        }
+
+        &__form_inputs {
+            margin-bottom: 30px;
+        }
+
+        &__form_input {
+            width: 45%;
+            height: 68px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 28px;
+            line-height: 40px;
+        }
+
+        &__form_textarea {
+            width: 100%;
+            height: 282px;
+            font-size: 28px;
+            line-height: 41px;
+            margin-bottom: 30px;
+        }
+
+        &__form_btn {
+            width: 304px;
+            height: 68px;
+            font-size: 28px;
+            line-height: 41px;
+        }
+
+        &__form_wrapp{
+            padding-bottom: 100px;
+        }
+    }
+}
+
 @media(max-width: 980px) {
     .contacts {
+        &__whait_wrapp {
+            margin-bottom: 80px;
+        }
 
         &__whait {
             width: 100%;
             margin-left: 20px;
+            padding: 36px 46px;
+            margin-left: 95px;
         }
 
         &__whait_text {
             font-size: 38px;
         }
 
-        &__form {
-            width: 766px;
-            height: 735px;
-            padding: 30px 56px;
-        }
-
-        &__form_title {
-            font-size: 42px;
-        }
-
-        &__form_text {
-            font-size: 24px;
-            margin-bottom: 30px;
-        }
-
-        &__form_inputs {
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        &__form_input {
-            width: 286px;
-            height: 76px;
-            font-size: 28px;
-        }
-
-        &__form_textarea {
-            width: 100%;
-            max-height: 312px;
-            margin-bottom: 30px;
-        }
-
-        &__form_btn {
-            max-width: 342px;
-            max-height: 76px;
+        &__form_wrapp {
+            padding-bottom: 80px;
         }
     }
 }
 
-@media(max-width: 780px) {
-    .contacts {
-        &__form {
-            width: 100%;
-            margin-right: 20px;
-        }
 
-        &__form_title {
-            font-size: 38px;
-        }
-
-        &__form_text {
-            font-size: 22px;
-            margin-bottom: 26px;
-        }
-
-        &__form_inputs {
-            margin-bottom: 26px;
-        }
-
-        &__form_input {
-            width: 45%;
-            height: 76px;
-            font-size: 22px;
-        }
-
-        &__form_btn {
-            max-width: 282px;
-            max-height: 76px;
-        }
-    }
-}
 
 @media(max-width: 720px) {
     .contacts {
+        &__form {
+            width: 100%;
+            height: auto;
+            padding: 30px 50px;
+            margin-right: 20px;
+        }
+
         &__whait {
             padding: 24px 20px 24px 40px;
             height: auto;
+            margin-left: 20px;
         }
     }
 }
 
 @media(max-width: 620px) {
     .contacts {
-        &__whait_wrapp {
-            margin-bottom: 150px;
-        }
-
         &__whait_text {
             font-size: 34px;
         }
+    }
+}
 
-        &__form_wrapp {
-            padding-bottom: 150px;
+
+@media(max-width: 540px) {
+    .contacts {
+        &__whait_text {
+            font-size: 28px;
+            line-height: 42px;
         }
 
         &__form {
-            width: 100%;
-            margin-right: 20px;
-            padding: 20px;
-            height: auto;
+            padding: 30px;
         }
 
         &__form_title {
-            font-size: 24px;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            top: -20px;
-            height: 60px;
+            margin-bottom: 20px;
         }
 
         &__form_text {
-            font-size: 20px;
-            margin-bottom: 34px;
+            margin-bottom: 20px;
+            line-height: 30px;
         }
 
         &__form_inputs {
-            justify-content: space-between;
+            margin-bottom: 20px;
         }
 
         &__form_input {
+            font-size: 20px;
             height: 50px;
-            font-size: 18px;
         }
 
         &__form_textarea {
             font-size: 20px;
-            height: 260px;
-            padding: 10px;
             margin-bottom: 20px;
+            padding: 16px;
         }
 
         &__form_btn {
-            max-width: 232px;
-            max-height: 44px;
-            font-size: 24px;
+            font-size: 20px;
+            width: 60%;
+            height: 50px;
+        }
+    }
+}
+
+
+@media(max-width: 480px) {
+    .contacts {
+        &__form_textarea {
+            height: 200px;
+        }
+    }
+}
+
+@media(max-width: 460px) {
+    .contacts {
+        &__whait_text{
+            font-size: 22px;
             line-height: 32px;
         }
     }
 }
 
 
-@media(max-width: 520px) {
+@media(max-width: 380px) {
     .contacts {
-        &__whait {
-            padding: 18px;
-        }
-
-        &__whait_text {
-            font-size: 26px;
-        }
-
-
-        &__form_title {
-            font-size: 22px;
-            height: 50px;
-        }
-
-        &__form_text {
+        &__whait_text{
             font-size: 18px;
-        }
-
-        &__form_inputs {
-            margin-bottom: 26px;
-        }
-
-        &__form_input {
-            height: 40px;
-            font-size: 18px;
-        }
-
-        &__form_btn {
-            max-width: 132px;
-            max-height: 34px;
-            font-size: 18px;
-            line-height: 22px;
-        }
-    }
-}
-
-
-@media(max-width: 420px) {
-    .contacts {
-        &__whait_text {
-            font-size: 19px;
+            line-height: 24px;
         }
 
         &__form {
-            width: 100%;
-            margin-right: 20px;
-            padding: 20px;
-            height: auto;
+            padding: 30px;
         }
 
         &__form_title {
-            font-size: 22px;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            top: -20px;
-            height: 50px;
+            font-size: 24px;
         }
 
         &__form_text {
-            margin-bottom: 34px;
+            font-size: 16px;
+        }
+
+        &__form_input {
+            font-size: 16px;
+            height: 30px;
         }
 
         &__form_textarea {
-            font-size: 18px;
+            font-size: 16px;
             height: 120px;
-            padding: 10px;
-            margin-bottom: 20px;
+        }
+
+        &__form_btn {
+            font-size: 16px;
+            line-height: 24px;
+            width: 60%;
+            height: 34px;
         }
     }
 }
 
-
-@media(max-width: 320px) {
+@media(max-width: 370px) {
     .contacts {
-        &__form_title {
+        &__whait_text{
             font-size: 16px;
-        }
-
-        &__form_text {
-            font-size: 16px;
-            margin-bottom: 26px;
-        }
-
-        &__form_inputs {
-            margin-bottom: 26px;
-        }
-
-        &__form_input {
-            height: 30px;
-            font-size: 16px;
-        }
-
-        &__form_textarea {
-            font-size: 16px;
-        }
-
-        &__form_btn {
-            max-width: 132px;
-            max-height: 34px;
-            font-size: 18px;
             line-height: 24px;
         }
     }

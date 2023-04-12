@@ -1,3 +1,71 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    z-index: 0;
+    visibility: hidden;
+    transition: all .3s;
+
+    &__form {
+        width: 300px;
+        height: 360px;
+        border: 1px solid #352F24;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 30px;
+        border-radius: 12px;
+        background: rgba(250, 235, 217, 0.9);
+        transform: scale(0.5);
+        transition: all .3s;
+    }
+
+    &__title {
+        font-size: 22px;
+        font-weight: 300;
+        margin-bottom: 30px;
+    }
+
+    &__input {
+        width: 100%;
+        height: 40px;
+        margin-bottom: 30px;
+        border-radius: 12px;
+        padding: 0 10px;
+        font-family: 'Roboto';
+    }
+
+    &__btn {
+        width: 140px;
+        height: 40px;
+        border: 1px solid #352F24;
+        border-radius: 12px;
+        text-transform: capitalize;
+    }
+}
+
+.popup.active{
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    z-index: 3;
+    visibility: visible;
+    transition: all .3s;
+}
+
+.popup__form.active{
+    transform: scale(1);
+    transition: all .3s;
+}
+
 .face {
     width: 100%;
     height: 100vh;
@@ -60,7 +128,7 @@
         z-index: 1;
     }
 
-  
+
 
     &__info_btn {
         position: relative;
@@ -128,7 +196,8 @@
     }
 }
 
-.menu, .menu__wrapp{
+.menu,
+.menu__wrapp {
     height: 80px;
 }
 
@@ -143,6 +212,10 @@
     // &:hover{
     //     top: 0;
     // }
+
+    &__enter {
+        cursor: pointer;
+    }
 
     &__wrapp {
         width: 100%;
@@ -242,6 +315,19 @@
     }
 }
 
+@media(max-width: 1540px) {
+
+    .menu,
+    .menu__wrapp {
+        height: 60px;
+    }
+
+    .menu__list_li {
+        font-size: 26px;
+        margin-right: 38px;
+    }
+}
+
 @media(max-width: 1441px) {
     .main {
         &__preface {
@@ -253,6 +339,7 @@
         margin-right: 34px;
     }
 }
+
 
 @media(max-width: 1195px) {
     .menu {
@@ -293,13 +380,13 @@
             transition: all .3s;
         }
 
-        &__list{
+        &__list {
             flex-direction: column;
             position: relative;
             top: -200px;
         }
 
-        &__list_li{
+        &__list_li {
             margin-bottom: 50%;
             z-index: 2;
         }
@@ -310,7 +397,7 @@
             width: 100%;
         }
 
-        &__enter_btn{
+        &__enter_btn {
             z-index: 1;
         }
 
@@ -363,21 +450,23 @@
             bottom: -60px;
         }
     }
+
     .face {
         display: none;
     }
 }
 
 @media(max-width: 620px) {
-    .menu, .menu__wrapp{
-        height: 60px;
-    }
+    // .menu, .menu__wrapp{
+    //     height: 60px;
+    // }
 
-    .main{
+    .main {
         &__avatar {
             width: 280px;
             height: 280px;
         }
+
         &__info_btn {
             width: 300px;
             height: 68px;
@@ -388,7 +477,7 @@
 
 @media(max-width: 460px) {
     .main {
-        &__introduction{
+        &__introduction {
             font-size: 42px;
         }
     }
@@ -409,7 +498,7 @@
             font-size: 28px;
         }
 
-        &__introduction{
+        &__introduction {
             font-size: 36px;
         }
     }
@@ -485,7 +574,7 @@
             padding-bottom: 120px;
         }
 
-        &__avatar{
+        &__avatar {
             position: relative;
             top: 20px;
         }
@@ -506,12 +595,12 @@
             height: 460px;
             padding-bottom: 90px;
         }
-        
-        &__avatar{
+
+        &__avatar {
             top: 0;
         }
 
-        &__introduction{
+        &__introduction {
             font-size: 32px;
         }
 
@@ -525,7 +614,7 @@
     }
 }
 
-@media(max-height: 560px) {    
+@media(max-height: 560px) {
     .main {
         &__info {
             height: 390px;
@@ -537,7 +626,7 @@
             top: 0px;
         }
 
-        &__avatar_wrapp{
+        &__avatar_wrapp {
             top: 30px;
         }
 
