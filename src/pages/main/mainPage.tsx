@@ -5,21 +5,61 @@ import face from "../../assets/png/face.png";
 import avatar from "../../assets/png/avatar.png";
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { Icons } from '../../components/icons/icons';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { AboutPage } from '../about/about';
 import { ContactsPage } from '../contacts/contactsPage';
+import { fetchLogin } from "../../redux/slices/authSlice";
+import { selectAuthData, selectContentData } from "../../redux/selectors";
+import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
+import { MainPageContetn, UserTypes } from "../../types/types";
+import { useSelector } from 'react-redux'
+import type { AppState } from '../../redux/store';
+import { fetchGetContetn } from '../../redux/slices/contentSlice';
 
 
 export const MainPage: React.FC = () => {
+  const dispatch = useCustomDispatch();
   const [mobMenu, setMobMenu] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(false);
-  const [email, setEmail] = React.useState<string>('');
-  const [pass, setPass] = React.useState<string>('');
+  const [email, setEmail] = React.useState<string>('vladimiraroyan.base@gmail.com');
+  const [pass, setPass] = React.useState<string>('123456');
+  const contentState = useCustomSelector<any>(selectContentData)
+  const auth = useCustomSelector(selectAuthData);
+
+
+  React.useEffect(() => {
+    dispatch(fetchGetContetn());
+  }, [dispatch]);
+
+  
+  const content = contentState.isLoading === `loaded` ? contentState.data?.content : []
+  
+  // console.log(content)
+
+  const login: any = async (e: any) => {
+    e.preventDefault()
+    const { payload } = await dispatch(fetchLogin({ email, password: pass }));
+    const _payload = payload as UserTypes
+    if (!payload) {
+      return alert("Не удалось авторизоваться");
+    }
+
+    if (!_payload.user?.isActivated) {
+      return alert("Пожалуйста, подтвердите аккаунт");
+    }
+
+    else {
+      if (_payload.accessToken && "accessToken" in _payload) {
+        console.log(_payload.accessToken, '_payload.accessToken')
+        window.localStorage.setItem('token', _payload.accessToken);
+      }
+    }
+  };
 
   return (
     <>
       <div className={open ? `${s.popup} ${s.active}` : s.popup} onClick={() => setOpen(false)}>
-        <form className={open ? `${s.popup__form} ${s.active}` : s.popup__form} onClick={e => e.stopPropagation()}>
+        <form className={open ? `${s.popup__form} ${s.active}` : s.popup__form} onClick={e => e.stopPropagation()} onSubmit={(e) => login(e)}>
           <h5 className={s.popup__title}>Авторизация</h5>
           <input
             className={s.popup__input}
@@ -31,12 +71,15 @@ export const MainPage: React.FC = () => {
             type="password" placeholder='Password'
             onChange={e => setPass(e.target.value)}
             value={pass} />
-          <Link to="/admin">
-            <button className={s.popup__btn}>войти</button>
-          </Link>
+          <button className={s.popup__btn}>войти</button>
         </form>
+        {auth.isLoading === 'loaded' && auth.data?.user?.admin && open ?
+          <Navigate to='/admin' />
+          :
+          null
+        }
       </div>
-      
+
       <section className={s.main} id='main' style={{ backgroundImage: `url(${bg})` }}>
         <div className={s.menu}>
           <div className="container">
@@ -76,7 +119,7 @@ export const MainPage: React.FC = () => {
         <div className="container">
           <div className={s.main__wrapp}>
             <div className={s.main__preface}>
-              <h1 className={s.main__title}>Стих - это частичка души автора, подаренная читателю...</h1>
+              <h1 className={s.main__title}>{`Стих - это частичка души автора, подаренная читателю...` }</h1>
               <button className={s.main__btn}>Сказать спасибо</button>
             </div>
             <div className={s.main__info}>
@@ -85,12 +128,12 @@ export const MainPage: React.FC = () => {
                 <h2 className={s.main__introduction}>Имя Фамилия</h2>
                 <div className={s.main__info_underline}></div>
               </div>
-              <button className={s.main__info_btn}>Сказать спасибо</button>
+              <button className={s.main__info_btn}>{`Сказать спасибо` }</button>
             </div>
           </div>
         </div>
       </section>
-      <AboutPage />
+      <AboutPage/>
       <ContactsPage />
     </>
   )

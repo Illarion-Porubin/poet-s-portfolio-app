@@ -96,7 +96,6 @@ export const PoemPage: React.FC = () => {
     setId(value)
   }
 
-  console.log(display)
 
   return (
     <>

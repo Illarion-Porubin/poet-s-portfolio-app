@@ -6,15 +6,15 @@ interface Props {
 }
 
 export const Border = ({ string }: Props) => {
-    const about = <h3 className={s.border__title}>обо <span>мне</span></h3>
-    const title = <h3 className={s.border__title}>{string}</h3>
+    const about = <p className={s.border__title}>обо <span>мне</span></p>
+    const title = <p className={s.border__title}>{string}</p>
     let line = string === `обо мне` ? about : title;
 
     return (
         <>
             <div className={s.border}>
-                <h3 className={s.border__title}>{line}</h3>
-            </div>
+                {line}
+            </div> 
         </>
     )
 }

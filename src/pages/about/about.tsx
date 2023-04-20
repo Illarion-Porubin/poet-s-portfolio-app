@@ -3,6 +3,9 @@ import s from "./about.module.scss";
 import { Border } from '../../components/border/border';
 import about_bg from "../../assets/jpg/about_bg.jpg";
 import avatar from "../../assets/png/avatar.png";
+import { MainPageContetn } from '../../types/types';
+
+
 
 export const AboutPage: React.FC = () => {
     return (
@@ -15,7 +18,7 @@ export const AboutPage: React.FC = () => {
                             <img className={s.about__bg_avatar} src={avatar} alt="avatar" />
                         </div>
                         <div className={s.about__biography}>
-                            <p className={s.about__title}>Краткая биография</p>
+                            <p className={s.about__title}>{'Краткая биография'}</p>
                             <p className={s.about__text}>
                                 В частности, курс на социально-ориентированный национальный проект не даёт нам иного выбора, кроме определения первоочередных требований. Не следует, однако, забывать, что сложившаяся структура организации говорит о возможностях своевременного выполнения сверхзадачи. Безусловно, постоянное информационно-пропагандистское обеспечение нашей деятельности в значительной степени обусловливает важность соответствующих условий активизации.
                             </p>
