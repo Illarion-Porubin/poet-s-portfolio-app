@@ -3,7 +3,6 @@ import "./styles/libs/_normolize.scss";
 import "./styles/common.scss";
 import { Route, Routes } from "react-router-dom";
 import { MainPage } from './pages/main/mainPage';
-import { AboutPage } from './pages/about/about';
 import { PoemPage } from './pages/poem/poemPage';
 import { AdminPage } from './pages/admin/adminPage';
 import ArticlesPage from './pages/articles/articlesPage';

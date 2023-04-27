@@ -11,12 +11,18 @@ export type UserTypes = {
     isActivated?: boolean;
     admin?: boolean;
     id?: string;
-  } | null
+  } 
 };
 
 
 export type MainPageContetn = {
   keq: string,
   desc: string,
+  text: string
+}
+
+export type Articles = {
+  _id: string,
+  title: string,
   text: string
 }

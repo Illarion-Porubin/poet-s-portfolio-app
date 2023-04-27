@@ -1,39 +1,67 @@
 import * as React from 'react';
 import s from './desc.module.scss';
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
+import { useCustomDispatch } from '../../hooks/store';
+import { saveContent } from "../../redux/slices/contentSlice";
+
 
 interface Props {
-    short: { id: string, desc: string, text: any };  
-    newContetnt: any
+    short: { key: string, desc: string, text: any };
 }
 
-export const ShortDesc: React.FC<Props> = ({ short, newContetnt }) => {
-    const [content, setСontent] = React.useState<string>(short.text ? short.text : 'загрузка');
-  
+export const ShortDesc: React.FC<Props> = ({ short }) => {
+    const dispatch = useCustomDispatch();
+    const tagsInput = React.useRef<HTMLDivElement>(null);
+    const [value, setValue] = React.useState<string>(short.text ? short.text : 'загрузка');
+    const [active, setActive] = React.useState<boolean>(false);
+
+    const completed = () => {
+        const key = short.key ? short.key : '';
+        if (!key) {
+            alert('Ключ для сохранения не выбран')
+        }
+        setActive(false)
+        dispatch(saveContent({ [key]: value }))
+    }
+
+    React.useMemo(() => {
+        if (value !== short.text) {
+            setActive(true)
+        }
+        else {
+            setActive(false)
+
+        }
+    }, [value, short.text])
 
     return (
         <>
-            <div className={s.adminMain}>
-                <div className={s.adminMain__itwms}>
-                    <div className={s.adminMain__item}>
-                        <div className={s.adminMain__item_header}>
-                            <h4 className={s.adminMain__item_title}>{short.desc ? short.desc : 'загрузка'}</h4>
-                            <div className={s.adminMain__item_btns}>
-                                <button className={s.adminMain__item_btn}
-                                    // onClick={() => saveContent({[inputId]: content})}
+            <div className={s.description}>
+                <div className={s.description__items}>
+                    <div className={active ? `${s.description__item} ${s.active}` : s.description__item} ref={tagsInput}>
+                        <div className={s.description__item_header}>
+                            <h4 className={s.description__item_title}>{short.desc ? short.desc : 'загрузка'}</h4>
+                            <div className={s.description__item_btns}>
+                                <button className={s.description__item_btn}
+                                    onClick={completed}
                                 >
-                                    <GlobalSvgSelecotr id='completed' /></button>
-                                <button className={s.adminMain__item_btn}><GlobalSvgSelecotr id={'cancel'} /></button>
+                                    <GlobalSvgSelecotr id='completed' />
+                                </button>
+                                <button
+                                    className={s.description__item_btn}
+                                    onClick={() => setValue(short.text)}
+                                >
+                                    <GlobalSvgSelecotr id={'cancel'}
+                                    />
+                                </button>
                             </div>
                         </div>
                         <div>
                             <input
-                                // onClick={(e: any) => setInputId(e.target.id)}
-                                className={s.adminMain__item_content}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setСontent(e.target.value)}
+                                className={s.description__item_content}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
                                 placeholder="Поменять текст..."
-                                id={short.id ? short.id : 'загрузка'}
-                                value={content}
+                                value={value}
                             />
                         </div>
                     </div>

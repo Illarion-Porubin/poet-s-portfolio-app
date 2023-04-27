@@ -11,9 +11,8 @@ const portal: any = document.getElementById(`popup_poem`);
 
 interface Props {
     item: {
-        id: string,
-        name: string,
-        content: string
+        title: string,
+        text: string
     }
     display: boolean,
     hideContent: () => void
@@ -24,16 +23,13 @@ export const PopupPoem: React.FC<Props> = ({ item, hideContent, display }) => {
     return (
         ReactDOM.createPortal(
             !display ?
-                <div className={s.popupPoem}>
-                    <div className={s.popupPoem__wrapp}
-                    // style={{ backgroundImage: `url(${poembg})` }}
-                    >
-                        <img className={s.popupPoem__bg_img} src={poembg} alt="imgbg" />
-                        <img className={s.popupPoem__btn} src={Back} alt="Back" onClick={hideContent} />
+                <div className={s.popupPoem} onClick={hideContent}>
+                    <div className={s.popupPoem__bg}></div>
+                    <div className={s.popupPoem__wrapp}>
                         <div className={s.popupPoem__box}>
-                            <h1 className={s.popupPoem__title}>{item.name}</h1>
+                            <h1 className={s.popupPoem__title}>{item.title}</h1>
                             <div className={s.popupPoem__content}>
-                                <pre className={s.popupPoem__text}>{item.content}</pre>
+                                <pre className={s.popupPoem__text}>{item.text}</pre>
                             </div>
                         </div>
                     </div>

@@ -60,9 +60,7 @@ export type AuthState = {
 }
 
 const initialState: AuthState  = {
-  data: {
-    user: null
-  },
+  data: null,
   isLoading: "idle",
   error: null,
 };
@@ -100,7 +98,6 @@ export const authSlice = createSlice({
       .addCase(fetchLogin.fulfilled, (state, action) => {
         state.data = action.payload;
         state.isLoading = "loaded";
-        console.log(state.data, `fetchLogin`)
       })
       .addCase(fetchLogin.rejected, (state) => {
         state.data = null;
@@ -112,7 +109,6 @@ export const authSlice = createSlice({
         state.isLoading = "loading";
       })
       .addCase(fetchAuthMe.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.data = action.payload;
         state.isLoading = "loaded";
       })

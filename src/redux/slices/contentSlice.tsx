@@ -23,6 +23,7 @@ export const fetchUpdateContent = createAsyncThunk<any, any, { rejectValue: stri
 
 const initialState: any = {
   data: null,
+  newData: {},
   isLoading: "idle",
   error: null,
 }
@@ -31,15 +32,8 @@ export const contentSlice = createSlice({
   name: 'mainContent',
   initialState,
   reducers: {
-    saveContent: () => {
-      console.log(true)
-      // switch (key) {
-      //   case "mainContent":
-      //     fetchUpdateContent(value)
-      //     break;
-      //   default:
-      //     window.alert("Нечего сохронять")
-      // }
+    saveContent: (state, action) => {
+      state.newData = {...state.newData, ...action.payload}
     }
   },
   extraReducers: (builder) => {

@@ -4,6 +4,9 @@ import { Menu } from '../../components/menu/menu';
 import { Pagination } from '../../components/pagination/pagination';
 import articles_bg from '../../assets/jpg/articles_bg.jpg';
 import { ArticlesList } from '../../components/articlesList/articlesList';
+import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
+import { selectArticleData } from '../../redux/selectors';
+import { fetchGetArticles } from '../../redux/slices/articleSlice';
 
 
 const articles = [
@@ -18,7 +21,16 @@ const articles = [
 
 export default function ArticlesPage() {
     const [filter, setFilter] = React.useState<boolean>(true)
+    const dispatch = useCustomDispatch()
+    const state = useCustomSelector(selectArticleData)
 
+
+    React.useEffect(() => {
+        dispatch(fetchGetArticles())
+    }, [dispatch])
+
+
+    console.log(state   )
 
     return (
         <section className={s.articles} style={{ backgroundImage: `url(${articles_bg})` }}>
@@ -30,9 +42,13 @@ export default function ArticlesPage() {
                 </div>
                 <div className={s.articles__content_wrapp} >
                     <ul className={s.articles__content}>
-                        {articles.map((items) => 
-                            <ArticlesList items={items} />
-                        )}
+                        {
+                            state.isLoading === 'loaded' ?
+                                state.data?.map((items: any) =>
+                                    <ArticlesList items={items} key={items.title}/>
+                                )
+                                : <h1>Загрузка</h1>
+                        }
                     </ul>
                 </div>
             </div>

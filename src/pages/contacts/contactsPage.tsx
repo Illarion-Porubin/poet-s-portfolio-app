@@ -2,16 +2,21 @@ import React from 'react'
 import { Border } from '../../components/border/border';
 import contacts_bg from '../../assets/jpg/contacts_bg.jpg';
 import s from './contactsPage.module.scss';
+import { useCustomSelector } from '../../hooks/store';
+import { selectContentData } from '../../redux/selectors';
 
 export const ContactsPage: React.FC = () => {
+  const contentState = useCustomSelector<any>(selectContentData)
+  const content = contentState.isLoading === `loaded` ? contentState.data?.content : []
+
+
   return (
     <section className={s.contacts} id={`contacts`} style={{ backgroundImage: `url(${contacts_bg})` }}>
       <Border string={'Контакты'} />
       <div className={s.contacts__whait_wrapp}>
         <div className={s.contacts__whait}>
           <p className={s.contacts__whait_text}>
-            Буду ждать ваших писем,
-            искренне ваш Имя Фамилия.
+            {content.contact_title || 'здесь должен быть текст, но что-то пошло не так'}
           </p>
         </div>
       </div>

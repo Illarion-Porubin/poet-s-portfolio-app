@@ -23,18 +23,14 @@ export const MainPage: React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState<string>('vladimiraroyan.base@gmail.com');
   const [pass, setPass] = React.useState<string>('123456');
-  const contentState = useCustomSelector<any>(selectContentData)
   const auth = useCustomSelector(selectAuthData);
 
+  const contentState = useCustomSelector<any>(selectContentData)
+  const content = contentState.isLoading === `loaded` ? contentState.data?.content : []
 
   React.useEffect(() => {
     dispatch(fetchGetContetn());
   }, [dispatch]);
-
-  
-  const content = contentState.isLoading === `loaded` ? contentState.data?.content : []
-  
-  // console.log(content)
 
   const login: any = async (e: any) => {
     e.preventDefault()
@@ -50,7 +46,6 @@ export const MainPage: React.FC = () => {
 
     else {
       if (_payload.accessToken && "accessToken" in _payload) {
-        console.log(_payload.accessToken, '_payload.accessToken')
         window.localStorage.setItem('token', _payload.accessToken);
       }
     }
@@ -119,8 +114,8 @@ export const MainPage: React.FC = () => {
         <div className="container">
           <div className={s.main__wrapp}>
             <div className={s.main__preface}>
-              <h1 className={s.main__title}>{`Стих - это частичка души автора, подаренная читателю...` }</h1>
-              <button className={s.main__btn}>Сказать спасибо</button>
+              <h1 className={s.main__title}>{content?.main_title || 'здесь должен быть текст, но что-то пошло не так'}</h1>
+              <button className={s.main__btn}>{content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
             </div>
             <div className={s.main__info}>
               <img className={s.main__avatar} src={avatar} alt="avatar" />
@@ -128,12 +123,12 @@ export const MainPage: React.FC = () => {
                 <h2 className={s.main__introduction}>Имя Фамилия</h2>
                 <div className={s.main__info_underline}></div>
               </div>
-              <button className={s.main__info_btn}>{`Сказать спасибо` }</button>
+              <button className={s.main__info_btn}>{content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
             </div>
           </div>
         </div>
       </section>
-      <AboutPage/>
+      <AboutPage />
       <ContactsPage />
     </>
   )

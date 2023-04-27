@@ -1,9 +1,10 @@
 .adminPage {
     width: 100%;
-    height: auto;
+    height: 100vh;
     background-color: #DDE1E8;
     font-family: 'Roboto';
     display: flex;
+    overflow: hidden;
 
     &__content {
         width: 100%;
