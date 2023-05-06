@@ -1,36 +1,75 @@
-.myInfo{
-    &__content{
+input:focus {outline: none;}
+
+.myInfo {
+    width: 100%;
+    height: auto;
+    background-color: #A9B3C7;
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: 12px;
+
+    &__header {
         width: 100%;
-        height: 400px;
-        background-color: #A9B3C7;
+        height: 50px;
+        position: relative;
+    }
+
+    &__content {
+        width: 100%;
+        height: auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 20px;
+        padding: 10px 50px 50px 50px;
     }
 
-    &__inputs{
-        display: block;
-        max-width: 400px;
-        margin: 0 60px;
+    &__avatar {
+        width: 240px;
+        height: 240px;
+        margin-right: 50px;
     }
 
-    &__input{
-        border: 1px solid black;
-        border-radius: 12px;
-        margin-bottom: 53px;
+    &__inputs {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 240px;
+    }
+
+    &__input {
         width: 100%;
         height: 60px;
         padding: 0 15px;
+        position: relative;
     }
 
-    &__input:last-child{
+
+    &__completed {
+        position: absolute;
+        top: 15px;
+        right: 50px;
+        cursor: pointer;
+    }
+
+    &__cancel {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+    }
+
+    &__input:last-child {
         margin-bottom: 0;
     }
+}
 
-    &__avatar{
-        width: 300px;
-        height: 300px;
-        margin-left: 50px;
-    }
+.input{
+    border: 1px solid black;
+    border-radius: 12px;
+}
+
+.input.active{
+    border: 1px solid red;
+    border-radius: 12px;
 }

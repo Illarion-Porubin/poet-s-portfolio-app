@@ -1,31 +1,73 @@
 import * as React from 'react';
 import s from './myInfo.module.scss';
-import avatar from "../../assets/png/avatar.png";
+import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
+import { useCustomSelector } from '../../hooks/store';
+import { selectAuthData } from '../../redux/selectors';
+import { UploadWidget } from '../Upload/UploadWidget';
 
-export const MyInfo = () => {
-    const [value, setValue] = React.useState<string>('')
 
-    const myInfo = ['Имя', 'Фамилия', 'Email']
+interface Props {
+    setData: any
+}
 
+export const MyInfo: React.FC<Props> = ({ setData }) => {
+    const [firstName, setfirstName] = React.useState<string | undefined>('');
+    const [lastName, setLastName] = React.useState<string | undefined>('');
+    const [email, setEmail] = React.useState<string | undefined>('');
+    const authState = useCustomSelector(selectAuthData);
+
+    React.useEffect(() => {
+        if (authState.isLoading === 'loaded') {
+            setfirstName(authState.data?.user?.firstName)
+            setLastName(authState.data?.user?.lastName)
+            setEmail(authState.data?.user?.email)
+        }
+    }, [authState.isLoading, authState.data?.user?.firstName, authState.data?.user?.lastName, authState.data?.user?.email])
+
+
+    const saveData = () => {
+        setData({ firstName, lastName, email, id: authState.data?.user.id })
+    }
+
+    const resetData = () => {
+        setfirstName(authState.data?.user?.firstName)
+        setLastName(authState.data?.user?.lastName)
+        setEmail(authState.data?.user?.email)
+    }
 
     return (
         <>
             <div className={s.myInfo}>
+                <div className={s.myInfo__header}>
+                    <div className={s.myInfo__completed} onClick={saveData}><GlobalSvgSelecotr id='completed' /></div>
+                    <div className={s.myInfo__cancel} onClick={resetData}><GlobalSvgSelecotr id='cancel' /></div>
+                </div>
                 <div className={s.myInfo__content}>
-                    <img className={s.myInfo__avatar} src={avatar} alt="avatar" />
+                    <div className={s.myInfo__avatar}>
+                        <UploadWidget requestFrom={'admin'}/>
+                    </div>
                     <div className={s.myInfo__inputs}>
-                        {
-                            myInfo.map((item) =>
-                                <input
-                                    className={s.myInfo__input}
-                                    type="text"
-                                    placeholder={item}
-                                    value={value}
-                                    onChange={(e) => setValue(e.target?.value)}
-                                    key={item}
-                                />
-                            )
-                        }
+                        <input
+                            className={`${s.myInfo__input} ${s.input} ${firstName !== authState.data?.user?.firstName ? s.active : null}`}
+                            type="text"
+                            placeholder='Имя'
+                            value={firstName}
+                            onChange={(e) => setfirstName(e.target?.value)}
+                        />
+                        <input
+                            className={`${s.myInfo__input} ${s.input} ${lastName !== authState.data?.user?.lastName ? s.active : null}`}
+                            type="text"
+                            placeholder='Фамилия'
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target?.value)}
+                        />
+                        <input
+                            className={`${s.myInfo__input} ${s.input} ${email !== authState.data?.user?.email ? s.active : null}`}
+                            type="text"
+                            placeholder='Почта'
+                            value={email}
+                            onChange={(e) => setEmail(e.target?.value)}
+                        />
                     </div>
                 </div>
             </div>

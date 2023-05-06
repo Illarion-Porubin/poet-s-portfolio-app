@@ -1,36 +1,93 @@
+:global {
+    .pagination .pagination__list li {
+        a {
+            background-color: #fff;
+            color: black
+        }
+    }
+}
+
 .data {
     &__content {
-        width: auto;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        position: absolute;
+        top: 100px;
+        left: 360px;
+        right: 20px;
+        bottom: 100px;
+
     }
 
+    &__content_search {
+        position: relative;
+        top: -5px;
+        right: 20px;
+        // margin-left: 70px;
+        margin-right: 120px;
+        text-align: right;
+    }
+
+    &__content_search_input{
+        width: 200px;
+        height: 40px;
+        border-radius: 12px;
+        padding: 0 15px;
+        border: 1px solid black
+    }
+
+    &__content_search_input::placeholder{
+        margin-left: 20px;
+    }
+
+ 
+
     &__list {
-        width: 100%;
-        height: 550px;
-        margin-top: 40px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        column-gap: 33%;
+        display: grid;
+        grid-template-columns: auto auto auto;
+        height: auto;
+        justify-content: center;
+        grid-column-gap: 200px;
+        grid-row-gap: 0px;
+        padding: 0 50px;
+        position: relative;
+        bottom: -20px;
     }
 
     &__item_wrapp {
+        display: flex;
+        position: relative;
+        width: 100%;
         margin: 0;
         padding: 0;
+        margin-bottom: 40px;
     }
 
+    &__item_wrapp:last-child {
+        margin-bottom: 0;
+    }
 
     &__item {
         display: inline-block;
-        margin-bottom: 40px;
         font-size: 22px;
         line-height: 26px;
         cursor: pointer;
     }
+
+    &__delete {
+        opacity: 0;
+        z-index: -1;
+        margin-left: 15px;
+        cursor: pointer;
+        transition: all .3s;
+    }
+
+    &__item_wrapp:hover .data__delete {
+        opacity: 1;
+        z-index: 1;
+        transition: all .3s;
+    }
 }
+
+
 
 .pagination {
     position: absolute;
@@ -50,7 +107,6 @@
         li {
             display: inline-block;
         }
-
 
         a {
             font-family: 'Roboto';
@@ -78,13 +134,22 @@
 
 }
 
+@media(max-width: 1501px) {
+    .data {
+        &__list {
+            grid-template-columns: auto auto;
+            overflow-y: scroll;
+            height: 530px;
+        }
+    }
+}
 
-
-:global {
-    .pagination .pagination__list li{
-        a {
-            background-color: #fff;
-            color: black
+@media(max-width: 1201px) {
+    .data {
+        &__list {
+            grid-template-columns: auto;
+            overflow-y: scroll;
+            height: 530px;
         }
     }
 }

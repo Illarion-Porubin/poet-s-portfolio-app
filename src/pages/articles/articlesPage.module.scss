@@ -7,7 +7,8 @@
 
     &__block {
         position: absolute;
-        margin: 80px auto;
+        margin: 0;
+        margin-top: 80px;
         top: 0;
         left: 18%;
         right: 18%;
@@ -290,18 +291,13 @@
 }
 
 
-@media(max-width: 1580px) {
+@media(max-width: 1581px) {
     .articles {
         &__block {
             left: 15%;
             right: 15%;
+            margin-top: 60px;
         }
-    }
-}
-
-@media(max-width: 1540px) {
-    .articles__block {
-        margin: 60px 0;
     }
 }
 

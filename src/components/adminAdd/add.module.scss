@@ -1,16 +1,15 @@
 .description {
     overflow: hidden;
-
     &__item {
         padding: 30px;
         background-color: #fff;
         border: 2px solid black;
         border-radius: 12px;
         margin-top: 20px;
-        transition: all .3s;
         width: 100%;
         height: 80vh;
         overflow-y: scroll;
+        transition: all .3s;
     }
 
     &__item_header {
@@ -29,12 +28,6 @@
         margin-bottom: 30px;
     }
 
-    // &__text_content{
-    // width: 100%;
-    // height: 100vh;
-    // overflow-y: scroll;
-    // }
-
     &__item_btns {
         display: flex;
     }
@@ -49,9 +42,10 @@
     }
 }
 
-.adminMain__item.active {
+
+.description__item.active{
+    border: 1px solid green;
     transition: all .3s;
-    border: 2px solid red;
 }
 
 :global {

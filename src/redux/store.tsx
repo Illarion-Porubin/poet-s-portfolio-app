@@ -7,9 +7,9 @@ import articleReducer from './slices/articleSlice';
 
 const rootReducer = combineReducers({
   contentReducer,
+  articleReducer,
   authReducer,
   poemReducer,
-  articleReducer
 });
 
 export const store = configureStore({

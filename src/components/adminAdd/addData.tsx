@@ -1,45 +1,83 @@
-import * as React from 'react';
-import s from './addData.module.scss';
+import React from 'react';
+import s from './add.module.scss';
 import "easymde/dist/easymde.min.css";
 import SimpleMDE from "react-simplemde-editor";
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
+import { useCustomDispatch } from '../../hooks/store';
+import axios from '../../http';
+
 
 
 interface Props {
+    id: string | null | undefined,
     setData: any,
+    componentName: string,
 }
 
-export const AddData: React.FC<Props> = ({ setData }) => {
-    const tagsInput = React.useRef<HTMLDivElement>(null);
+export const AddData: React.FC<Props> = ({ setData, id, componentName }) => {
+    const dispatch = useCustomDispatch()
     const [dataTitle, setDataTitle] = React.useState<string>('');
     const [dataText, setDataText] = React.useState<string>('');
+    // const [dataId, setDataId] = React.useState<null | string | undefined>(id);
     const [active, setActive] = React.useState<boolean>(false);
-
+    const dataId = React.useRef<null | string | undefined>(id)
 
     const onChange = React.useCallback((value: string) => {
         setDataText(value);
     }, []);
 
     const completed = () => {
-        setData({title: dataTitle, text: dataText})
+        setData({ title: dataTitle, text: dataText, id: dataId.current })
+        setActive(true)
     }
+
+    const reset = () => {
+        setDataTitle('')
+        setDataText('')
+        dataId.current = null
+        setActive(false)
+    }
+
+
+    React.useEffect(() => {
+        if (dataId.current) {
+            console.log(dataId.current)
+            if (componentName === 'Добавить статью') {
+                axios.get(`api/article/${dataId.current}`).then((res) => {
+                    const data = res.data.article;
+                    setDataTitle(data.title)
+                    setDataText(data.text)
+                    dataId.current = data._id
+                })
+            }
+            else {
+                axios.get(`api/poem/${dataId.current}`).then((res) => {
+                    const data = res.data.poem;
+                    setDataTitle(data.title)
+                    setDataText(data.text)
+                    dataId.current = data._id
+                })
+            }
+        }
+        reset()
+    }, [dispatch, id, componentName])
 
     return (
         <>
             <h1>
                 <div className={s.description}>
                     <div className={s.description__items}>
-                        <div className={active ? `${s.description__item} ${s.active}` : s.description__item} ref={tagsInput}>
+                        <div className={active ? `${s.description__item} ${s.active}` : s.description__item}>
                             <div className={s.description__item_header}>
                                 <div className={s.description__item_btns}>
-                                    <button className={s.description__item_btn}
+                                    <button disabled={dataText || dataTitle ? false : true} className={s.description__item_btn}
                                         onClick={completed}
                                     >
                                         <GlobalSvgSelecotr id='completed' />
                                     </button>
                                     <button
                                         className={s.description__item_btn}
-                                    // onClick={() => setValue(long.text)}
+                                        onClick={() => reset()}
                                     >
                                         <GlobalSvgSelecotr id={'cancel'}
                                         />

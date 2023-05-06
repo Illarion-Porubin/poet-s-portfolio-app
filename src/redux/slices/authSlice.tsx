@@ -31,8 +31,8 @@ export const fetchAuthMe = createAsyncThunk<UserTypes, void, { rejectValue: stri
   }
 );
 
-export const fetchUpdate = createAsyncThunk<UserTypes, UserTypes, { rejectValue: string }>(
-  "api/fetchUpdate",
+export const fetchUpdateInfo = createAsyncThunk<UserTypes, UserTypes, { rejectValue: string }>(
+  "api/fetchUpdateInfo",
   async (params, { rejectWithValue }) => {
     const { data }: {data: UserTypes} = await axios.put("/api/update", params);
     if (!data) {
@@ -52,6 +52,8 @@ export const fetchDeleteAvatar = createAsyncThunk<any, any, { rejectValue: strin
     return data;
   }
 );
+
+
 
 export type AuthState = {
   data: UserTypes | null;

@@ -21,6 +21,17 @@ export const fetchUpdateContent = createAsyncThunk<any, any, { rejectValue: stri
   }
 );
 
+export const fetchSendMaeesage = createAsyncThunk<any, any, { rejectValue: string }>(
+  "api/fetchUpdateContent",
+  async (params, { rejectWithValue }) => {
+    const { data }: { data: any } = await axios.post("/api/message", params);
+    if (!data) {
+      return rejectWithValue("Server Error!");
+    }
+    return data;
+  }
+);
+
 const initialState: any = {
   data: null,
   newData: {},

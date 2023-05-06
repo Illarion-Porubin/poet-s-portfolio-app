@@ -3,9 +3,9 @@ import s from "./about.module.scss";
 import { Border } from '../../components/border/border';
 import about_bg from "../../assets/jpg/about_bg.jpg";
 import avatar from "../../assets/png/avatar.png";
-import { MainPageContetn } from '../../types/types';
 import { useCustomSelector } from '../../hooks/store';
 import { selectContentData } from '../../redux/selectors';
+import { UploadWidget } from '../../components/Upload/UploadWidget';
 
 
 
@@ -19,8 +19,14 @@ export const AboutPage: React.FC = () => {
                 <Border string='обо мне' />
                 <div className={s.about__wrapp}>
                     <div className={s.about__avatar_wrapp}>
-                        <img className={s.about__avatar} src={avatar} alt="avatar" />
-                        <img className={s.about__bg_avatar} src={avatar} alt="avatar" />
+                        <div className={s.about__avatar}>
+                            <UploadWidget requestFrom={''} />
+                        </div>
+                        <div className={s.about__bg_avatar}>
+                            <UploadWidget requestFrom={''} />
+                        </div>
+                        {/* <img className={s.about__avatar} src={avatar} alt="avatar" />
+                        <img className={s.about__bg_avatar} src={avatar} alt="avatar" /> */}
                     </div>
                     <div className={s.about__biography}>
                         <p className={s.about__title}>

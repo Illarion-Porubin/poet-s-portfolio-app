@@ -35,5 +35,11 @@
         align-items: center;
         text-align: left;
         cursor: pointer;
+        transition: all .3s;
     }
+}
+
+.adminMenu__items.active{
+    border: 4px solid #0048ad;
+    transition: all .3s;
 }

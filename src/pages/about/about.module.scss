@@ -26,12 +26,15 @@
 
 
     &__bg_avatar {
+        position: relative;
+        width: 100%;
         height: 100%;
         border: 20px solid #FFFFFF;
         filter: drop-shadow(8px 4px 4px rgba(0, 0, 0, 0.25));
     }
 
     &__avatar {
+        position: relative;
         height: 100%;
         position: absolute;
         border: 20px solid #FFFFFF;
@@ -127,14 +130,12 @@
         }
 
         &__bg_avatar {
-            width: 100%;
-            height: 100%;
+            height: 650px;
         }
 
         &__avatar {
-            width: 100%;
-            height: 100%;
-            position: absolute;
+
+            height: 650px;
         }
 
         &__biography {
@@ -155,15 +156,15 @@
 
 @media(max-width: 980px) {
     .about {
-        &__avatar_wrapp{
+        &__avatar_wrapp {
             margin-bottom: 80px;
         }
 
-        &__biography{
+        &__biography {
             margin-bottom: 80px;
         }
 
-        &__whay_wrapp{
+        &__whay_wrapp {
             padding-bottom: 80px;
         }
     }
@@ -175,73 +176,111 @@
             padding-right: 0;
         }
 
-        &__whay_text{
+        &__whay_text {
             margin-right: 15%;
         }
     }
 }
 
 @media(max-width: 720px) {
-    .about{
-        &__biography{
+    .about {
+        &__biography {
             margin-left: 20px;
             padding-left: 30px;
         }
 
-        &__whay{
+        &__whay {
             margin-right: 20px;
             padding-left: 30px;
         }
 
-        &__avatar_wrapp{
+        &__avatar_wrapp {
             width: 80%;
         }
 
-        &__title, &__whay_title {
+        &__bg_avatar {
+            height: 550px;
+        }
+
+        &__avatar {
+            height: 550px;
+        }
+
+        &__title,
+        &__whay_title {
             font-size: 38px;
         }
 
-        &__text, &__whay_text {
+        &__text,
+        &__whay_text {
             max-width: 100%;
             font-size: 30px;
-        }        
+        }
     }
 }
 
 @media(max-width: 620px) {
-    .about{
-        &__whay_wrapp{
+    .about {
+        &__whay_wrapp {
             padding-bottom: 150px;
+        }
+
+        &__bg_avatar {
+            height: 450px;
+        }
+
+        &__avatar {
+            height: 450px;
         }
     }
 }
 
 @media(max-width: 540px) {
-    .about{
-        &__title, &__whay_title {
+    .about {
+        &__title,
+        &__whay_title {
             font-size: 26px;
         }
 
-        &__text, &__whay_text {
+        &__text,
+        &__whay_text {
             font-size: 20px;
         }
 
-        &__text, &__whay_text {
+        &__text,
+        &__whay_text {
             line-height: 28px;
-        }  
+        }
+
+        &__bg_avatar {
+            height: 350px;
+        }
+
+        &__avatar {
+            height: 350px;
+        }
     }
 }
 
 
 @media(max-width: 420px) {
     .about {
-        &__title, &__whay_title {
+        &__title,
+        &__whay_title {
             font-size: 24px;
         }
 
-        &__text, &__whay_text {
+        &__text,
+        &__whay_text {
             font-size: 18px;
+        }
+
+        &__bg_avatar {
+            height: 250px;
+        }
+
+        &__avatar {
+            height: 250px;
         }
     }
 }
-

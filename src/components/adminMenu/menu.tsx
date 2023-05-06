@@ -7,6 +7,7 @@ interface Props {
 }
 
 export const Menu: React.FC<Props> = ({ menuId }) => {
+    const [id, setId] = React.useState<number>(0)
     const menu = [
         'Личная информация',
         'Главная страница',
@@ -16,6 +17,10 @@ export const Menu: React.FC<Props> = ({ menuId }) => {
         'Изменить, удалить статью',
     ]
 
+    const style = (index: number, item: string) => {
+        setId(index)
+        menuId(item)
+    }
 
     return (
         <>
@@ -26,10 +31,10 @@ export const Menu: React.FC<Props> = ({ menuId }) => {
                 <nav className={s.adminMenu__list}>
                     <ul className={s.adminMenu__content}>
                         {
-                            menu.map((item) =>
+                            menu.map((item, index) =>
                                 <div
-                                    onClick={() => menuId(item)}
-                                    className={s.adminMenu__items}
+                                    onClick={() => style(index, item)}
+                                    className={index === id ? `${s.adminMenu__items} ${s.active}` : s.adminMenu__items}
                                     key={item}>
                                     {item}
                                 </div>

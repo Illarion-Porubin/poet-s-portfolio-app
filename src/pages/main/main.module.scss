@@ -147,8 +147,9 @@
     }
 
     &__avatar {
+        overflow: hidden;
         width: 300px;
-        height: auto;
+        height: 300px;
         border-radius: 50%;
     }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import s from "./main.module.scss";
 import bg from "../../assets/jpg/mainbg.jpg";
 import face from "../../assets/png/face.png";
-import avatar from "../../assets/png/avatar.png";
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { Icons } from '../../components/icons/icons';
 import { Link, Navigate } from "react-router-dom";
@@ -11,10 +10,9 @@ import { ContactsPage } from '../contacts/contactsPage';
 import { fetchLogin } from "../../redux/slices/authSlice";
 import { selectAuthData, selectContentData } from "../../redux/selectors";
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
-import { MainPageContetn, UserTypes } from "../../types/types";
-import { useSelector } from 'react-redux'
-import type { AppState } from '../../redux/store';
+import { UserTypes } from "../../types/types";
 import { fetchGetContetn } from '../../redux/slices/contentSlice';
+import { UploadWidget } from '../../components/Upload/UploadWidget';
 
 
 export const MainPage: React.FC = () => {
@@ -118,7 +116,9 @@ export const MainPage: React.FC = () => {
               <button className={s.main__btn}>{content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
             </div>
             <div className={s.main__info}>
-              <img className={s.main__avatar} src={avatar} alt="avatar" />
+              <div className={s.main__avatar}>
+                <UploadWidget requestFrom={''} />
+              </div>
               <div className={s.main__avatar_wrapp}>
                 <h2 className={s.main__introduction}>Имя Фамилия</h2>
                 <div className={s.main__info_underline}></div>

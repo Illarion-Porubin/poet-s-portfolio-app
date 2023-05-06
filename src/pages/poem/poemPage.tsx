@@ -6,18 +6,24 @@ import { Pagination } from '../../components/pagination/pagination';
 import { PopupPoem } from '../../components/popup/popupPoem';
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
 import { selectPoemData } from '../../redux/selectors';
-import { fetchGetPoems } from '../../redux/slices/poemSlice';
+import { fetchGetPoems, fetchSearchPoems } from '../../redux/slices/poemSlice';
+import { Copyright } from '../../components/copyright/copyright';
+import useDebounce from '../../hooks/useDebounce';
 
 
 
 
 export const PoemPage: React.FC = () => {
-  const dispath = useCustomDispatch()
-  const poemState = useCustomSelector(selectPoemData)
+  const dispatch = useCustomDispatch()
+  const [filterData, setFilterData] = React.useState<any>();
   const [display, setDisplay] = React.useState<boolean>(true);
+  const [search, setSearch] = React.useState<string>('')
   const [id, setId] = React.useState<number>(0)
-
-  console.log(poemState)
+  const [page, setPage] = React.useState<number>(0)
+  const debounce = useDebounce(search, 400)
+  const poemState = useCustomSelector(selectPoemData);
+  const renderItems = 24;
+  const amontPages = poemState.data.length / renderItems;
 
   const hideContent = () => {
     setDisplay(prev => !prev)
@@ -29,8 +35,23 @@ export const PoemPage: React.FC = () => {
   }
 
   React.useEffect(() => {
-    dispath(fetchGetPoems())
-  }, [dispath])
+    dispatch(fetchGetPoems())
+    if(debounce) {
+      dispatch(fetchSearchPoems(debounce));
+    }
+    else {
+      dispatch(fetchGetPoems());
+    }
+  }, [dispatch, debounce]);
+
+
+  React.useEffect(() => {
+    setFilterData(
+      poemState.data.filter((item: any, index: number) => {
+        return (index >= page * renderItems) && (index < (page + 1) * renderItems);
+      })
+    );
+  }, [dispatch, page, poemState.data]);
 
   return (
     <>
@@ -42,6 +63,9 @@ export const PoemPage: React.FC = () => {
             <div className={s.poem__search}>
               <input
                 className={s.poem__search_input} type="text"
+                value={search}
+                placeholder='Поиск'
+                onChange={e => setSearch(e.target.value)}
               />
               <button className={s.poem__search_btn}>поиск</button>
             </div>
@@ -51,8 +75,8 @@ export const PoemPage: React.FC = () => {
               <div className={s.poem__content_wrapp}>
                 <ul className={s.poem__list}>
                   {
-                    poemState.isLoading === 'loaded' ?
-                      poemState.data.poems.map((item: any, index: number) =>
+                    filterData ?
+                      filterData.map((item: any, index: number) =>
                         <li
                           onClick={() => gentIndex(index)}
                           className={display ? s.poems : s.poems__none}
@@ -67,10 +91,17 @@ export const PoemPage: React.FC = () => {
               </div>
             </div>
             :
-            <PopupPoem item={poemState.data.poems[id]} hideContent={hideContent} display={display} />
+            <PopupPoem item={poemState.data[id]} hideContent={hideContent} display={display} />
           }
         </div>
-        <Pagination />
+        <>
+        {
+          display ?
+          <Pagination setPage={setPage} amontPages={amontPages}/>
+          :
+          <Copyright/>
+        }
+        </>
       </section>
     </>
   )
