@@ -1,260 +1,99 @@
-.articlesList {
-    margin-right: 20px;
-    position: relative;
+.articlesList{
+    border: 1px solid black;
+    border-radius: 12px;
+    max-height: 300px;
     overflow: hidden;
-    margin-bottom: 40px;
+    padding: 30px;
+    transition: all .8s;
+    text-align: right;
+    margin: 0 24px;
+    margin-bottom: 50px;
+    position: relative;
 
-
-    &__item {
-        position: relative;
-        width: 100%;
-        height: 236px;
-        border-radius: 12px 12px 0px 0px;
-        padding: 16px;
-        overflow: hidden;
-        border: 1px solid #000000;
-        border-bottom: none;
-        transition: .3s all;
-    }
-
-    &__item_footer {
-        width: 100%;
-        height: 40px;
-        border: 1px solid black;
-        border-top: none;
-        border-radius: 0 0 12px 12px;
-        transition: all .3s;
-    }
-
-    &__item_footer_open {
-        background: #FFF4E8;
-        width: 100%;
-        height: 40px;
-        border: 1px solid black;
-        border-top: none;
-        border-radius: 0 0 12px 12px;
-        transition: all .3s;
-    }
-
-    &__item_open {
-        position: relative;
-        width: 100%;
-        height: auto;
-        border-radius: 12px 12px 0px 0px;
-        background: #FFF4E8;
-        border: 1px solid #000000;
-        border-bottom: none;
-        padding: 16px;
-        transition: .3s all;
-    }
-
-    &__item_title {
+    &__item_title{
+        display: inline-block;
         font-style: normal;
         font-weight: 400;
-        font-size: 30px;
-        line-height: 44px;
-        border-bottom: 1px solid black;
-        position: absolute;
-        top: 30px;
-        right: 54px;
+        font-size: 24px;
     }
 
     &__item_text {
+        text-align: left;
         font-family: 'Monplesir script';
         font-style: normal;
         font-weight: 400;
         font-size: 24px;
         line-height: 35px;
-        margin-top: 70px;
+        margin-top: 20px;
         margin-bottom: 20px;
         width: 100%;
-        height: 140px;
+        max-height: 134px;
         overflow: hidden;
-        transition: all .3s;
         white-space: pre-line;
+        transition: all .4s;
     }
 
-    &__item_text_open {
-        font-family: 'Monplesir script';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 35px;
-        margin-top: 80px;
-        margin-bottom: 20px;
-        width: 100%;
-        height: auto;
-        transition: all .3s;
-        white-space: pre-line;
+    &__item_text.open{
+        max-height: 1000vh;
     }
 
-    &__item_time {
+    &__item_footer{
+        display: flex;
+        position: relative;
+        top: 10px;
+    }
+
+    &__item_time{
+        display: inline-block;
         font-style: normal;
         font-weight: 400;
         font-size: 20px;
-        line-height: 29px;
-        border-bottom: 1px solid black;
-        position: absolute;
-        left: 18px;
-        bottom: 12px;
+        border-bottom: 1px solid black; 
     }
 
-    &__item_btn {
-        width: 100%;
+    &__item_btn{
+        margin: 0;
+        padding: 0;
+        margin: 0 auto;
         font-style: normal;
         font-weight: 400;
         font-size: 22px;
-        line-height: 32px;
         border: none;
         background-color: transparent;
-        position: absolute;
-        margin: 0 auto;
-        bottom: 12px;
     }
+
 }
 
-@media(max-width: 1280px) {
-    .articlesList {
-        &__item {
-            height: 270px;
-        }
-    }
+.articlesList.open{
+    max-height: 1000vh;
+    overflow: auto;
+    transition: all 1.8s;
 }
 
-@media(max-width: 1080px) {
-    .articlesList {
-        &__item {
-            height: 300px;
-        }
-    }
-}
 
-@media(max-width: 920px) {
-    .articlesList {
-        &__item_title {
-            font-size: 24px;
-            right: 20px;
-        }
+@media(max-width: 601px) {
+    .articlesList{
+        margin: 0;
+        margin-bottom: 50px;
 
-        &__item_text {
+        &__item_title{
             font-size: 20px;
         }
 
-        &__item_time {
-            font-size: 18px;
+        &__item_text{
+            font-size: 16px;
         }
 
-        &__item_btn {
-            font-size: 20px;
-        }
-
-        &__item {
-            height: 270px;
+        &__item_time{
+            font-size: 16px;
         }
     }
 }
 
-@media(max-width: 720px) {
-    .articlesList {
-        &__item_title {
-            font-size: 20px;
-            right: 20px;
-        }
-
-        &__item_text {
+@media(max-width: 361px) {
+    .articlesList{
+        &__item_title{
             font-size: 18px;
-        }
-
-        &__item_time {
-            font-size: 16px;
-        }
-
-        &__item_btn {
-            font-size: 18px;
-        }
-
-        &__item {
-            height: 270px;
-        }
-    }
-}
-
-@media(max-width: 720px) {
-    .articlesList {
-        &__item_title {
-            font-size: 20px;
-            right: 20px;
-        }
-
-        &__item_text {
-            font-size: 16px;
-        }
-
-        &__item_time {
-            font-size: 16px;
-        }
-
-        &__item_btn {
-            font-size: 18px;
-        }
-
-        &__item {
-            height: 270px;
-        }
-    }
-}
-
-
-@media(max-width: 530px) {
-    .articlesList {
-        margin-right: 0;
-
-        &__item_title {
-            font-size: 20px;
-            right: 20px;
-        }
-
-        &__item_text {
-            font-size: 16px;
-        }
-
-        &__item_time {
-            font-size: 16px;
-        }
-
-        &__item_btn {
-            font-size: 16px;
-        }
-
-        &__item {
-            height: 330px;
-        }
-    }
-}
-
-@media(max-width: 340px) {
-    .articlesList {
-        margin-right: 0;
-
-        &__item_title {
-            font-size: 18px;
-            right: 20px;
-        }
-
-        &__item_text {
-            font-size: 16px;
-        }
-
-        &__item_time {
-            font-size: 16px;
-        }
-
-        &__item_btn {
-            font-size: 16px;
-        }
-
-        &__item {
-            height: 330px;
         }
     }
 }

@@ -1,3 +1,41 @@
+.message {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    top: 110px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+
+    &__content_true {
+        width: auto;
+        height: 50px;
+        padding: 10px;
+        border: 2px solid rgb(195, 195, 195);
+        border-radius: 12px;
+        background-color: rgba(8, 86, 21, 0.51);
+    }
+
+    &__content_false {
+        width: auto;
+        height: 50px;
+        padding: 10px;
+        border: 2px solid rgb(195, 195, 195);
+        border-radius: 12px;
+        background-color: rgba(86, 12, 8, 0.51);
+    }
+
+    &__text{
+        font-size: 22px;
+        color: #fff;
+    }
+}
+
 .contacts {
     background-position: bottom center;
     background-repeat: no-repeat;
@@ -97,6 +135,7 @@
         backdrop-filter: blur(2px);
         padding: 0 15px;
         font-family: "Roboto";
+
         &::placeholder {
             color: #000;
             padding-left: 30%;
@@ -121,6 +160,7 @@
         background: rgba(255, 251, 246, 0.5);
         backdrop-filter: blur(2px);
         font-family: "Roboto";
+
         &::placeholder {
             color: #000;
             font-family: 'Monplesir script';

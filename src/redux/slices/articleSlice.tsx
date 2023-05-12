@@ -3,57 +3,63 @@ import axios from '../../http/index';
 import { Articles } from '../../types/types';
 
 
-export const fetchGetArticles = createAsyncThunk<any, undefined, { rejectValue: string }>(
+export const fetchGetArticles = createAsyncThunk<Articles[], undefined, { rejectValue: string }>(
     "api/fetchGetArticles", async (_, { rejectWithValue }) => {
         const { data } = await axios.get("/api/articles");
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        return data;
+        const articles: Articles[] = data;
+        return articles;
     });
 
-export const fetchSortArticles = createAsyncThunk<any, string, { rejectValue: string }>(
+export const fetchSortArticles = createAsyncThunk<Articles[], string, { rejectValue: string }>(
     "api/fetchSortArticles", async (params, { rejectWithValue }) => {
         const { data } = await axios.get("/api/articles/" + params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        return data;
+        const articles: Articles[] = data;
+        return articles;
     });
 
-export const fetchSearchArticles = createAsyncThunk<any, string, { rejectValue: string }>('api/fetchSearchArticles', async (value: string, { rejectWithValue }) => {
-    const { data }: any = await axios.get('/api/search/article/' + value);
+export const fetchSearchArticles = createAsyncThunk<Articles[], string, { rejectValue: string }>('api/fetchSearchArticles', async (value: string, { rejectWithValue }) => {
+    const { data } = await axios.get('/api/search/article/' + value);
     if (!data) {
         return rejectWithValue('Server Error!');
     }
-    return data;
+    const articles: Articles[] = data;
+    return articles;
 });
 
-export const fetchPostArticle = createAsyncThunk<any, any, { rejectValue: string }>(
+export const fetchPostArticle = createAsyncThunk<Articles[], Articles, { rejectValue: string }>(
     "api/fetchPostArticle", async (params, { rejectWithValue }) => {
         const { data } = await axios.post("/api/article", params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        return data;
+        const articles: Articles[] = data;
+        return articles;
     });
 
-export const fetchUpdateArticle = createAsyncThunk<any, any, { rejectValue: string }>(
+export const fetchUpdateArticle = createAsyncThunk<Articles[], Articles, { rejectValue: string }>(
     "api/fetchUpdateArticle", async (params, { rejectWithValue }) => {
         const { data } = await axios.put("/api/article", params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        return data;
+        const articles: Articles[] = data;
+        return articles;
     });
 
-export const fetchDeleteArticle = createAsyncThunk<any, any, { rejectValue: string }>(
+export const fetchDeleteArticle = createAsyncThunk<Articles[], string, { rejectValue: string }>(
     "api/fetchDeleteArticle", async (params, { rejectWithValue }) => {
         const { data } = await axios.delete("/api/article/" + params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        return data;
+        const articles: Articles[] = data;
+        return articles;
     });
 
 
@@ -75,13 +81,13 @@ const articleSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-            ///fetchGetArticles
+            // ///fetchGetArticles
             .addCase(fetchGetArticles.pending, (state) => {
                 state.data = null;
                 state.isLoading = "loading";
             })
             .addCase(fetchGetArticles.fulfilled, (state, action) => {
-                state.data = action.payload.articles;
+                state.data = action.payload;
                 state.isLoading = "loaded";
             })
             .addCase(fetchGetArticles.rejected, (state) => {
@@ -94,7 +100,7 @@ const articleSlice = createSlice({
                 state.isLoading = "loading";
             })
             .addCase(fetchSortArticles.fulfilled, (state, action) => {
-                state.data = action.payload.articles;
+                state.data = action.payload;
                 state.isLoading = "loaded";
             })
             .addCase(fetchSortArticles.rejected, (state) => {
@@ -107,7 +113,6 @@ const articleSlice = createSlice({
                 state.isLoading = 'loading';
             })
             .addCase(fetchSearchArticles.fulfilled, (state, action) => {
-                console.log(action.payload, 'action.payload')
                 state.data = action.payload;
                 state.isLoading = 'loaded';
             })

@@ -24,7 +24,7 @@ export const ChangeData: React.FC<Props> = ({ componentName, updateData }) => {
     const debounce = useDebounce(search, 400);
     const poemState = useCustomSelector(selectPoemData);
     const renderItems = 24;
-    const amontPages = poemState.data.length / renderItems;
+    const amontPages = poemState.data.length;
     const content = componentName === 'Изменить, удалить стих' ? poems : articles
 
     const deleteItem = (id: string, component: string) => {
@@ -46,7 +46,6 @@ export const ChangeData: React.FC<Props> = ({ componentName, updateData }) => {
     }, [dispatch])
 
     React.useEffect(() => {
-
         if (debounce) {
             if (componentName === 'Изменить, удалить стих') {
                 dispatch(fetchSearchPoems(debounce));

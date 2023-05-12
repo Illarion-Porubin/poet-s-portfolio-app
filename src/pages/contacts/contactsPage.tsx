@@ -12,55 +12,106 @@ export const ContactsPage: React.FC = () => {
   const [name, setName] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
   const [text, setText] = React.useState<string>('');
-  const content = contentState.isLoading === `loaded` ? contentState.data?.content : []
+  const [message, setMessage] = React.useState<boolean | null>(null);
+  const content = contentState.isLoading === `loaded` ? contentState.data?.content : [];
 
   const sendEmail = (e: any) => {
-    const data = { name, email, text, to: contentState.data?.content?.email ? contentState.data?.content?.email : `vladimiraroyan.base@gmail.com` }
-    dispatch(fetchSendMaeesage({ ...data }))
+    e.preventDefault()
+    if (name && email && text) {
+      const data = { name, email, text, to: contentState.data?.content?.email ? contentState.data?.content?.email : `vladimiraroyan.base@gmail.com` }
+      dispatch(fetchSendMaeesage({ ...data }))
+      setName('')
+      setEmail('')
+      setText('')
+      setMessage(true)
+      setTimeout(() => {
+        setMessage(null)
+      }, 3000);
+    }
+    else {
+      setMessage(false)
+      setTimeout(() => {
+        setMessage(null)
+      }, 3000);
+    }
+  }
+
+
+  const popup = () => {
+    if (message) {
+      return (
+        <>
+          <div className={s.message}>
+            <div className={s.message__content_true}>
+              <p className={s.message__text}>Ваше сообщение успешно отправленно</p>
+            </div>
+          </div>
+        </>
+      )
+    }
+    else if (message === false) {
+      return (
+        <>
+          <div className={s.message}>
+            <div className={s.message__content_false}>
+              <p className={s.message__text}>Форма не длжна содержать пустые поля</p>
+            </div>
+          </div>
+        </>
+      )
+    }
+    else if(message === null) {
+      return null
+    }
   }
 
 
   return (
-    <section className={s.contacts} id={`contacts`} style={{ backgroundImage: `url(${contacts_bg})` }}>
-      <Border string={'Контакты'} />
-      <div className={s.contacts__whait_wrapp}>
-        <div className={s.contacts__whait}>
-          <p className={s.contacts__whait_text}>
-            {content.contact_title || 'здесь должен быть текст, но что-то пошло не так'}
-          </p>
-        </div>
-      </div>
-      <div className={s.contacts__form_wrapp}>
-        <form className={s.contacts__form}
-          onSubmit={(e) => sendEmail(e)}
-        >
-          <h4 className={s.contacts__form_title}>Обратная связь</h4>
-          <p className={s.contacts__form_text}>Я обязательно прочту ваше писмо в течение двух дней.</p>
-          <div className={s.contacts__form_inputs}>
-            <input
-              className={s.contacts__form_input}
-              placeholder='Имя'
-              type="text"
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-            <input
-              className={s.contacts__form_input}
-              placeholder='Почта'
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
+    <>
+      {
+        popup()
+      }
+      <section className={s.contacts} id={`contacts`} style={{ backgroundImage: `url(${contacts_bg})` }}>
+        <Border string={'Контакты'} />
+        <div className={s.contacts__whait_wrapp}>
+          <div className={s.contacts__whait}>
+            <p className={s.contacts__whait_text}>
+              {content.contact_title || 'здесь должен быть текст, но что-то пошло не так'}
+            </p>
           </div>
-          <textarea
-            className={s.contacts__form_textarea}
-            placeholder="Напишите мне"
-            onChange={e => setText(e.target.value)}
-            value={text}
-          />
-          <button className={s.contacts__form_btn}>Отправить</button>
-        </form>
-      </div>
-    </section>
+        </div>
+        <div className={s.contacts__form_wrapp}>
+          <form className={s.contacts__form}
+            onSubmit={(e) => sendEmail(e)}
+          >
+            <h4 className={s.contacts__form_title}>Обратная связь</h4>
+            <p className={s.contacts__form_text}>Я обязательно прочту ваше писмо в течение двух дней.</p>
+            <div className={s.contacts__form_inputs}>
+              <input
+                className={s.contacts__form_input}
+                placeholder='Имя'
+                type="text"
+                value={name}
+                onChange={e => setName(e.target.value.replace(/[A-Za-z0-9\s`~!@#$%^&*()_+-={}|:;<>?,.\/\"\'\\\[\]]/, ''))}
+              />
+              <input
+                className={s.contacts__form_input}
+                placeholder='Почта'
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value.replace(/[А-Яа-я\s`!#$%^&*()_={}|:;<>?,\/\"\'\\\[\]]/, ''))}
+              />
+            </div>
+            <textarea
+              className={s.contacts__form_textarea}
+              placeholder="Напишите мне"
+              onChange={e => setText(e.target.value.replace(/[^А-Яа-яЁё0-9\s\n0-9,.!?():;@&#%+_/\'\" -]/, ''))}
+              value={text}
+            />
+            <button className={s.contacts__form_btn}>Отправить</button>
+          </form>
+        </div>
+      </section>
+    </>
   )
 }

@@ -5,12 +5,13 @@ import SimpleMDE from "react-simplemde-editor";
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { useCustomDispatch } from '../../hooks/store';
 import axios from '../../http';
+import { ComonTypes } from '../../types/types';
 
 
 
 interface Props {
     id: string | null | undefined,
-    setData: any,
+    setData: (poem: ComonTypes) => void,
     componentName: string,
 }
 

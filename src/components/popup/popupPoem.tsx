@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import s from './popupPoem.module.scss';
+import { Poem } from '../../types/types';
 
 
 const portal: any = document.getElementById(`popup_poem`);
 
 interface Props {
-    item: {
-        title: string,
-        text: string
-    }
+    item: Poem,
     display: boolean,
     hideContent: () => void
 }

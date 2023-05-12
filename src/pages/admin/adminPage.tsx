@@ -12,6 +12,7 @@ import { ChangeData } from '../../components/adminDeleteEdit/changeData';
 import { fetchPostPoem, fetchUpdatePoem } from '../../redux/slices/poemSlice';
 import { fetchPostArticle, fetchUpdateArticle } from '../../redux/slices/articleSlice';
 import { fetchUpdateInfo } from '../../redux/slices/authSlice';
+import { Articles, ComonTypes, AdminTypes } from '../../types/types';
 
 
 
@@ -21,7 +22,7 @@ export const AdminPage: React.FC = () => {
     const auth = useCustomSelector(selectAuthData);
     const contentState = useCustomSelector(selectContentData);
     const [component, setComponent] = React.useState<string>('Личная информация');
-    const [data, setData] = React.useState<any>({});
+    const [data, setData] = React.useState<ComonTypes | null>(null);
     const articleId = React.useRef<string>('');
     const poemId = React.useRef<string>('');
 
@@ -40,60 +41,78 @@ export const AdminPage: React.FC = () => {
     }
 
     const updateContent = React.useCallback(() => {
-        const content = contentState.isLoading === `loaded` ? contentState.data?.content : [];
-
-        switch (component) {
-            case 'Личная информация':
-                dispatch(fetchUpdateInfo({ ...data }))
-                dispatch(fetchUpdateContent({ ...content, main_email: data.email }))
-                setTimeout(() => {
-                    dispatch(fetchGetContetn())
-                }, 200);
-                break
-            case 'Главная страница':
-                dispatch(fetchUpdateContent({ ...content, ...contentState.newData }))
-                setTimeout(() => {
-                    dispatch(fetchGetContetn())
-                }, 200);
-                break
-            case 'Добавить стих':
-                if (data.id) {
-                    dispatch(fetchUpdatePoem(data))
+        if (contentState.isLoading === `loaded`)
+            switch (component) {
+                case 'Личная информация':
+                    const newData: AdminTypes = {
+                        firstName: data?.firstName,
+                        lastName: data?.lastName,
+                        email: data?.email,
+                        id: data?.id,
+                    }
+                    dispatch(fetchUpdateInfo({ ...newData }))
+                    dispatch(fetchUpdateContent({
+                        ...contentState.data?.content,
+                        main_email: data?.email,
+                        main_firstName: data?.firstName,
+                        main_lastName: data?.lastName
+                    }))
                     setTimeout(() => {
-                        window.location.reload()
+                        dispatch(fetchGetContetn())
                     }, 200);
-                }
-                else {
-                    dispatch(fetchPostPoem(data))
+                    break
+                case 'Главная страница':
+                    dispatch(fetchUpdateContent({ ...contentState.data?.content, ...contentState.newData }))
                     setTimeout(() => {
-                        window.location.reload()
+                        dispatch(fetchGetContetn())
                     }, 200);
-                }
-                break
-            case 'Добавить статью':
-                if (data.id) {
-                    dispatch(fetchUpdateArticle(data))
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 200);
-                }
-                else {
-                    dispatch(fetchPostArticle(data))
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 200);
-                }
-                break
-            default:
-                return (
-                    null
-                );
-        }
+                    break
+                case 'Добавить стих':
+                    if (data?.id) {
+                        dispatch(fetchUpdatePoem({ id: data?.id, text: data?.text, title: data?.title }))
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 200);
+                    }
+                    else {
+                        dispatch(fetchPostPoem({ id: data?.id, text: data?.text, title: data?.title }))
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 200);
+                    }
+                    break
+                case 'Добавить статью':
+                    if (data?.id) {
+                        dispatch(fetchUpdateArticle(data))
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 200);
+                    }
+                    else {
+                        if (data) {
+                            const newData: Articles = {
+                                id: data.id,
+                                title: data.title,
+                                text: data.text
+                            }
+                            dispatch(fetchPostArticle(newData))
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 200);
+                        }
+                    }
+                    break
+                default:
+                    return (
+                        null
+                    );
+            }
     }, [dispatch, data, component, contentState.newData, contentState.data?.content, contentState.isLoading])
 
     const deleteChange = () => {
         window.location.reload()
     }
+
 
     if (auth.isLoading === 'error' && auth.data?.accessToken === undefined) {
         return (<Navigate to='/' />)

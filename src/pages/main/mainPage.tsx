@@ -73,6 +73,7 @@ export const MainPage: React.FC = () => {
         }
       </div>
 
+
       <section className={s.main} id='main' style={{ backgroundImage: `url(${bg})` }}>
         <div className={s.menu}>
           <div className="container">
@@ -93,7 +94,7 @@ export const MainPage: React.FC = () => {
                       <Link to="/poem">стихи</Link>
                     </li>
                     <li className={s.menu__list_li}>
-                      <Link to="/articles">статьи</Link>
+                      <Link to="/articles">рассказы</Link>
                     </li>
                   </ul>
                 </nav>
@@ -120,7 +121,7 @@ export const MainPage: React.FC = () => {
                 <UploadWidget requestFrom={''} />
               </div>
               <div className={s.main__avatar_wrapp}>
-                <h2 className={s.main__introduction}>Имя Фамилия</h2>
+                <h2 className={s.main__introduction}>{`${content?.main_firstName} ${content?.main_lastName}`}</h2>
                 <div className={s.main__info_underline}></div>
               </div>
               <button className={s.main__info_btn}>{content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>

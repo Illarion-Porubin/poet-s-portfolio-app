@@ -28,7 +28,7 @@ export default function ArticlesPage() {
             <Menu />
             <div className={s.articles__block}>
                 <div className={s.articles__head}>
-                    <p className={s.articles__head_text}>Мои мысли</p>
+                    <p className={s.articles__head_text}>Рассказы</p>
                     <button className={s.articles__head_filter} onClick={sort}>{filter ? `Старые` : `Новые`}</button>
                 </div>
                 <div className={s.articles__content_wrapp} >

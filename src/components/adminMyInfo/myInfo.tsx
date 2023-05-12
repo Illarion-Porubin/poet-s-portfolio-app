@@ -44,7 +44,7 @@ export const MyInfo: React.FC<Props> = ({ setData }) => {
                 </div>
                 <div className={s.myInfo__content}>
                     <div className={s.myInfo__avatar}>
-                        <UploadWidget requestFrom={'admin'}/>
+                        <UploadWidget requestFrom={'admin'} />
                     </div>
                     <div className={s.myInfo__inputs}>
                         <input

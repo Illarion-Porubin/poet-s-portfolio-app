@@ -1,38 +1,49 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from "../../http/index";
+import { Content, NewContent, SendEmail } from '../../types/types';
 
-export const fetchGetContetn = createAsyncThunk<any, undefined, { rejectValue: string }>(
+export const fetchGetContetn = createAsyncThunk<Content, undefined, { rejectValue: string }>(
   "api/fetchGetContetn", async (_, { rejectWithValue }) => {
     const { data } = await axios.get("/api/content");
     if (!data) {
       return rejectWithValue("Server Error!");
     }
-    return data;
+    const content: Content = data
+    return content;
   });
 
-export const fetchUpdateContent = createAsyncThunk<any, any, { rejectValue: string }>(
+export const fetchUpdateContent = createAsyncThunk<Content, NewContent, { rejectValue: string }>(
   "api/fetchUpdateContent",
   async (params, { rejectWithValue }) => {
     const { data }: { data: any } = await axios.put("/api/content", params);
     if (!data) {
       return rejectWithValue("Server Error!");
     }
-    return data;
+    const content: Content = data
+    return content;
   }
 );
 
-export const fetchSendMaeesage = createAsyncThunk<any, any, { rejectValue: string }>(
+export const fetchSendMaeesage = createAsyncThunk<Content, SendEmail, { rejectValue: string }>(
   "api/fetchUpdateContent",
   async (params, { rejectWithValue }) => {
     const { data }: { data: any } = await axios.post("/api/message", params);
     if (!data) {
       return rejectWithValue("Server Error!");
     }
-    return data;
+    const content: Content = data
+    return content;
   }
 );
 
-const initialState: any = {
+export type ContentState = {
+  data: Content | null;
+  newData: Content | {};
+  isLoading: "idle" | "loading" | "loaded" | "error";
+  error: string | null;
+}
+
+const initialState: ContentState = {
   data: null,
   newData: {},
   isLoading: "idle",
@@ -44,7 +55,7 @@ export const contentSlice = createSlice({
   initialState,
   reducers: {
     saveContent: (state, action) => {
-      state.newData = {...state.newData, ...action.payload}
+      state.newData = { ...state.newData, ...action.payload }
     }
   },
   extraReducers: (builder) => {
