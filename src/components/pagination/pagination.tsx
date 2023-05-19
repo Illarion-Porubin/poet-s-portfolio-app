@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { memo } from 'react';
 import ReactPaginate from 'react-paginate';
 import s from './pagintaion.module.scss';
+
 interface Props {
-    setPage: any,
-    amontPages: any,
+    setPage: (num: number) => void,
+    amontPages: number,
 }
 
-export const Pagination: React.FC<Props> = ({ setPage, amontPages}) => {
+export const Pagination: React.FC<Props> = memo(({ setPage, amontPages}) => {
 
     return (
         <>
@@ -17,10 +18,10 @@ export const Pagination: React.FC<Props> = ({ setPage, amontPages}) => {
                             className={s.root}
                             previousLabel="<"
                             nextLabel=">"
-                            onPageChange={(e: any) =>
+                            onPageChange={(e) =>
                                 setPage(e.selected)
                             }
-                            pageCount={amontPages}
+                            pageCount={Math.ceil(amontPages)}
                             renderOnZeroPageCount={null || undefined}
                         />
                     </div>
@@ -28,6 +29,6 @@ export const Pagination: React.FC<Props> = ({ setPage, amontPages}) => {
             </div>
         </>
     )
-}
+})
 
 

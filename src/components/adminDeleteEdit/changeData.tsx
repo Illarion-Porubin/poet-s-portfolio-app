@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { memo } from 'react';
 import s from './adminDeleteEdit.module.scss'
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
 import { fetchDeletePoem, fetchGetPoems, fetchSearchPoems } from '../../redux/slices/poemSlice';
@@ -7,18 +7,18 @@ import { selectArticleData, selectPoemData } from '../../redux/selectors';
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import ReactPaginate from 'react-paginate';
 import useDebounce from '../../hooks/useDebounce';
+import { Creativity } from '../../types/types';
 
 
 interface Props {
-    updateData: any,
+    updateData: (_id: string | null | undefined, comonentName: string) => void,
     componentName: string
 }
 
-export const ChangeData: React.FC<Props> = ({ componentName, updateData }) => {
+export const ChangeData: React.FC<Props> = memo(({ componentName, updateData }) => {
     const dispatch = useCustomDispatch();
     const poems = useCustomSelector(selectPoemData);
     const articles = useCustomSelector(selectArticleData);
-    const [filterData, setFilterData] = React.useState<any>();
     const [search, setSearch] = React.useState<string>('');
     const [page, setPage] = React.useState<number>(0);
     const debounce = useDebounce(search, 400);
@@ -26,15 +26,16 @@ export const ChangeData: React.FC<Props> = ({ componentName, updateData }) => {
     const renderItems = 24;
     const amontPages = poemState.data.length;
     const content = componentName === 'Изменить, удалить стих' ? poems : articles
+    const [filterData, setFilterData] = React.useState<Creativity[]>();
 
-    const deleteItem = (id: string, component: string) => {
+    const deleteItem = (_id: string | null | undefined, component: string) => {
         if (component === 'Изменить, удалить стих') {
-            dispatch(fetchDeletePoem(id))
+            dispatch(fetchDeletePoem(_id ? _id : ''))
             setTimeout(() => {
                 dispatch(fetchGetPoems())
             }, 200)
         }
-        dispatch(fetchDeleteArticle(id))
+        dispatch(fetchDeleteArticle(_id ? _id : ''))
         setTimeout(() => {
             dispatch(fetchGetArticles())
         }, 200)
@@ -60,10 +61,11 @@ export const ChangeData: React.FC<Props> = ({ componentName, updateData }) => {
         }
     }, [dispatch, debounce, componentName]);
 
+
     React.useEffect(() => {
         if (content.data) {
             setFilterData(
-                content.data.filter((item: any, index: number) => {
+                content.data.filter((_: Creativity, index: number) => {
                     return (index >= page * renderItems) && (index < (page + 1) * renderItems);
                 })
             );
@@ -85,7 +87,7 @@ export const ChangeData: React.FC<Props> = ({ componentName, updateData }) => {
                         </div>
                         <ul className={s.data__list}>
                             {
-                                filterData.map((item: any) =>
+                                filterData.map((item: Creativity) =>
                                     <div className={s.data__item_wrapp} key={item.title}>
                                         <li className={s.data__item} onClick={() => updateData(item._id, componentName)}>{item.title || 'загрузка'}</li>
                                         <div className={s.data__delete} onClick={() => deleteItem(item._id, componentName)}><GlobalSvgSelecotr id='cancel' /></div>
@@ -101,7 +103,7 @@ export const ChangeData: React.FC<Props> = ({ componentName, updateData }) => {
                                 previousLabel="<"
                                 nextLabel=">"
                                 pageCount={Math.ceil(amontPages)}
-                                onPageChange={(e: any) =>
+                                onPageChange={(e) =>
                                     setPage(e.selected)
                                 }
                                 renderOnZeroPageCount={null || undefined}
@@ -116,4 +118,4 @@ export const ChangeData: React.FC<Props> = ({ componentName, updateData }) => {
 
         </>
     );
-}
+})

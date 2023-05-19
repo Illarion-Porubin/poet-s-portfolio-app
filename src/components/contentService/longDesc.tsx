@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { memo } from 'react';
 import s from './desc.module.scss';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
@@ -7,10 +7,10 @@ import { useCustomDispatch } from '../../hooks/store';
 import { saveContent } from "../../redux/slices/contentSlice";
 
 interface Props {
-    long: { key: string, desc: string, text: any },
+    long: { key: string, desc: string, text: string },
 }
 
-export const LongDesc: React.FC<Props> = ({ long }) => {
+export const LongDesc: React.FC<Props> = memo(({ long }) => {
     const dispatch = useCustomDispatch();
     const tagsInput = React.useRef<HTMLDivElement>(null);
     const [value, setValue] = React.useState<string>(long.text ? long.text : 'загрузка');
@@ -25,25 +25,35 @@ export const LongDesc: React.FC<Props> = ({ long }) => {
         if (!key) {
             alert('Ключ для сохранения не выбран')
         }
-        console.log(value)
-        setActive(false)
+        setActive(true)
         dispatch(saveContent({ [key]: value }))
     }
 
     React.useMemo(() => {
         if (value !== long.text) {
-            setActive(true)
-        }
-        else {
             setActive(false)
         }
     }, [value, long.text])
+
+    const style = () => {
+        if(active) {
+            return `${s.description__item} ${s.active}`
+        } 
+        else {
+            if (value !== long.text) {
+                return `${s.description__item} ${s.false}`
+            }
+            else {
+                return `${s.description__item}`
+            }
+        }
+    }
 
     return (
         <>
             <div className={s.description}>
                 <div className={s.description__items}>
-                    <div className={active ? `${s.description__item} ${s.active}` : s.description__item} ref={tagsInput}>
+                    <div className={style()} ref={tagsInput}>
                         <div className={s.description__item_header}>
                             <h4 className={s.description__item_title}>{long.desc ? long.desc : 'загрузка'}</h4>
                             <div className={s.description__item_btns}>
@@ -69,4 +79,4 @@ export const LongDesc: React.FC<Props> = ({ long }) => {
             </div>
         </>
     );
-}
+})

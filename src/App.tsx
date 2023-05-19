@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import { MainPage } from './pages/main/mainPage';
 import { PoemPage } from './pages/poem/poemPage';
 import { AdminPage } from './pages/admin/adminPage';
-import ArticlesPage from './pages/articles/articlesPage';
+import { ArticlesPage } from './pages/articles/articlesPage';
 import { fetchAuthMe } from "./redux/slices/authSlice";
 import { useCustomDispatch } from './hooks/store';
 

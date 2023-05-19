@@ -37,7 +37,12 @@
     }
 }
 
-.adminMain__item.active{
+.description__item.false{
     transition: all .3s;
     border: 2px solid red;
+}
+
+.description__item.active{
+    transition: all .3s;
+    border: 2px solid rgb(13, 144, 43);
 }

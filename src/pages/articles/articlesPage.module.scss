@@ -48,6 +48,45 @@
         font-weight: 400;
         font-size: 18px;
         line-height: 26px;
+        position: relative;
+        transition: all .3s;
+        &::after{
+            content: "";
+            position: absolute;
+            top: 16px;
+            left: 19px;
+            height: 14px; width: 14px;
+            border-bottom: 2px solid #101010;
+            border-right: 2px solid #101010;
+            box-sizing: border-box;
+            transform: translate(0%, 0%) rotate(45deg) scale(-1);
+            transition: 0.4s ease-in-out;
+        }
+
+        &::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50px;
+            bottom: 0;
+            width: 1px;
+            background-color: #000000;
+        }
+    }
+
+    &__head_filter.active{
+        &::after{
+            content: "";
+            position: absolute;
+            top: 16px;
+            left: 22px;
+            height: 14px; width: 14px;
+            border-bottom: 2px solid #101010;
+            border-right: 2px solid #101010;
+            box-sizing: border-box;
+            transform: rotate(45deg) translate(-33%, -0%);
+            transition: 0.4s ease-in-out;
+        }
     }
 
     &__content_wrapp {

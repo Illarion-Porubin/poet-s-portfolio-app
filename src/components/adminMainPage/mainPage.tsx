@@ -1,36 +1,27 @@
-import * as React from 'react';
+import React, { memo } from 'react';
 import s from './mainPage.module.scss';
 import { ShortDesc } from '../contentService/shortDesc';
 import { LongDesc } from '../contentService/longDesc';
-import { useCustomDispatch } from '../../hooks/store';
-import { fetchGetContetn } from '../../redux/slices/contentSlice';
+import { ContentState } from '../../redux/slices/contentSlice';
 
 interface Props {
-    contentState: any,
+    contentState: ContentState,
 }
 
+export const MainPage: React.FC<Props> = memo(({ contentState }) => {
 
-export const MainPage: React.FC<Props> = ({ contentState }) => {
-    const dispatch = useCustomDispatch();
-    const content = contentState.isLoading === `loaded` ? contentState.data?.content : [];
+    const shortDescription = React.useMemo( () => [
+        { key: 'main_title', desc: 'Вступительная странциа, заголовок', text: contentState.data?.content?.main_title || 'загруза' },
+        { key: 'main_btn', desc: 'Вступительная странциа, кнопка', text: contentState.data?.content?.main_btn || 'загруза' },
+        { key: 'about_block_title_1', desc: 'Обо мне, заголовок 1', text: contentState.data?.content?.about_block_title_1 || 'загруза' },
+        { key: 'about_block_title_2', desc: 'Обо мне, заголовок 2', text: contentState.data?.content?.about_block_title_2 || 'загруза' },
+        { key: 'contact_title', desc: 'Контакты, заголовок', text: contentState.data?.content?.contact_title || 'загруза' },
+    ], [contentState.data])
 
-    React.useEffect(() => {
-        dispatch(fetchGetContetn());
-    }, [dispatch]);
-
-
-    const shortDescription = [
-        { key: 'main_title', desc: 'Вступительная странциа, заголовок', text: content?.main_title || 'загруза' },
-        { key: 'main_btn', desc: 'Вступительная странциа, кнопка', text: content?.main_btn || 'загруза' },
-        { key: 'about_block_title_1', desc: 'Обо мне, заголовок 1', text: content?.about_block_title_1 || 'загруза' },
-        { key: 'about_block_title_2', desc: 'Обо мне, заголовок 2', text: content?.about_block_title_2 || 'загруза' },
-        { key: 'contact_title', desc: 'Контакты, заголовок', text: content?.contact_title || 'загруза' },
-    ]
-
-    const longDescription = [
-        { key: 'about_block_text_1', desc: 'Обо мне, текстовый блок 1', text: content?.about_block_text_1 || 'загруза' },
-        { key: 'about_block_text_2', desc: 'Обо мне, текстовый блок 2', text: content?.about_block_text_2 || 'загруза' },
-    ]
+    const longDescription = React.useMemo( () => [
+        { key: 'about_block_text_1', desc: 'Обо мне, текстовый блок 1', text: contentState.data?.content?.about_block_text_1 || 'загруза' },
+        { key: 'about_block_text_2', desc: 'Обо мне, текстовый блок 2', text: contentState.data?.content?.about_block_text_2 || 'загруза' },
+    ], [contentState.data])
 
 
     return (
@@ -55,4 +46,4 @@ export const MainPage: React.FC<Props> = ({ contentState }) => {
             </section>
         </>
     );
-}
+})

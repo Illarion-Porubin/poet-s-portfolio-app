@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { memo } from 'react';
 import s from './admin.module.scss';
 import { Menu } from '../../components/adminMenu/menu';
 import { MainPage } from '../../components/adminMainPage/mainPage';
@@ -12,12 +12,12 @@ import { ChangeData } from '../../components/adminDeleteEdit/changeData';
 import { fetchPostPoem, fetchUpdatePoem } from '../../redux/slices/poemSlice';
 import { fetchPostArticle, fetchUpdateArticle } from '../../redux/slices/articleSlice';
 import { fetchUpdateInfo } from '../../redux/slices/authSlice';
-import { Articles, ComonTypes, AdminTypes } from '../../types/types';
+import { Creativity, ComonTypes, AdminTypes } from '../../types/types';
 
 
 
 
-export const AdminPage: React.FC = () => {
+export const AdminPage: React.FC = memo(() => {
     const dispatch = useCustomDispatch();
     const auth = useCustomSelector(selectAuthData);
     const contentState = useCustomSelector(selectContentData);
@@ -30,13 +30,13 @@ export const AdminPage: React.FC = () => {
         setComponent(value)
     }
 
-    const addId = (id: string, component: string) => {
+    const addId = (id: string | null | undefined, component: string) => {
         if (component === 'Изменить, удалить стих') {
             setComponent('Добавить стих')
-            poemId.current = id
+            poemId.current = id ? id : ''
         } else {
             setComponent('Добавить статью')
-            articleId.current = id
+            articleId.current = id ? id : ''
         }
     }
 
@@ -69,13 +69,13 @@ export const AdminPage: React.FC = () => {
                     break
                 case 'Добавить стих':
                     if (data?.id) {
-                        dispatch(fetchUpdatePoem({ id: data?.id, text: data?.text, title: data?.title }))
+                        dispatch(fetchUpdatePoem([{ _id: data?.id, text: data?.text, title: data?.title }]))
                         setTimeout(() => {
                             window.location.reload()
                         }, 200);
                     }
                     else {
-                        dispatch(fetchPostPoem({ id: data?.id, text: data?.text, title: data?.title }))
+                        dispatch(fetchPostPoem([{ _id: data?.id, text: data?.text, title: data?.title }]))
                         setTimeout(() => {
                             window.location.reload()
                         }, 200);
@@ -90,8 +90,8 @@ export const AdminPage: React.FC = () => {
                     }
                     else {
                         if (data) {
-                            const newData: Articles = {
-                                id: data.id,
+                            const newData: Creativity = {
+                                _id: data.id,
                                 title: data.title,
                                 text: data.text
                             }
@@ -113,11 +113,9 @@ export const AdminPage: React.FC = () => {
         window.location.reload()
     }
 
-
     if (auth.isLoading === 'error' && auth.data?.accessToken === undefined) {
         return (<Navigate to='/' />)
     }
-
 
     const ChildComponent = (name: string) => {
         switch (name) {
@@ -157,5 +155,5 @@ export const AdminPage: React.FC = () => {
             </section>
         </>
     );
-}
+})
 

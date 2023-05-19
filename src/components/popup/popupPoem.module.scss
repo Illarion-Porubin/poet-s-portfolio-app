@@ -16,6 +16,16 @@
         border-radius: 33px;
     }
 
+    &__coin {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 34px;
+        height: 34px;
+        z-index: 2;
+        cursor: pointer;
+    }
+
     position: absolute;
     top: 80px;
     left: 0;

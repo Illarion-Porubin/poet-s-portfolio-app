@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react';
 import { Border } from '../../components/border/border';
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
 import { selectContentData } from '../../redux/selectors';
@@ -6,19 +6,18 @@ import { fetchSendMaeesage } from '../../redux/slices/contentSlice';
 import contacts_bg from '../../assets/jpg/contacts_bg.jpg';
 import s from './contactsPage.module.scss';
 
-export const ContactsPage: React.FC = () => {
+export const ContactsPage: React.FC = memo(() => {
   const dispatch = useCustomDispatch();
-  const contentState = useCustomSelector<any>(selectContentData);
+  const contentState = useCustomSelector(selectContentData);
   const [name, setName] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
   const [text, setText] = React.useState<string>('');
   const [message, setMessage] = React.useState<boolean | null>(null);
-  const content = contentState.isLoading === `loaded` ? contentState.data?.content : [];
 
-  const sendEmail = (e: any) => {
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (name && email && text) {
-      const data = { name, email, text, to: contentState.data?.content?.email ? contentState.data?.content?.email : `vladimiraroyan.base@gmail.com` }
+      const data = { name, email, text, to: contentState.data?.content?.main_email ? contentState.data?.content?.main_email : `vladimiraroyan.base@gmail.com` }
       dispatch(fetchSendMaeesage({ ...data }))
       setName('')
       setEmail('')
@@ -76,7 +75,7 @@ export const ContactsPage: React.FC = () => {
         <div className={s.contacts__whait_wrapp}>
           <div className={s.contacts__whait}>
             <p className={s.contacts__whait_text}>
-              {content.contact_title || 'здесь должен быть текст, но что-то пошло не так'}
+              {contentState.data?.content?.contact_title || 'здесь должен быть текст, но что-то пошло не так'}
             </p>
           </div>
         </div>
@@ -92,20 +91,20 @@ export const ContactsPage: React.FC = () => {
                 placeholder='Имя'
                 type="text"
                 value={name}
-                onChange={e => setName(e.target.value.replace(/[A-Za-z0-9\s`~!@#$%^&*()_+-={}|:;<>?,.\/\"\'\\\[\]]/, ''))}
+                onChange={e => setName(e.target.value.replace(/[A-Za-z0-9\s`~!@#$%^&*()_+-={}|:;<>?,.|_/"']/, ''))}
               />
               <input
                 className={s.contacts__form_input}
                 placeholder='Почта'
                 type="email"
                 value={email}
-                onChange={e => setEmail(e.target.value.replace(/[А-Яа-я\s`!#$%^&*()_={}|:;<>?,\/\"\'\\\[\]]/, ''))}
+                onChange={e => setEmail(e.target.value.replace(/[А-Яа-я\s`!#$%^&*()_={}|:;<>?,|_/"']/, ''))}
               />
             </div>
             <textarea
               className={s.contacts__form_textarea}
               placeholder="Напишите мне"
-              onChange={e => setText(e.target.value.replace(/[^А-Яа-яЁё0-9\s\n0-9,.!?():;@&#%+_/\'\" -]/, ''))}
+              onChange={e => setText(e.target.value.replace(/[^А-Яа-яЁё0-9\s\n0-9,.!?():;@&#%+|_/"' -]/, ''))}
               value={text}
             />
             <button className={s.contacts__form_btn}>Отправить</button>
@@ -115,3 +114,4 @@ export const ContactsPage: React.FC = () => {
     </>
   )
 }
+)

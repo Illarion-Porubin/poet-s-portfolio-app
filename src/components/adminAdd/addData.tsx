@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import s from './add.module.scss';
 import "easymde/dist/easymde.min.css";
 import SimpleMDE from "react-simplemde-editor";
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { useCustomDispatch } from '../../hooks/store';
-import axios from '../../http';
 import { ComonTypes } from '../../types/types';
+import axios from '../../http';
 
 
 
@@ -15,11 +15,10 @@ interface Props {
     componentName: string,
 }
 
-export const AddData: React.FC<Props> = ({ setData, id, componentName }) => {
+export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) => {
     const dispatch = useCustomDispatch()
     const [dataTitle, setDataTitle] = React.useState<string>('');
     const [dataText, setDataText] = React.useState<string>('');
-    // const [dataId, setDataId] = React.useState<null | string | undefined>(id);
     const [active, setActive] = React.useState<boolean>(false);
     const dataId = React.useRef<null | string | undefined>(id)
 
@@ -42,7 +41,6 @@ export const AddData: React.FC<Props> = ({ setData, id, componentName }) => {
 
     React.useEffect(() => {
         if (dataId.current) {
-            console.log(dataId.current)
             if (componentName === 'Добавить статью') {
                 axios.get(`api/article/${dataId.current}`).then((res) => {
                     const data = res.data.article;
@@ -103,4 +101,4 @@ export const AddData: React.FC<Props> = ({ setData, id, componentName }) => {
             </h1>
         </>
     );
-}
+})

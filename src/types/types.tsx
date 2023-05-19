@@ -36,17 +36,11 @@ export type ComonTypes = {
   text?: string,
 };
 
-
-export type Articles = {
-  id?: string | null,
+export type Creativity = {
+  _id?: string | null | undefined,
   title?: string,
   text?: string
-}
-
-export type Poem = {
-  id?: string | null,
-  title?: string,
-  text?: string
+  createdAt?: number;
 }
 
 export type Content = {
@@ -62,7 +56,7 @@ export type Content = {
     contact_title?: string,
     about_block_title_2?: string,
     about_block_text_2?: string,
-  }
+  } 
 }
 
 export type NewContent = {

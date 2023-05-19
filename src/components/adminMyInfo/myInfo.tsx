@@ -1,19 +1,24 @@
-import * as React from 'react';
+import React, { memo } from 'react';
 import s from './myInfo.module.scss';
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { useCustomSelector } from '../../hooks/store';
 import { selectAuthData } from '../../redux/selectors';
 import { UploadWidget } from '../Upload/UploadWidget';
 
-
 interface Props {
-    setData: any
+    setData: (data: {
+        firstName: string | undefined,
+        lastName: string | undefined,
+        email: string | undefined,
+        id: string | undefined
+    }) => void
 }
 
-export const MyInfo: React.FC<Props> = ({ setData }) => {
+export const MyInfo: React.FC<Props> = memo(({ setData }) => {
     const [firstName, setfirstName] = React.useState<string | undefined>('');
     const [lastName, setLastName] = React.useState<string | undefined>('');
     const [email, setEmail] = React.useState<string | undefined>('');
+    const [active, setActive] = React.useState<boolean>(false);
     const authState = useCustomSelector(selectAuthData);
 
     React.useEffect(() => {
@@ -26,6 +31,7 @@ export const MyInfo: React.FC<Props> = ({ setData }) => {
 
 
     const saveData = () => {
+        setActive(true)
         setData({ firstName, lastName, email, id: authState.data?.user.id })
     }
 
@@ -48,21 +54,21 @@ export const MyInfo: React.FC<Props> = ({ setData }) => {
                     </div>
                     <div className={s.myInfo__inputs}>
                         <input
-                            className={`${s.myInfo__input} ${s.input} ${firstName !== authState.data?.user?.firstName ? s.active : null}`}
+                            className={`${s.myInfo__input} ${firstName !== authState.data?.user?.firstName ? s.false : null} ${active && firstName !== authState.data?.user?.firstName ? s.active : null}`}
                             type="text"
                             placeholder='Имя'
                             value={firstName}
                             onChange={(e) => setfirstName(e.target?.value)}
                         />
                         <input
-                            className={`${s.myInfo__input} ${s.input} ${lastName !== authState.data?.user?.lastName ? s.active : null}`}
+                            className={`${s.myInfo__input} ${lastName !== authState.data?.user?.lastName ? s.false : null} ${active && lastName !== authState.data?.user?.lastName ? s.active : null}`}
                             type="text"
                             placeholder='Фамилия'
                             value={lastName}
                             onChange={(e) => setLastName(e.target?.value)}
                         />
                         <input
-                            className={`${s.myInfo__input} ${s.input} ${email !== authState.data?.user?.email ? s.active : null}`}
+                            className={`${s.myInfo__input} ${email !== authState.data?.user?.email ? s.false : null} ${active && email !== authState.data?.user?.email ? s.active : null}`}
                             type="text"
                             placeholder='Почта'
                             value={email}
@@ -73,4 +79,4 @@ export const MyInfo: React.FC<Props> = ({ setData }) => {
             </div>
         </>
     );
-}
+})

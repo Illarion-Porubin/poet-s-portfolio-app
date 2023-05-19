@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import s from "./main.module.scss";
 import bg from "../../assets/jpg/mainbg.jpg";
 import face from "../../assets/png/face.png";
@@ -15,16 +15,14 @@ import { fetchGetContetn } from '../../redux/slices/contentSlice';
 import { UploadWidget } from '../../components/Upload/UploadWidget';
 
 
-export const MainPage: React.FC = () => {
+export const MainPage: React.FC = memo(() => {
   const dispatch = useCustomDispatch();
   const [mobMenu, setMobMenu] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState<string>('vladimiraroyan.base@gmail.com');
   const [pass, setPass] = React.useState<string>('123456');
   const auth = useCustomSelector(selectAuthData);
-
-  const contentState = useCustomSelector<any>(selectContentData)
-  const content = contentState.isLoading === `loaded` ? contentState.data?.content : []
+  const contentState = useCustomSelector(selectContentData)
 
   React.useEffect(() => {
     dispatch(fetchGetContetn());
@@ -113,18 +111,18 @@ export const MainPage: React.FC = () => {
         <div className="container">
           <div className={s.main__wrapp}>
             <div className={s.main__preface}>
-              <h1 className={s.main__title}>{content?.main_title || 'здесь должен быть текст, но что-то пошло не так'}</h1>
-              <button className={s.main__btn}>{content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
+              <h1 className={s.main__title}>{contentState.data?.content?.main_title || 'здесь должен быть текст, но что-то пошло не так'}</h1>
+              <button className={s.main__btn}>{contentState.data?.content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
             </div>
             <div className={s.main__info}>
               <div className={s.main__avatar}>
                 <UploadWidget requestFrom={''} />
               </div>
               <div className={s.main__avatar_wrapp}>
-                <h2 className={s.main__introduction}>{`${content?.main_firstName} ${content?.main_lastName}`}</h2>
+                <h2 className={s.main__introduction}>{`${contentState.data?.content?.main_firstName} ${contentState.data?.content?.main_lastName}`}</h2>
                 <div className={s.main__info_underline}></div>
               </div>
-              <button className={s.main__info_btn}>{content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
+              <button className={s.main__info_btn}>{contentState.data?.content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
             </div>
           </div>
         </div>
@@ -133,4 +131,4 @@ export const MainPage: React.FC = () => {
       <ContactsPage />
     </>
   )
-}
+})

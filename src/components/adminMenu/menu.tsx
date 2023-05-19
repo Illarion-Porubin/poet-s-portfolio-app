@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { memo } from 'react';
 import s from './menu.module.scss';
 import { Link } from 'react-router-dom';
 
@@ -6,16 +6,16 @@ interface Props {
     menuId: (value: string) => void
 }
 
-export const Menu: React.FC<Props> = ({ menuId }) => {
+export const Menu: React.FC<Props> = memo(({ menuId }) => {
     const [id, setId] = React.useState<number>(0)
-    const menu = [
+    const menu = React.useMemo(() => [
         'Личная информация',
         'Главная страница',
         'Добавить стих',
         'Добавить статью',
         'Изменить, удалить стих',
         'Изменить, удалить статью',
-    ]
+    ], [])
 
     const style = (index: number, item: string) => {
         setId(index)
@@ -45,4 +45,4 @@ export const Menu: React.FC<Props> = ({ menuId }) => {
             </div>
         </>
     );
-}
+})

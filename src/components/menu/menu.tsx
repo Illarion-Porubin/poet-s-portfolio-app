@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import s from "./menu.module.scss";
 import { Icons } from "../../components/icons/icons"
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
@@ -11,7 +11,7 @@ import { UserTypes } from '../../types/types';
 
 
 
-export const Menu: React.FC = () => {
+export const Menu: React.FC = memo(() => {
   const dispatch = useCustomDispatch();
   const [mobMenu, setMobMenu] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(false);
@@ -24,7 +24,7 @@ export const Menu: React.FC = () => {
     dispatch(fetchGetContetn());
   }, [dispatch]);
 
-  const login: any = async (e: any) => {
+  const login = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { payload } = await dispatch(fetchLogin({ email, password: pass }));
     const _payload = payload as UserTypes
@@ -98,4 +98,4 @@ export const Menu: React.FC = () => {
       </div>
     </>
   )
-}
+})

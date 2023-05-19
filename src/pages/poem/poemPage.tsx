@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 import s from './poemPage.module.scss';
 import { Menu } from '../../components/menu/menu';
-// import { PoemList } from '../../components/poemList/poemList';
 import { Pagination } from '../../components/pagination/pagination';
 import { PopupPoem } from '../../components/popup/popupPoem';
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
@@ -9,13 +8,12 @@ import { selectPoemData } from '../../redux/selectors';
 import { fetchGetPoems, fetchSearchPoems } from '../../redux/slices/poemSlice';
 import { Copyright } from '../../components/copyright/copyright';
 import useDebounce from '../../hooks/useDebounce';
+import { Creativity } from '../../types/types';
 
 
-
-
-export const PoemPage: React.FC = () => {
+export const PoemPage: React.FC = memo(() => {
   const dispatch = useCustomDispatch()
-  const [filterData, setFilterData] = React.useState<any>();
+  const [filterData, setFilterData] = React.useState<Creativity[]>([]);
   const [display, setDisplay] = React.useState<boolean>(true);
   const [search, setSearch] = React.useState<string>('')
   const [id, setId] = React.useState<number>(0)
@@ -47,7 +45,7 @@ export const PoemPage: React.FC = () => {
 
   React.useEffect(() => {
     setFilterData(
-      poemState.data.filter((item: any, index: number) => {
+      poemState.data.filter((_: any, index: number) => {
         return (index >= page * renderItems) && (index < (page + 1) * renderItems);
       })
     );
@@ -105,4 +103,4 @@ export const PoemPage: React.FC = () => {
       </section>
     </>
   )
-}
+})

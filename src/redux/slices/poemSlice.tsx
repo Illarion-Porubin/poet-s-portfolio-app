@@ -1,58 +1,59 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from '../../http/index';
-import { Poem } from '../../types/types';
+import { Creativity } from '../../types/types';
 
-export const fetchGetPoems = createAsyncThunk<Poem, number | undefined, { rejectValue: string }>('api/fetchGetPoems', async (page: number | undefined, { rejectWithValue }) => {
+export const fetchGetPoems = createAsyncThunk<Creativity[], number | undefined, { rejectValue: string }>('api/fetchGetPoems', async (page: number | undefined, { rejectWithValue }) => {
     const chackPage = page ? page : 1
     const { data }: any = await axios.get('/api/poems?p=' + chackPage)
     if (!data) {
         return rejectWithValue('Server Error!');
     }
-    const poem: Poem = data;
+    const poem: Creativity[] = data;
+    console.log(poem, 'poem')
     return poem;
 });
 
-export const fetchSearchPoems = createAsyncThunk<Poem, string, { rejectValue: string }>('api/fetchSearchPoems', async (value: string, { rejectWithValue }) => {
+export const fetchSearchPoems = createAsyncThunk<Creativity[], string, { rejectValue: string }>('api/fetchSearchPoems', async (value: string, { rejectWithValue }) => {
     const { data }: any = await axios.get('/api/search/poem/' + value)
     if (!data) {
         return rejectWithValue('Server Error!');
     }
-    const poem: Poem = data;
+    const poem: Creativity[] = data;
     return poem;
 });
 
-export const fetchPostPoem = createAsyncThunk<Poem, Poem, { rejectValue: string }>(
+export const fetchPostPoem = createAsyncThunk<Creativity[], Creativity[], { rejectValue: string }>(
     "api/fetchPostPoem", async (params, { rejectWithValue }) => {
         const { data } = await axios.post("/api/poem", params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const poem: Poem = data;
+        const poem: Creativity[] = data;
         return poem;
     });
 
-export const fetchUpdatePoem = createAsyncThunk<Poem, Poem, { rejectValue: string }>(
+export const fetchUpdatePoem = createAsyncThunk<Creativity[], Creativity[], { rejectValue: string }>(
     "api/fetchUpdatePoem", async (params, { rejectWithValue }) => {
         const { data } = await axios.put("/api/poem", params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const poem: Poem = data;
+        const poem: Creativity[] = data;
         return poem;
     });
 
-export const fetchDeletePoem = createAsyncThunk<Poem, string, { rejectValue: string }>(
+export const fetchDeletePoem = createAsyncThunk<Creativity[], string, { rejectValue: string }>(
     "api/fetchDeletePoem", async (params, { rejectWithValue }) => {
         const { data } = await axios.delete("/api/poem/" + params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const poem: Poem = data;
+        const poem: Creativity[] = data;
         return poem;
     });
 
 export type ContentPoem = {
-    data: Poem[] | [];
+    data:  [] | Creativity[] ;
     pages: number;
     isLoading: "idle" | "loading" | "loaded" | "error";
     error: string | null;
@@ -77,7 +78,7 @@ export const poemSlice = createSlice({
                 state.isLoading = 'loading';
             })
             .addCase(fetchGetPoems.fulfilled, (state, action) => {
-                state.data = [action.payload];
+                state.data = action.payload;
                 state.isLoading = 'loaded';
             })
             .addCase(fetchGetPoems.rejected, (state) => {
@@ -90,7 +91,7 @@ export const poemSlice = createSlice({
                 state.isLoading = 'loading';
             })
             .addCase(fetchSearchPoems.fulfilled, (state, action) => {
-                state.data = [action.payload];
+                state.data = action.payload;
                 state.isLoading = 'loaded';
             })
             .addCase(fetchSearchPoems.rejected, (state) => {
@@ -103,7 +104,7 @@ export const poemSlice = createSlice({
                 state.isLoading = "loading";
             })
             .addCase(fetchPostPoem.fulfilled, (state, action) => {
-                state.data = [action.payload];
+                state.data = action.payload;
                 state.isLoading = "loaded";
             })
             .addCase(fetchPostPoem.rejected, (state) => {
@@ -116,7 +117,7 @@ export const poemSlice = createSlice({
                 state.isLoading = "loading";
             })
             .addCase(fetchUpdatePoem.fulfilled, (state, action) => {
-                state.data = [action.payload];
+                state.data = action.payload;
                 state.isLoading = "loaded";
             })
             .addCase(fetchUpdatePoem.rejected, (state) => {

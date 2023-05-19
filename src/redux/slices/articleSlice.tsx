@@ -1,70 +1,70 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { Creativity } from '../../types/types';
 import axios from '../../http/index';
-import { Articles } from '../../types/types';
 
 
-export const fetchGetArticles = createAsyncThunk<Articles[], undefined, { rejectValue: string }>(
+export const fetchGetArticles = createAsyncThunk<Creativity[], undefined, { rejectValue: string }>(
     "api/fetchGetArticles", async (_, { rejectWithValue }) => {
         const { data } = await axios.get("/api/articles");
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const articles: Articles[] = data;
+        const articles: Creativity[] = data;
         return articles;
     });
 
-export const fetchSortArticles = createAsyncThunk<Articles[], string, { rejectValue: string }>(
+export const fetchSortArticles = createAsyncThunk<Creativity[], string, { rejectValue: string }>(
     "api/fetchSortArticles", async (params, { rejectWithValue }) => {
         const { data } = await axios.get("/api/articles/" + params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const articles: Articles[] = data;
+        const articles: Creativity[] = data;
         return articles;
     });
 
-export const fetchSearchArticles = createAsyncThunk<Articles[], string, { rejectValue: string }>('api/fetchSearchArticles', async (value: string, { rejectWithValue }) => {
+export const fetchSearchArticles = createAsyncThunk<Creativity[], string, { rejectValue: string }>('api/fetchSearchArticles', async (value: string, { rejectWithValue }) => {
     const { data } = await axios.get('/api/search/article/' + value);
     if (!data) {
         return rejectWithValue('Server Error!');
     }
-    const articles: Articles[] = data;
+    const articles: Creativity[] = data;
     return articles;
 });
 
-export const fetchPostArticle = createAsyncThunk<Articles[], Articles, { rejectValue: string }>(
+export const fetchPostArticle = createAsyncThunk<Creativity[], Creativity, { rejectValue: string }>(
     "api/fetchPostArticle", async (params, { rejectWithValue }) => {
         const { data } = await axios.post("/api/article", params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const articles: Articles[] = data;
+        const articles: Creativity[] = data;
         return articles;
     });
 
-export const fetchUpdateArticle = createAsyncThunk<Articles[], Articles, { rejectValue: string }>(
+export const fetchUpdateArticle = createAsyncThunk<Creativity[], Creativity, { rejectValue: string }>(
     "api/fetchUpdateArticle", async (params, { rejectWithValue }) => {
         const { data } = await axios.put("/api/article", params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const articles: Articles[] = data;
+        const articles: Creativity[] = data;
         return articles;
     });
 
-export const fetchDeleteArticle = createAsyncThunk<Articles[], string, { rejectValue: string }>(
+export const fetchDeleteArticle = createAsyncThunk<Creativity[], string, { rejectValue: string }>(
     "api/fetchDeleteArticle", async (params, { rejectWithValue }) => {
         const { data } = await axios.delete("/api/article/" + params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const articles: Articles[] = data;
+        const articles: Creativity[] = data;
         return articles;
     });
 
 
 export type ArticleState = {
-    data: [] | Articles[] | null;
+    data: [] | Creativity[] | null;
     isLoading: "idle" | "loading" | "loaded" | "error";
     error: string | null;
 }
