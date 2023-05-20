@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
-import s from './add.module.scss';
-import "easymde/dist/easymde.min.css";
 import SimpleMDE from "react-simplemde-editor";
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { useCustomDispatch } from '../../hooks/store';
 import { ComonTypes } from '../../types/types';
 import axios from '../../http';
+import s from './add.module.scss';
+import "easymde/dist/easymde.min.css";
 
 
 
@@ -38,7 +38,6 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
         setActive(false)
     }
 
-
     React.useEffect(() => {
         if (dataId.current) {
             if (componentName === 'Добавить статью') {
@@ -60,6 +59,22 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
         }
         reset()
     }, [dispatch, id, componentName])
+
+
+    const options: any = React.useMemo(
+        () => ({
+          spellChecker: false,
+          maxHeight: '400px',
+          autofocus: true,
+          placeholder: 'Введите текст...',
+          status: false,
+          autosave: {
+            enabled: true,
+            delay: 1000,
+          },
+        }),
+        [],
+      );
 
     return (
         <>
@@ -92,7 +107,7 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
                                 />
                             </div>
                             <div>
-                                <SimpleMDE value={dataText} onChange={onChange} />
+                                <SimpleMDE value={dataText} onChange={onChange} options={options}/>
                             </div>
                         </div>
                     </div>
