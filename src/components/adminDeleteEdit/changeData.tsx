@@ -112,7 +112,7 @@ export const ChangeData: React.FC<Props> = memo(({ componentName, updateData }) 
                 </div>
 
                 :
-                <h1>Загрузка</h1>
+                null
         }
 
         </>

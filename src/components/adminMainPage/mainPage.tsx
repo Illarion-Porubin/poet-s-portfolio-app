@@ -39,7 +39,8 @@ export const MainPage: React.FC<Props> = memo(({ contentState }) => {
                             longDescription.map((value) =>
                                 <LongDesc long={value} key={value.desc} />
                             )
-                            : <h1>Загрузка</h1>
+                            : 
+                            null
                         }
                     </div>
                 </div>
