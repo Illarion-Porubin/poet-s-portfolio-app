@@ -21,12 +21,11 @@ export const ChangeData: React.FC<Props> = memo(({ componentName, updateData }) 
     const articles = useCustomSelector(selectArticleData);
     const [search, setSearch] = React.useState<string>('');
     const [page, setPage] = React.useState<number>(0);
-    const debounce = useDebounce(search, 400);
-    const poemState = useCustomSelector(selectPoemData);
-    const renderItems = 24;
-    const amontPages = poemState.data.length;
-    const content = componentName === 'Изменить, удалить стих' ? poems : articles
     const [filterData, setFilterData] = React.useState<Creativity[]>();
+    const debounce = useDebounce(search, 400);
+    const renderItems = 24;
+    const content = componentName === 'Изменить, удалить стих' ? poems : articles
+    const amontPages = content.data.length / renderItems;
 
     const deleteItem = (_id: string | null | undefined, component: string) => {
         if (component === 'Изменить, удалить стих') {
@@ -71,7 +70,7 @@ export const ChangeData: React.FC<Props> = memo(({ componentName, updateData }) 
             );
         }
     }, [dispatch, page, content.data]);
-
+    
     return (
         <>{
             filterData ?

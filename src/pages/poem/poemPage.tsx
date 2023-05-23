@@ -7,8 +7,8 @@ import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
 import { selectPoemData } from '../../redux/selectors';
 import { fetchGetPoems, fetchSearchPoems } from '../../redux/slices/poemSlice';
 import { Copyright } from '../../components/copyright/copyright';
-import useDebounce from '../../hooks/useDebounce';
 import { Creativity } from '../../types/types';
+import useDebounce from '../../hooks/useDebounce';
 
 
 export const PoemPage: React.FC = memo(() => {

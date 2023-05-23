@@ -9,7 +9,6 @@ export const fetchGetPoems = createAsyncThunk<Creativity[], number | undefined, 
         return rejectWithValue('Server Error!');
     }
     const poem: Creativity[] = data;
-    console.log(poem, 'poem')
     return poem;
 });
 

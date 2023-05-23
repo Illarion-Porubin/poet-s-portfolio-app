@@ -49,7 +49,7 @@
 
     &__wrapp {
         min-width: 700px;
-        height: 100vh;
+        height: 91vh;
         padding: 30px 50px 0 50px;
         position: relative;
         background-image: url('../../assets/jpg/poembg.jpg');
@@ -71,7 +71,10 @@
 
     &__title {
         width: 100%;
-        text-align: center;
+        font-size: 28px;
+        text-align: left;
+        position: relative;
+        left: 34px;
     }
 
     &__content {
@@ -79,11 +82,29 @@
         top: 100px;
         left: 80px;
         right: 0;
-        bottom: 150px;
+        bottom: 134px;
         margin-right: 50px;
         margin-bottom: 20px;
         overflow: auto;
         scrollbar-gutter: auto;
+    }
+
+    &__thx_wrap {
+        width: 100%;
+        height: 80px;
+        z-index: 100;
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__thx {
+        padding: 8px 20px;
+        background: rgba(255, 244, 232, 0.25);
+        border: 1px solid #000000;
+        border-radius: 12px;
     }
 
     &__text {
@@ -104,47 +125,44 @@
     .popupPoem {
         top: 60px;
         bottom: 60px;
-    }
-}
 
-@media(max-width: 601px) {
-    .popupPoem {
-        &__title{
-            font-size: 28px;
-            line-height: 30px;
-        }
-        &__text{
-            font-size: 18px;
-            line-height: 20px;
-            margin-left: 12%;
+        &__content {
+            bottom: 100px;
         }
     }
 }
 
 @media(max-width: 601px) {
     .popupPoem {
-        &__title{
+        &__title {
             font-size: 22px;
+            text-align: center;
+            position: static;
         }
-        &__content{
-            top: 80px;
+
+        &__content {
+            bottom: 110px;
         }
-        &__text{
+
+        &__text {
             font-size: 16px;
-            margin-left: 18%;
+            margin-left: 16%;
+            line-height: 20px;
         }
     }
 }
 
 @media(max-width: 381px) {
     .popupPoem {
-        &__title{
+        &__title {
             font-size: 16px;
             line-height: 24px;
         }
-        &__text{
+
+        &__text {
             font-size: 12px;
-            margin-left: 26%;
+            line-height: 16px;
+            margin-left: 25%;
         }
     }
 }

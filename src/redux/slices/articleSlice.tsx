@@ -64,7 +64,7 @@ export const fetchDeleteArticle = createAsyncThunk<Creativity[], string, { rejec
 
 
 export type ArticleState = {
-    data: [] | Creativity[] | null;
+    data: [] | Creativity[];
     isLoading: "idle" | "loading" | "loaded" | "error";
     error: string | null;
 }
@@ -83,7 +83,7 @@ const articleSlice = createSlice({
         builder
             // ///fetchGetArticles
             .addCase(fetchGetArticles.pending, (state) => {
-                state.data = null;
+                state.data = [];
                 state.isLoading = "loading";
             })
             .addCase(fetchGetArticles.fulfilled, (state, action) => {
@@ -91,12 +91,12 @@ const articleSlice = createSlice({
                 state.isLoading = "loaded";
             })
             .addCase(fetchGetArticles.rejected, (state) => {
-                state.data = null;
+                state.data = [];
                 state.isLoading = "error";
             })
             ///fetchSortArticles
             .addCase(fetchSortArticles.pending, (state) => {
-                state.data = null;
+                state.data = [];
                 state.isLoading = "loading";
             })
             .addCase(fetchSortArticles.fulfilled, (state, action) => {
@@ -104,12 +104,12 @@ const articleSlice = createSlice({
                 state.isLoading = "loaded";
             })
             .addCase(fetchSortArticles.rejected, (state) => {
-                state.data = null;
+                state.data = [];
                 state.isLoading = "error";
             })
             ///fetchSearchArticles
             .addCase(fetchSearchArticles.pending, (state) => {
-                state.data = null;
+                state.data = [];
                 state.isLoading = 'loading';
             })
             .addCase(fetchSearchArticles.fulfilled, (state, action) => {
@@ -117,12 +117,12 @@ const articleSlice = createSlice({
                 state.isLoading = 'loaded';
             })
             .addCase(fetchSearchArticles.rejected, (state) => {
-                state.data = null;
+                state.data = [];
                 state.isLoading = 'error';
             })
             ///fetchPostArticle
             .addCase(fetchPostArticle.pending, (state) => {
-                state.data = null;
+                state.data = [];
                 state.isLoading = "loading";
             })
             .addCase(fetchPostArticle.fulfilled, (state, action) => {
@@ -130,12 +130,12 @@ const articleSlice = createSlice({
                 state.isLoading = "loaded";
             })
             .addCase(fetchPostArticle.rejected, (state) => {
-                state.data = null;
+                state.data = [];
                 state.isLoading = "error";
             })
             ///fetchUpdateArticle
             .addCase(fetchUpdateArticle.pending, (state) => {
-                state.data = null;
+                state.data = [];
                 state.isLoading = "loading";
             })
             .addCase(fetchUpdateArticle.fulfilled, (state, action) => {
@@ -143,7 +143,7 @@ const articleSlice = createSlice({
                 state.isLoading = "loaded";
             })
             .addCase(fetchUpdateArticle.rejected, (state) => {
-                state.data = null;
+                state.data = [];
                 state.isLoading = "error";
             })
     }

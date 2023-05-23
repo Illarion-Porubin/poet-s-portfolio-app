@@ -39,7 +39,8 @@ export  const ArticlesPage: React.FC = memo(() =>{
                                 state.data?.map((items: Creativity) =>
                                     <ArticlesList items={items} key={items.title} />
                                 )
-                                : <h1>Загрузка</h1>
+                                :
+                                null
                         }
                     </ul>
                 </div>

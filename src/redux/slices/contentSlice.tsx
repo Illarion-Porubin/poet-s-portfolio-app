@@ -36,19 +36,6 @@ export const fetchSendMaeesage = createAsyncThunk<Content, SendEmail, { rejectVa
   }
 );
 
-export const fetchGetCreative = createAsyncThunk<any, any, { rejectValue: string }>(
-  "api/fetchGetCreative", async (params, { rejectWithValue }) => {
-    const { data }:any = await axios.post("/api/getCreative", params);
-    if (!data) {
-      return rejectWithValue("Server Error!");
-    }
-    const auth: any = data
-    return auth;
-  }
-);
-
-// get creative
-
 export type ContentState = {
   data: Content | null;
   newData: Content | {};

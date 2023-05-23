@@ -89,7 +89,6 @@ export const authSlice = createSlice({
         state.isLoading = "loading";
       })
       .addCase(fetchRegister.fulfilled, (state, action) => {
-        console.log(action.payload, `fetchRegister`)
         state.data = action.payload;
         state.isLoading = "loaded";
       })

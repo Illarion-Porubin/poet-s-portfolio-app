@@ -12,8 +12,6 @@ export const ArticlesList: React.FC<Props> = memo(({ items }) => {
     const data = items.createdAt ? new Date(items.createdAt).toLocaleString().slice(0, 5) : [0]
     const time = items.createdAt ? new Date(items.createdAt).toLocaleString().slice(12, 17) : [0]
 
-    console.log(time)
-
     return (
         <>
             <li className={open ? `${s.articlesList} ${s.open}` : s.articlesList}>

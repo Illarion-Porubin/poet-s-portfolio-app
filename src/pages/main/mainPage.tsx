@@ -122,7 +122,9 @@ export const MainPage: React.FC = memo(() => {
                 <h2 className={s.main__introduction}>{`${contentState.data?.content?.main_firstName} ${contentState.data?.content?.main_lastName}`}</h2>
                 <div className={s.main__info_underline}></div>
               </div>
-              <button className={s.main__info_btn}>{contentState.data?.content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
+              <a href="https://yoomoney.ru/to/4100112210842619">
+                <button className={s.main__info_btn}>{contentState.data?.content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
+              </a>
             </div>
           </div>
         </div>

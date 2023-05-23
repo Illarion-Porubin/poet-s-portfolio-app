@@ -7,8 +7,6 @@ import axios from '../../http';
 import s from './add.module.scss';
 import "easymde/dist/easymde.min.css";
 
-
-
 interface Props {
     id: string | null | undefined,
     setData: (poem: ComonTypes) => void,
@@ -20,6 +18,7 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
     const [dataTitle, setDataTitle] = React.useState<string>('');
     const [dataText, setDataText] = React.useState<string>('');
     const [active, setActive] = React.useState<boolean>(false);
+    const [creativity, setCreativity] = React.useState<any>(null);
     const dataId = React.useRef<null | string | undefined>(id)
 
     const onChange = React.useCallback((value: string) => {
@@ -43,6 +42,7 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
             if (componentName === 'Добавить статью') {
                 axios.get(`api/article/${dataId.current}`).then((res) => {
                     const data = res.data.article;
+                    setCreativity(data)
                     setDataTitle(data.title)
                     setDataText(data.text)
                     dataId.current = data._id
@@ -51,6 +51,7 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
             else {
                 axios.get(`api/poem/${dataId.current}`).then((res) => {
                     const data = res.data.poem;
+                    setCreativity(data)
                     setDataTitle(data.title)
                     setDataText(data.text)
                     dataId.current = data._id
@@ -63,18 +64,14 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
 
     const options: any = React.useMemo(
         () => ({
-          spellChecker: false,
-          maxHeight: '400px',
-          autofocus: true,
-          placeholder: 'Введите текст...',
-          status: false,
-          autosave: {
-            enabled: true,
-            delay: 1000,
-          },
+            spellChecker: false,
+            maxHeight: '400px',
+            autofocus: true,
+            placeholder: 'Введите текст...',
+            status: false,
         }),
         [],
-      );
+    );
 
     return (
         <>
@@ -107,7 +104,7 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
                                 />
                             </div>
                             <div>
-                                <SimpleMDE value={dataText} onChange={onChange} options={options}/>
+                                <SimpleMDE value={dataText} onChange={onChange} options={options} />
                             </div>
                         </div>
                     </div>

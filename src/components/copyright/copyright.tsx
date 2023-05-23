@@ -7,7 +7,7 @@ export const Copyright: React.FC = memo(() => {
             <div className={s.copyright}>
                 <div className={s.copyright__text}>
                     <h3>За копированием и публикацией контента обращайтесь к автору.</h3>
-                    <p>©Все права защищены</p>
+                    <p>©Владир Ароян, все права защищены</p>
                 </div>
             </div>
         </>
