@@ -94,7 +94,7 @@ export const ContactsPage: React.FC = memo(() => {
                 onChange={e => setName(e.target.value.replace(/[A-Za-z0-9\s`~!@#$%^&*()_+-={}|:;<>?,.|_/"']/, ''))}
               />
               <input
-                className={s.contacts__form_input}
+                className={`${s.contacts__form_input} ${s.contacts__input_email}`}
                 placeholder='Почта'
                 type="email"
                 value={email}

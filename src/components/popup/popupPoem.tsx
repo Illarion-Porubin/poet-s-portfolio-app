@@ -12,7 +12,6 @@ interface Props {
     hideContent: () => void
 }
 
-
 export const PopupPoem: React.FC<Props> = memo(({ item, hideContent, display }) => {
     return (
         ReactDOM.createPortal(
@@ -22,13 +21,10 @@ export const PopupPoem: React.FC<Props> = memo(({ item, hideContent, display }) 
                         <div className={s.popupPoem__box}>
                             <h1 className={s.popupPoem__title}>{item.title}</h1>
                             <div className={s.popupPoem__content}>
-                                <pre className={s.popupPoem__text}>{item.text}</pre>
+                                <p className={s.popupPoem__text}>{item.text}</p>
                             </div>
                         </div>
                     </div>
-                    <a className={s.popupPoem__thx_wrap} href="https://yoomoney.ru/to/4100112210842619">
-                        <button className={s.popupPoem__thx}>Сказать спасибо</button>
-                    </a>
                 </div>
                 : null,
             portal

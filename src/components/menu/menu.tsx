@@ -81,7 +81,7 @@ export const Menu: React.FC = memo(() => {
                     <Link to="/poem">стихи</Link>
                   </li>
                   <li className={s.menu__list_li}>
-                    <Link to="/articles">рассказы</Link>
+                    <Link to="/stories">рассказы</Link>
                   </li>
                 </ul>
               </nav>

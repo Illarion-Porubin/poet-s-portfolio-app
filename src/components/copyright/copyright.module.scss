@@ -1,5 +1,5 @@
 .copyright {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
@@ -9,10 +9,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
 
     &__text {
         text-align: center;
-
         h3 {
             font-family: 'Roboto';
             font-style: normal;
@@ -43,13 +43,13 @@
     .copyright {
         &__text {
             h3 {
-                font-size: 14px;
+                font-size: 12px;
                 line-height: 18px;
             }
 
             p {
                 font-size: 12px;
-                line-height: 16px;
+                line-height: 14px;
             }
         }
     }
