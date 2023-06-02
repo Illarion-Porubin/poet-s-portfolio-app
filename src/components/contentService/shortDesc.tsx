@@ -24,6 +24,11 @@ export const ShortDesc: React.FC<Props> = memo(({ short }) => {
         dispatch(saveContent({ [key]: value }))
     }
 
+    const cancel = () => {
+        setValue(short.text)
+        setActive(false)
+    }
+
     React.useMemo(() => {
         if (value !== short.text) {
             setActive(false)
@@ -59,7 +64,7 @@ export const ShortDesc: React.FC<Props> = memo(({ short }) => {
                                 </button>
                                 <button
                                     className={s.description__item_btn}
-                                    onClick={() => setValue(short.text)}
+                                    onClick={cancel}
                                 >
                                     <GlobalSvgSelecotr id={'cancel'}
                                     />

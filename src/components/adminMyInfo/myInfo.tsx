@@ -22,12 +22,12 @@ export const MyInfo: React.FC<Props> = memo(({ setData }) => {
     const authState = useCustomSelector(selectAuthData);
 
     React.useEffect(() => {
-        if (authState.isLoading === 'loaded') {
+        if (authState.data?.user) {
             setfirstName(authState.data?.user?.firstName)
             setLastName(authState.data?.user?.lastName)
             setEmail(authState.data?.user?.email)
         }
-    }, [authState.isLoading, authState.data?.user?.firstName, authState.data?.user?.lastName, authState.data?.user?.email])
+    }, [authState.isLoading, authState.data?.user?.firstName, authState.data?.user?.lastName, authState.data?.user?.email, authState.data?.user])
 
 
     const saveData = () => {

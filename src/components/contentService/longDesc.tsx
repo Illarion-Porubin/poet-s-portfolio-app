@@ -49,6 +49,16 @@ export const LongDesc: React.FC<Props> = memo(({ long }) => {
         }
     }
 
+    const options: any = React.useMemo(
+        () => ({
+            spellChecker: false,
+            maxHeight: '400px',
+            placeholder: 'Введите текст...',
+            status: false,
+        }),
+        [],
+    );
+
     return (
         <>
             <div className={s.description}>
@@ -72,7 +82,7 @@ export const LongDesc: React.FC<Props> = memo(({ long }) => {
                             </div>
                         </div>
                         <div >
-                            <SimpleMDE value={value} onChange={onChange} />
+                            <SimpleMDE value={value} onChange={onChange} options={options}/>
                         </div>
                     </div>
                 </div>

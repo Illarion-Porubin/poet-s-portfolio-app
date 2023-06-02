@@ -21,7 +21,7 @@ export const fetchSearchPoems = createAsyncThunk<Creativity[], string, { rejectV
     return poem;
 });
 
-export const fetchPostPoem = createAsyncThunk<Creativity[], Creativity[], { rejectValue: string }>(
+export const fetchPostPoem = createAsyncThunk<Creativity[], Creativity, { rejectValue: string }>(
     "api/fetchPostPoem", async (params, { rejectWithValue }) => {
         const { data } = await axios.post("/api/poem", params);
         if (!data) {
@@ -31,7 +31,7 @@ export const fetchPostPoem = createAsyncThunk<Creativity[], Creativity[], { reje
         return poem;
     });
 
-export const fetchUpdatePoem = createAsyncThunk<Creativity[], Creativity[], { rejectValue: string }>(
+export const fetchUpdatePoem = createAsyncThunk<Creativity[], Creativity, { rejectValue: string }>(
     "api/fetchUpdatePoem", async (params, { rejectWithValue }) => {
         const { data } = await axios.put("/api/poem", params);
         if (!data) {

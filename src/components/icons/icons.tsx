@@ -8,7 +8,7 @@ export const Icons: React.FC = memo(() => {
     <>
       <div className={s.icons}>
         <div className={s.icons__list}>
-          <a className={s.icons__svg} href="/#main">
+          <a className={s.icons__svg} href="/https://t.me/Valarr12">
             <div ><GlobalSvgSelecotr id={`te`} /></div>
           </a>
           <a className={s.icons__svg} href="https://ok.ru/profile/577208613451?utm_campaign=android_share&utm_content=profile">

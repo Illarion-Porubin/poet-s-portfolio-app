@@ -69,13 +69,13 @@ export const AdminPage: React.FC = memo(() => {
                     break
                 case 'Добавить стих':
                     if (data?.id) {
-                        dispatch(fetchUpdatePoem([{ _id: data?.id, text: data?.text, title: data?.title }]))
+                        dispatch(fetchUpdatePoem({_id: data?.id, text: data?.text, title: data?.title }))
                         setTimeout(() => {
                             window.location.reload()
                         }, 200);
                     }
                     else {
-                        dispatch(fetchPostPoem([{ _id: data?.id, text: data?.text, title: data?.title }]))
+                        dispatch(fetchPostPoem({_id: data?.id, text: data?.text, title: data?.title }))
                         setTimeout(() => {
                             window.location.reload()
                         }, 200);
@@ -83,19 +83,14 @@ export const AdminPage: React.FC = memo(() => {
                     break
                 case 'Добавить статью':
                     if (data?.id) {
-                        dispatch(fetchUpdateArticle(data))
+                        dispatch(fetchUpdateArticle({_id: data?.id, text: data?.text, title: data?.title }))
                         setTimeout(() => {
                             window.location.reload()
                         }, 200);
                     }
                     else {
                         if (data) {
-                            const newData: Creativity = {
-                                _id: data.id,
-                                title: data.title,
-                                text: data.text
-                            }
-                            dispatch(fetchPostArticle(newData))
+                            dispatch(fetchPostArticle({_id: data?.id, text: data?.text, title: data?.title }))
                             setTimeout(() => {
                                 window.location.reload()
                             }, 200);

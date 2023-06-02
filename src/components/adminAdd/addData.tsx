@@ -63,7 +63,6 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
         () => ({
             spellChecker: false,
             maxHeight: '400px',
-            autofocus: true,
             placeholder: 'Введите текст...',
             status: false,
         }),
@@ -97,6 +96,7 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
                                     className={s.description__item_content}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDataTitle(e.target.value)}
                                     placeholder="Название"
+                                    disabled={active}
                                     value={dataTitle}
                                 />
                             </div>

@@ -111,19 +111,40 @@ export const MainPage: React.FC = memo(() => {
         <div className="container">
           <div className={s.main__wrapp}>
             <div className={s.main__preface}>
-              <h1 className={s.main__title}>{contentState.data?.content?.main_title || 'здесь должен быть текст, но что-то пошло не так'}</h1>
-              <button className={s.main__btn}>{contentState.data?.content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
+              <h1 className={s.main__title}>{contentState.data?.content?.main_title || `Стих - это частичка души автора, подаренная читателю...`}</h1>
+              <a href="https://yoomoney.ru/to/4100112210842619">
+                {
+                  contentState.data?.content?.main_btn
+                    ?
+                    <button className={s.main__btn}>{contentState.data?.content?.main_btn}</button>
+                    :
+                    <button className={s.main__btn}>Поддержать моё творчество</button>
+                }
+              </a>
+
             </div>
             <div className={s.main__info}>
               <div className={s.main__avatar}>
                 <UploadWidget requestFrom={''} />
               </div>
               <div className={s.main__avatar_wrapp}>
-                <h2 className={s.main__introduction}>{`${contentState.data?.content?.main_firstName} ${contentState.data?.content?.main_lastName}`}</h2>
+                {
+                  contentState.isLoading === 'loaded'
+                    ?
+                    <h2 className={s.main__introduction}>{`${contentState.data?.content?.main_firstName} ${contentState.data?.content?.main_lastName}`}</h2>
+                    :
+                    <h2 className={s.main__introduction}>{`Владимир Ароян`}</h2>
+                }
                 <div className={s.main__info_underline}></div>
               </div>
               <a href="https://yoomoney.ru/to/4100112210842619">
-                <button className={s.main__info_btn}>{contentState.data?.content?.main_btn || 'здесь должен быть текст, но что-то пошло не так'}</button>
+                {
+                  contentState.isLoading === 'loaded'
+                    ?
+                    <button className={s.main__info_btn}>{contentState.data?.content?.main_btn}</button>
+                    :
+                    <button className={s.main__info_btn}>Поддержать моё творчество</button>
+                }
               </a>
             </div>
           </div>
