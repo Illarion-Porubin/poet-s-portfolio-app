@@ -4,23 +4,22 @@ import bg from "../../assets/jpg/mainbg.jpg";
 import face from "../../assets/png/face.png";
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { Icons } from '../../components/icons/icons';
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AboutPage } from '../about/about';
 import { ContactsPage } from '../contacts/contactsPage';
-import { fetchLogin } from "../../redux/slices/authSlice";
 import { selectAuthData, selectContentData } from "../../redux/selectors";
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
-import { UserTypes } from "../../types/types";
 import { fetchGetContetn } from '../../redux/slices/contentSlice';
 import { UploadWidget } from '../../components/Upload/UploadWidget';
+import { Donate } from '../../components/popup/popupDonate';
+import { Auth } from '../../components/popup/popupAuth';
 
 
 export const MainPage: React.FC = memo(() => {
   const dispatch = useCustomDispatch();
   const [mobMenu, setMobMenu] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(false);
-  const [email, setEmail] = React.useState<string>('');
-  const [pass, setPass] = React.useState<string>('');
+  const [donate, setDonate] = React.useState<boolean>(false);
   const auth = useCustomSelector(selectAuthData);
   const contentState = useCustomSelector(selectContentData)
 
@@ -28,49 +27,12 @@ export const MainPage: React.FC = memo(() => {
     dispatch(fetchGetContetn());
   }, [dispatch]);
 
-  const login: any = async (e: any) => {
-    e.preventDefault()
-    const { payload } = await dispatch(fetchLogin({ email, password: pass }));
-    const _payload = payload as UserTypes
-    if (!payload) {
-      return alert("Не удалось авторизоваться");
-    }
-
-    if (!_payload.user?.isActivated) {
-      return alert("Пожалуйста, подтвердите аккаунт");
-    }
-
-    else {
-      if (_payload.accessToken && "accessToken" in _payload) {
-        window.localStorage.setItem('token', _payload.accessToken);
-      }
-    }
-  };
+  console.log(contentState)
 
   return (
     <>
-      <div className={open ? `${s.popup} ${s.active}` : s.popup} onClick={() => setOpen(false)}>
-        <form className={open ? `${s.popup__form} ${s.active}` : s.popup__form} onClick={e => e.stopPropagation()} onSubmit={(e) => login(e)}>
-          <h5 className={s.popup__title}>Авторизация</h5>
-          <input
-            className={s.popup__input}
-            type="email" placeholder='Login'
-            onChange={e => setEmail(e.target.value)}
-            value={email} />
-          <input
-            className={s.popup__input}
-            type="password" placeholder='Password'
-            onChange={e => setPass(e.target.value)}
-            value={pass} />
-          <button className={s.popup__btn}>войти</button>
-        </form>
-        {auth.isLoading === 'loaded' && auth.data?.user?.admin && open ?
-          <Navigate to='/admin' />
-          :
-          null
-        }
-      </div>
-
+      <Auth open={open} setOpen={setOpen} auth={auth} />
+      <Donate donate={donate} phone={contentState.data?.content?.main_phone} card={contentState.data?.content?.main_card} setDonate={setDonate} />
 
       <section className={s.main} id='main' style={{ backgroundImage: `url(${bg})` }}>
         <div className={s.menu}>
@@ -112,16 +74,13 @@ export const MainPage: React.FC = memo(() => {
           <div className={s.main__wrapp}>
             <div className={s.main__preface}>
               <h1 className={s.main__title}>{contentState.data?.content?.main_title || `Стих - это частичка души автора, подаренная читателю...`}</h1>
-              <a href="https://yoomoney.ru/to/4100112210842619">
-                {
-                  contentState.data?.content?.main_btn
-                    ?
-                    <button className={s.main__btn}>{contentState.data?.content?.main_btn}</button>
-                    :
-                    <button className={s.main__btn}>Поддержать моё творчество</button>
-                }
-              </a>
-
+              {
+                contentState.isLoading === 'loaded'
+                  ?
+                  <button className={s.main__btn} onClick={() => setDonate(true)}>{contentState.data?.content?.main_btn}</button>
+                  :
+                  <button className={s.main__btn} onClick={() => setDonate(true)}>Поддержать моё творчество</button>
+              }
             </div>
             <div className={s.main__info}>
               <div className={s.main__avatar}>
@@ -137,15 +96,13 @@ export const MainPage: React.FC = memo(() => {
                 }
                 <div className={s.main__info_underline}></div>
               </div>
-              <a href="https://yoomoney.ru/to/4100112210842619">
-                {
-                  contentState.isLoading === 'loaded'
-                    ?
-                    <button className={s.main__info_btn}>{contentState.data?.content?.main_btn}</button>
-                    :
-                    <button className={s.main__info_btn}>Поддержать моё творчество</button>
-                }
-              </a>
+              {
+                contentState.isLoading === 'loaded'
+                  ?
+                  <button className={s.main__info_btn} onClick={() => setDonate(true)}>{contentState.data?.content?.main_btn}</button>
+                  :
+                  <button className={s.main__info_btn} onClick={() => setDonate(true)}>Поддержать моё творчество</button>
+              }
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ interface Props {
 export const ShortDesc: React.FC<Props> = memo(({ short }) => {
     const dispatch = useCustomDispatch();
     const tagsInput = React.useRef<HTMLDivElement>(null);
-    const [value, setValue] = React.useState<string>(short.text ? short.text : 'загрузка');
+    const [value, setValue] = React.useState<string>(short.text);
     const [active, setActive] = React.useState<boolean>(false);
 
     const completed = () => {
@@ -55,7 +55,7 @@ export const ShortDesc: React.FC<Props> = memo(({ short }) => {
                 <div className={s.description__items}>
                     <div className={style()} ref={tagsInput}>
                         <div className={s.description__item_header}>
-                            <h4 className={s.description__item_title}>{short.desc ? short.desc : 'загрузка'}</h4>
+                            <h4 className={s.description__item_title}>{short.desc ? short.desc : 'псто'}</h4>
                             <div className={s.description__item_btns}>
                                 <button className={s.description__item_btn}
                                     onClick={completed}

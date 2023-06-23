@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import s from './admin.module.scss';
 import { Menu } from '../../components/adminMenu/menu';
-import { MainPage } from '../../components/adminMainPage/mainPage';
+import { Content } from '../../components/adminContent/content';
 import { MyInfo } from '../../components/adminMyInfo/myInfo';
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
 import { selectAuthData, selectContentData } from '../../redux/selectors';
@@ -11,10 +11,8 @@ import { AddData } from '../../components/adminAdd/addData';
 import { ChangeData } from '../../components/adminDeleteEdit/changeData';
 import { fetchPostPoem, fetchUpdatePoem } from '../../redux/slices/poemSlice';
 import { fetchPostArticle, fetchUpdateArticle } from '../../redux/slices/articleSlice';
-import { fetchUpdateInfo } from '../../redux/slices/authSlice';
-import { Creativity, ComonTypes, AdminTypes } from '../../types/types';
-
-
+import { fetchAuthMe, fetchUpdateInfo } from '../../redux/slices/authSlice';
+import { ComonTypes, AdminTypes } from '../../types/types';
 
 
 export const AdminPage: React.FC = memo(() => {
@@ -25,6 +23,7 @@ export const AdminPage: React.FC = memo(() => {
     const [data, setData] = React.useState<ComonTypes | null>(null);
     const articleId = React.useRef<string>('');
     const poemId = React.useRef<string>('');
+    const [active, setActive] = React.useState<boolean>(false);
 
     const menuId = (value: string) => {
         setComponent(value)
@@ -49,14 +48,22 @@ export const AdminPage: React.FC = memo(() => {
                         lastName: data?.lastName,
                         email: data?.email,
                         id: data?.id,
+                        phone: data?.phone,
+                        card: data?.card
                     }
                     dispatch(fetchUpdateInfo({ ...newData }))
                     dispatch(fetchUpdateContent({
                         ...contentState.data?.content,
-                        main_email: data?.email,
                         main_firstName: data?.firstName,
-                        main_lastName: data?.lastName
+                        main_lastName: data?.lastName,
+                        main_email: data?.email,
+                        main_phone: data?.phone,
+                        main_card: data?.card,
                     }))
+                    setActive(false)
+                    setTimeout(() => {
+                        dispatch(fetchAuthMe())
+                    }, 200);
                     setTimeout(() => {
                         dispatch(fetchGetContetn())
                     }, 200);
@@ -115,9 +122,9 @@ export const AdminPage: React.FC = memo(() => {
     const ChildComponent = (name: string) => {
         switch (name) {
             case 'Личная информация':
-                return <MyInfo setData={setData} />
+                return <MyInfo setData={setData} active={active} setActive={setActive}/>
             case 'Главная страница':
-                return <MainPage contentState={contentState} />
+                return <Content contentState={contentState} />
             case 'Добавить стих':
                 return <AddData id={poemId.current} setData={setData} componentName={component} />
             case 'Добавить статью':
@@ -128,7 +135,7 @@ export const AdminPage: React.FC = memo(() => {
                 return <ChangeData updateData={addId} componentName={component} />
             default:
                 return (
-                    <MyInfo setData={setData} />
+                    <MyInfo setData={setData} active={active} setActive={setActive}/>
                 );
         }
     }

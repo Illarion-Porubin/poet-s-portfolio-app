@@ -40,6 +40,7 @@
         filter: drop-shadow(3px 4px 4px rgba(0, 0, 0, 0.45));
         z-index: 0;
         margin: 0 auto;
+        cursor: pointer;
     }
 
     &__title {
@@ -64,11 +65,11 @@
     &__text {
         font-style: normal;
         font-weight: 400;
-        font-size: 20px;
-        line-height: 22px;
+        font-size: 22px;
+        line-height: 28px;
         letter-spacing: 0.05em;
         white-space: pre-line;
-        margin: 0;
+        margin: 2px;
     }
 }
 
@@ -106,8 +107,8 @@
             top: 80px;
         }
         &__text {
-            font-size: 18px;
-            line-height: 22px;
+            font-size: 19px;
+            line-height: 24px;
         }
     }
 }

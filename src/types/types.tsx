@@ -7,6 +7,8 @@ export type UserTypes = {
     password?: string;
     firstName?: string;
     lastName?: string;
+    phone?: string;
+    card?: string;
     email?: string;
     isActivated?: boolean;
     admin?: boolean;
@@ -15,9 +17,11 @@ export type UserTypes = {
 };
 
 export type AdminTypes = {
-  firstName: string | null | undefined;
-  lastName: string | null | undefined;
-  email: string | null | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  email: string | undefined;
+  phone: string | undefined;
+  card: string | undefined;
   id: string | null | undefined;
 };
 
@@ -29,6 +33,8 @@ export type ComonTypes = {
   firstName?: string;
   lastName?: string;
   email?: string;
+  phone?: string;
+  card?: string;
   isActivated?: boolean;
   admin?: boolean;
   id?: string | null | undefined;
@@ -50,13 +56,15 @@ export type Content = {
     main_lastName?: string,
     main_email?: string,
     main_title?: string,
+    main_card?: string,
+    main_phone?: string,
     main_btn?: string,
     about_block_title_1?: string,
     about_block_text_1?: string,
     contact_title?: string,
     about_block_title_2?: string,
     about_block_text_2?: string,
-  } 
+  }
 }
 
 export type NewContent = {
@@ -69,6 +77,8 @@ export type NewContent = {
   main_email?: string | undefined,
   main_firstName?: string | undefined,
   main_lastName?: string | undefined,
+  main_phone?: string | undefined,
+  main_card?: string | undefined,
   main_photo_id?: string | undefined,
   main_title?: string | undefined,
   _id?: string | undefined,

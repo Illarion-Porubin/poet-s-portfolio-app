@@ -7,13 +7,13 @@ import { useCustomDispatch } from '../../hooks/store';
 import { saveContent } from "../../redux/slices/contentSlice";
 
 interface Props {
-    long: { key: string, desc: string, text: string },
+    long: { key: string, desc: string, text: string };
 }
 
 export const LongDesc: React.FC<Props> = memo(({ long }) => {
     const dispatch = useCustomDispatch();
     const tagsInput = React.useRef<HTMLDivElement>(null);
-    const [value, setValue] = React.useState<string>(long.text ? long.text : 'загрузка');
+    const [value, setValue] = React.useState<string>(long.text);
     const [active, setActive] = React.useState<boolean>(false);
 
     const onChange = React.useCallback((value: string) => {
@@ -36,9 +36,9 @@ export const LongDesc: React.FC<Props> = memo(({ long }) => {
     }, [value, long.text])
 
     const style = () => {
-        if(active) {
+        if (active) {
             return `${s.description__item} ${s.active}`
-        } 
+        }
         else {
             if (value !== long.text) {
                 return `${s.description__item} ${s.false}`
@@ -65,7 +65,7 @@ export const LongDesc: React.FC<Props> = memo(({ long }) => {
                 <div className={s.description__items}>
                     <div className={style()} ref={tagsInput}>
                         <div className={s.description__item_header}>
-                            <h4 className={s.description__item_title}>{long.desc ? long.desc : 'загрузка'}</h4>
+                            <h4 className={s.description__item_title}>{long.desc}</h4>
                             <div className={s.description__item_btns}>
                                 <button className={s.description__item_btn}
                                     onClick={completed}
@@ -82,7 +82,7 @@ export const LongDesc: React.FC<Props> = memo(({ long }) => {
                             </div>
                         </div>
                         <div >
-                            <SimpleMDE value={value} onChange={onChange} options={options}/>
+                            <SimpleMDE value={value} onChange={onChange} options={options} />
                         </div>
                     </div>
                 </div>

@@ -1,71 +1,3 @@
-.popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    z-index: 0;
-    visibility: hidden;
-    transition: all .3s;
-
-    &__form {
-        width: 300px;
-        height: 360px;
-        border: 1px solid #352F24;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 30px;
-        border-radius: 12px;
-        background: rgba(250, 235, 217, 0.9);
-        transform: scale(0.5);
-        transition: all .3s;
-    }
-
-    &__title {
-        font-size: 22px;
-        font-weight: 300;
-        margin-bottom: 30px;
-    }
-
-    &__input {
-        width: 100%;
-        height: 40px;
-        margin-bottom: 30px;
-        border-radius: 12px;
-        padding: 0 10px;
-        font-family: 'Roboto';
-    }
-
-    &__btn {
-        width: 140px;
-        height: 40px;
-        border: 1px solid #352F24;
-        border-radius: 12px;
-        text-transform: capitalize;
-    }
-}
-
-.popup.active{
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 1;
-    z-index: 3;
-    visibility: visible;
-    transition: all .3s;
-}
-
-.popup__form.active{
-    transform: scale(1);
-    transition: all .3s;
-}
-
 .face {
     width: 100%;
     height: 100vh;
@@ -165,7 +97,6 @@
 
 
     &__introduction {
-        z-index: 10;
         font-size: 48px;
         color: #fff;
         font-weight: 300;
@@ -470,7 +401,7 @@
 @media(max-width: 480px) {
     .main {
         &__info_btn {
-            height: 68px;
+            height: 50px;
             font-size: 24px;
         }
     }
@@ -496,7 +427,7 @@
         }
 
         &__info_btn {
-            font-size: 20px;
+            font-size: 18px;
         }
 
         &__introduction {
