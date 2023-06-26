@@ -46,18 +46,18 @@
 }
 
 
-.popupPoem__title_number {
+.popupPoem__title_range {
     -webkit-appearance: none !important;
     background: rgb(255, 255, 255);
     border-radius: 33px;
     position: absolute;
-    top: 6%;
+    bottom: 6px;
     right: 30px;
     height: 7px;
     width: 80px;
 }
 
-.popupPoem__title_number::-webkit-slider-thumb {
+.popupPoem__title_range::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     background: rgb(0, 0, 0) !important;
     border-radius: 33px;
@@ -103,13 +103,15 @@
 
     &__size {
         position: absolute;
-        top: 5.3%;
+        bottom: 0px;
         right: 120px;
     }
 
-    &__title_size {
+    &__title_size_block {
         display: block;
         text-align: center;
+        position: relative;
+        top: 0px;
     }
 
     &__content {

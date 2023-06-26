@@ -54,10 +54,10 @@ export const PopupPoem: React.FC<Props> = memo(({ item, hideContent, display }) 
                             <div className={s.popupPoem__box}>
                                 <div className={s.popupPoem__box_title}>
                                     <h1 className={s.popupPoem__title}>{item.title}</h1>
-                                    <div className={s.popupPoem__title_size}>
+                                    <div className={s.popupPoem__title_size_block}>
                                         <p className={s.popupPoem__size}>{size ? size : 19}</p>
                                         <input
-                                            className={s.popupPoem__title_number}
+                                            className={s.popupPoem__title_range}
                                             type="range" min="11" max="27"
                                             value={size}
                                             onChange={e => setSize(e.target?.value)}

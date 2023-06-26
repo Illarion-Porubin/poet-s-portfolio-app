@@ -14,8 +14,8 @@ interface Props {
 
 export const Auth: React.FC<Props> = ({ open, setOpen, auth }) => {
     const dispatch = useCustomDispatch();
-    const [email, setEmail] = React.useState<string>('vladimiraroyan.base@gmail.com');
-    const [pass, setPass] = React.useState<string>('123456');
+    const [email, setEmail] = React.useState<string>('');
+    const [pass, setPass] = React.useState<string>('');
 
     const login: any = async (e: any) => {
         e.preventDefault()
