@@ -27,8 +27,6 @@ export const MainPage: React.FC = memo(() => {
     dispatch(fetchGetContetn());
   }, [dispatch]);
 
-  console.log(contentState)
-
   return (
     <>
       <Auth open={open} setOpen={setOpen} auth={auth} />

@@ -7,13 +7,13 @@ import { useCustomDispatch } from '../../hooks/store';
 import { saveContent } from "../../redux/slices/contentSlice";
 
 interface Props {
-    long: { key: string, desc: string, text: string };
+    data: { key: string, desc: string, maxValue: number, text: string };
 }
 
-export const LongDesc: React.FC<Props> = memo(({ long }) => {
+export const LongDesc: React.FC<Props> = memo(({ data }) => {
     const dispatch = useCustomDispatch();
     const tagsInput = React.useRef<HTMLDivElement>(null);
-    const [value, setValue] = React.useState<string>(long.text);
+    const [value, setValue] = React.useState<string>(data.text);
     const [active, setActive] = React.useState<boolean>(false);
 
     const onChange = React.useCallback((value: string) => {
@@ -21,7 +21,7 @@ export const LongDesc: React.FC<Props> = memo(({ long }) => {
     }, []);
 
     const completed = () => {
-        const key = long.key ? long.key : '';
+        const key = data.key ? data.key : '';
         if (!key) {
             alert('Ключ для сохранения не выбран')
         }
@@ -30,17 +30,17 @@ export const LongDesc: React.FC<Props> = memo(({ long }) => {
     }
 
     React.useMemo(() => {
-        if (value !== long.text) {
+        if (value !== data.text) {
             setActive(false)
         }
-    }, [value, long.text])
+    }, [value, data.text])
 
     const style = () => {
         if (active) {
             return `${s.description__item} ${s.active}`
         }
         else {
-            if (value !== long.text) {
+            if (value !== data.text) {
                 return `${s.description__item} ${s.false}`
             }
             else {
@@ -65,7 +65,12 @@ export const LongDesc: React.FC<Props> = memo(({ long }) => {
                 <div className={s.description__items}>
                     <div className={style()} ref={tagsInput}>
                         <div className={s.description__item_header}>
-                            <h4 className={s.description__item_title}>{long.desc}</h4>
+                            <div className={s.description__item_header_block}>
+                                <h4 className={s.description__item_title}>{`${data.desc}: ${data.maxValue}`}</h4>
+                                <p className={value.length >= data.maxValue ? `${s.description__item_header_symbol} ${s.active}` : s.description__item_header_symbol}>Символов:<span>
+                                    {value.length}</span>
+                                </p>
+                            </div>
                             <div className={s.description__item_btns}>
                                 <button className={s.description__item_btn}
                                     onClick={completed}
@@ -74,7 +79,7 @@ export const LongDesc: React.FC<Props> = memo(({ long }) => {
                                 </button>
                                 <button
                                     className={s.description__item_btn}
-                                    onClick={() => setValue(long.text)}
+                                    onClick={() => setValue(data.text)}
                                 >
                                     <GlobalSvgSelecotr id={'cancel'}
                                     />

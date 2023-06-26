@@ -33,7 +33,6 @@ export const PoemPage: React.FC = memo(() => {
   }
 
   React.useEffect(() => {
-    dispatch(fetchGetPoems())
     if(debounce) {
       dispatch(fetchSearchPoems(debounce));
     }

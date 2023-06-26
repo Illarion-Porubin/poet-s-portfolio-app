@@ -6,17 +6,17 @@ import { saveContent } from "../../redux/slices/contentSlice";
 
 
 interface Props {
-    short: { key: string, desc: string, text: string };
+    data: { key: string, desc: string, maxValue: number, text: string };
 }
 
-export const ShortDesc: React.FC<Props> = memo(({ short }) => {
+export const ShortDesc: React.FC<Props> = memo(({ data }) => {
     const dispatch = useCustomDispatch();
     const tagsInput = React.useRef<HTMLDivElement>(null);
-    const [value, setValue] = React.useState<string>(short.text);
+    const [value, setValue] = React.useState<string>(data.text);
     const [active, setActive] = React.useState<boolean>(false);
 
     const completed = () => {
-        const key = short.key ? short.key : '';
+        const key = data.key ? data.key : '';
         if (!key) {
             alert('Ключ для сохранения не выбран')
         }
@@ -25,22 +25,22 @@ export const ShortDesc: React.FC<Props> = memo(({ short }) => {
     }
 
     const cancel = () => {
-        setValue(short.text)
+        setValue(data.text)
         setActive(false)
     }
 
     React.useMemo(() => {
-        if (value !== short.text) {
+        if (value !== data.text) {
             setActive(false)
         }
-    }, [value, short.text])
+    }, [value, data.text])
 
     const style = () => {
-        if(active) {
+        if (active) {
             return `${s.description__item} ${s.active}`
-        } 
+        }
         else {
-            if (value !== short.text) {
+            if (value !== data.text) {
                 return `${s.description__item} ${s.false}`
             }
             else {
@@ -55,7 +55,12 @@ export const ShortDesc: React.FC<Props> = memo(({ short }) => {
                 <div className={s.description__items}>
                     <div className={style()} ref={tagsInput}>
                         <div className={s.description__item_header}>
-                            <h4 className={s.description__item_title}>{short.desc ? short.desc : 'псто'}</h4>
+                            <div className={s.description__item_header_block}>
+                                <h4 className={s.description__item_title}>{`${data.desc}: ${data.maxValue}`}</h4>
+                                <p className={value.length >= data.maxValue ? `${s.description__item_header_symbol} ${s.active}` : s.description__item_header_symbol}>Символов:<span>
+                                    {value.length}</span>
+                                </p>
+                            </div>
                             <div className={s.description__item_btns}>
                                 <button className={s.description__item_btn}
                                     onClick={completed}

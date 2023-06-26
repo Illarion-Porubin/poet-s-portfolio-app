@@ -15,8 +15,8 @@ export const Menu: React.FC = memo(() => {
   const dispatch = useCustomDispatch();
   const [mobMenu, setMobMenu] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(false);
-  const [email, setEmail] = React.useState<string>('vladimiraroyan.base@gmail.com');
-  const [pass, setPass] = React.useState<string>('123456');
+  const [email, setEmail] = React.useState<string>('');
+  const [pass, setPass] = React.useState<string>('');
   const auth = useCustomSelector(selectAuthData);
 
 

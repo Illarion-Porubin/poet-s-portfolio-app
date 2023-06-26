@@ -10,7 +10,7 @@ export const Menu: React.FC<Props> = memo(({ menuId }) => {
     const [id, setId] = React.useState<number>(0)
     const menu = React.useMemo(() => [
         'Личная информация',
-        'Главная страница',
+        'Основной контент',
         'Добавить стих',
         'Добавить статью',
         'Изменить, удалить стих',

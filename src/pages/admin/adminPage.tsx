@@ -68,7 +68,7 @@ export const AdminPage: React.FC = memo(() => {
                         dispatch(fetchGetContetn())
                     }, 200);
                     break
-                case 'Главная страница':
+                case 'Основной контент':
                     dispatch(fetchUpdateContent({ ...contentState.data?.content, ...contentState.newData }))
                     setTimeout(() => {
                         dispatch(fetchGetContetn())
@@ -123,7 +123,7 @@ export const AdminPage: React.FC = memo(() => {
         switch (name) {
             case 'Личная информация':
                 return <MyInfo setData={setData} active={active} setActive={setActive}/>
-            case 'Главная страница':
+            case 'Основной контент':
                 return <Content contentState={contentState} />
             case 'Добавить стих':
                 return <AddData id={poemId.current} setData={setData} componentName={component} />
