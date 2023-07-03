@@ -11,22 +11,22 @@ interface Props {
 export const Content: React.FC<Props> = memo(({ contentState }) => {
 
     const titleContent = React.useMemo(() => [
-        { key: 'main_title', desc: 'Заголовок. Допустмое значение символов', maxValue: 60, text: contentState.data?.content?.main_title || '' },
-        { key: 'main_btn', desc: 'Кнопка. Допустмое значение символов', maxValue: 30, text: contentState.data?.content?.main_btn || '' },
+        { key: 'main_title', desc: 'Заголовок. Допустимое значение символов', maxValue: 60, text: contentState.data?.content?.main_title || '' },
+        { key: 'main_btn', desc: 'Кнопка. Допустимое значение символов', maxValue: 30, text: contentState.data?.content?.main_btn || '' },
     ], [contentState.data])
 
     const contactContent = React.useMemo(() => [
-        { key: 'contact_title', desc: 'Заголовок. Допустмое значение символов', maxValue: 55, text: contentState.data?.content?.contact_title || '' },
+        { key: 'contact_title', desc: 'Заголовок. Допустимое значение символов', maxValue: 55, text: contentState.data?.content?.contact_title || '' },
     ], [contentState.data])
 
     const aboutMeTitleContent = React.useMemo(() => [
-        { key: 'about_block_title_1', desc: 'Блок 1, заголовок. Допустмое значение символов', maxValue: 30, text: contentState.data?.content?.about_block_title_1 || '' },
-        { key: 'about_block_title_2', desc: 'Блок 2, заголовок. Допустмое значение символов', maxValue: 30, text: contentState.data?.content?.about_block_title_2 || '' },
+        { key: 'about_block_title_1', desc: 'Блок 1, заголовок. Допустимое значение символов', maxValue: 30, text: contentState.data?.content?.about_block_title_1 || '' },
+        { key: 'about_block_title_2', desc: 'Блок 2, заголовок. Допустимое значение символов', maxValue: 30, text: contentState.data?.content?.about_block_title_2 || '' },
     ], [contentState.data])
 
     const aboutMeDescContent = React.useMemo(() => [
-        { key: 'about_block_text_1', desc: 'Блок 1, текстовое описание. Допустмое значение символов', maxValue: 830, text: contentState.data?.content?.about_block_text_1 || '' },
-        { key: 'about_block_text_2', desc: 'Блок 2, текстовое описание. Допустмое значение символов', maxValue: 830, text: contentState.data?.content?.about_block_text_2 || '' },
+        { key: 'about_block_text_1', desc: 'Блок 1, текстовое описание. Допустимое значение символов', maxValue: 830, text: contentState.data?.content?.about_block_text_1 || '' },
+        { key: 'about_block_text_2', desc: 'Блок 2, текстовое описание. Допустимое значение символов', maxValue: 830, text: contentState.data?.content?.about_block_text_2 || '' },
     ], [contentState.data])
 
 
