@@ -71,6 +71,7 @@
         line-height: 50px;
         letter-spacing: 0.06em;
         margin-right: 20px;
+        word-break: keep-all;
     }
 
     &__whay_wrapp {
@@ -108,6 +109,7 @@
         font-size: 30px;
         line-height: 50px;
         letter-spacing: 0.05em;
+        word-break: keep-all;
     }
 
 }
