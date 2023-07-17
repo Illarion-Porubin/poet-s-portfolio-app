@@ -1,10 +1,20 @@
 @font-face {
-    font-family: 'Monplesir';
-    src: local('Monplesir'), url(../assets/fonts/Monplesir.ttf) format('opentype');
+  font-family: 'Monplesir';
+  src: local('Monplesir'), url(../assets/fonts/Monplesir.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  src: local('OpenSans'), url(../assets/fonts/OpenSans-Italic-VariableFont_wdth_wght.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: local('Rubik'), url(../assets/fonts/Rubik-Italic-VariableFont_wght.ttf) format('opentype');
 }
 
 
-.container{
+.container {
   max-width: 1920px;
   margin: 0;
   padding: 0 70px;
@@ -12,52 +22,54 @@
 
 
 html {
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-  }
-  *,
-  *::after,
-  *::before {
-    box-sizing: inherit;
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 0;
-  }
-  
-  p {
-    margin: 0;
-    word-break: break-all;
-  }
-  
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  ul,
-  li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  
-  button {
-    padding: 0;
-    cursor: pointer;
-  }
-
-body{
-    font-family: Monplesir;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-@media(max-width: 620px){
-  .container{
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  word-break: break-all;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  padding: 0;
+  cursor: pointer;
+}
+
+body {
+  font-family: "OpenSans";
+  font-weight: 400;
+}
+
+@media(max-width: 620px) {
+  .container {
     padding: 0 20px;
   }
 }
