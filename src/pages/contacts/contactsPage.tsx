@@ -84,7 +84,7 @@ export const ContactsPage: React.FC = memo(() => {
             onSubmit={(e) => sendEmail(e)}
           >
             <h4 className={s.contacts__form_title}>Обратная связь</h4>
-            <p className={s.contacts__form_text}>Я обязательно прочту ваше писмо в течение двух дней.</p>
+            <p className={s.contacts__form_text}>Я обязательно прочту письмо и отвечу Вам.</p>
             <div className={s.contacts__form_inputs}>
               <input
                 className={s.contacts__form_input}
