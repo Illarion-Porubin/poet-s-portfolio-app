@@ -17,7 +17,7 @@ export const ContactsPage: React.FC = memo(() => {
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (name && email && text) {
-      const data = { name, email, text, to: contentState.data?.content?.main_email ? contentState.data?.content?.main_email : `vladimiraroyan.base@gmail.com` }
+      const data = { name, email, text, to: contentState.data?.email ? contentState.data?.email : `vladimiraroyan.base@gmail.com` }
       dispatch(fetchSendMaeesage({ ...data }))
       setName('')
       setEmail('')
@@ -75,7 +75,7 @@ export const ContactsPage: React.FC = memo(() => {
         <div className={s.contacts__whait_wrapp}>
           <div className={s.contacts__whait}>
             <p className={s.contacts__whait_text}>
-              {contentState.data?.content?.contact_title || 'здесь должен быть текст, но что-то пошло не так'}
+              {contentState.data?.contact_title || 'здесь должен быть текст, но что-то пошло не так'}
             </p>
           </div>
         </div>

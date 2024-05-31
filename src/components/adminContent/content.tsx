@@ -2,31 +2,36 @@ import React, { memo } from 'react';
 import s from './content.module.scss';
 import { ShortDesc } from '../contentService/shortDesc';
 import { LongDesc } from '../contentService/longDesc';
-import { ContentState } from '../../redux/slices/contentSlice';
+import { fetchGetContetn } from '../../redux/slices/contentSlice';
+import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
+import { selectContentData } from '../../redux/selectors';
 
-interface Props {
-    contentState: ContentState;
-}
 
-export const Content: React.FC<Props> = memo(({ contentState }) => {
+export const Content: React.FC = memo(() => {
+    const contentState = useCustomSelector(selectContentData);
+    // const dispatch = useCustomDispatch();
+
+    // React.useEffect(() => {
+    //     dispatch(fetchGetContetn());
+    // }, [dispatch]);
 
     const titleContent = React.useMemo(() => [
-        { key: 'main_title', desc: 'Заголовок. Допустимое значение символов', maxValue: 60, text: contentState.data?.content?.main_title || '' },
-        { key: 'main_btn', desc: 'Кнопка. Допустимое значение символов', maxValue: 30, text: contentState.data?.content?.main_btn || '' },
+        { key: 'title', desc: 'Заголовок. Допустимое значение символов', maxValue: 60, text: contentState.data?.title || '' },
+        { key: 'btn', desc: 'Кнопка. Допустимое значение символов', maxValue: 30, text: contentState.data?.btn || '' },
     ], [contentState.data])
 
     const contactContent = React.useMemo(() => [
-        { key: 'contact_title', desc: 'Заголовок. Допустимое значение символов', maxValue: 55, text: contentState.data?.content?.contact_title || '' },
+        { key: 'contact_title', desc: 'Заголовок. Допустимое значение символов', maxValue: 55, text: contentState.data?.contact_title || '' },
     ], [contentState.data])
 
     const aboutMeTitleContent = React.useMemo(() => [
-        { key: 'about_block_title_1', desc: 'Блок 1, заголовок. Допустимое значение символов', maxValue: 30, text: contentState.data?.content?.about_block_title_1 || '' },
-        { key: 'about_block_title_2', desc: 'Блок 2, заголовок. Допустимое значение символов', maxValue: 30, text: contentState.data?.content?.about_block_title_2 || '' },
+        { key: 'about_block_title_1', desc: 'Блок 1, заголовок. Допустимое значение символов', maxValue: 30, text: contentState.data?.about_block_title_1 || '' },
+        { key: 'about_block_title_2', desc: 'Блок 2, заголовок. Допустимое значение символов', maxValue: 30, text: contentState.data?.about_block_title_2 || '' },
     ], [contentState.data])
 
     const aboutMeDescContent = React.useMemo(() => [
-        { key: 'about_block_text_1', desc: 'Блок 1, текстовое описание. Допустимое значение символов', maxValue: 830, text: contentState.data?.content?.about_block_text_1 || '' },
-        { key: 'about_block_text_2', desc: 'Блок 2, текстовое описание. Допустимое значение символов', maxValue: 830, text: contentState.data?.content?.about_block_text_2 || '' },
+        { key: 'about_block_text_1', desc: 'Блок 1, текстовое описание. Допустимое значение символов', maxValue: 830, text: contentState.data?.about_block_text_1 || '' },
+        { key: 'about_block_text_2', desc: 'Блок 2, текстовое описание. Допустимое значение символов', maxValue: 830, text: contentState.data?.about_block_text_2 || '' },
     ], [contentState.data])
 
 

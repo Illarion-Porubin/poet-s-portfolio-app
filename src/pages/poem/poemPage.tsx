@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import s from './poemPage.module.scss';
-import { Menu } from '../../components/menu/menu';
 import { Pagination } from '../../components/pagination/pagination';
 import { PopupPoem } from '../../components/popup/popupPoem';
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
@@ -53,7 +52,6 @@ export const PoemPage: React.FC = memo(() => {
   return (
     <>
       <section className={s.poem}>
-        <Menu />
         <div className={display ? s.poem__wrapp : s.poem__not_wrapp}>
           <div className={s.poem__head}>
             <h3 className={s.poem__title}>Cписок стихов</h3>

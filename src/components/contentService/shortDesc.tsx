@@ -4,7 +4,6 @@ import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { useCustomDispatch } from '../../hooks/store';
 import { saveContent } from "../../redux/slices/contentSlice";
 
-
 interface Props {
     data: { key: string, desc: string, maxValue: number, text: string };
 }
@@ -18,7 +17,7 @@ export const ShortDesc: React.FC<Props> = memo(({ data }) => {
     const completed = () => {
         const key = data.key ? data.key : '';
         if (!key) {
-            alert('Ключ для сохранения не выбран')
+            return alert('Ключ для сохранения не выбран')
         }
         setActive(true)
         dispatch(saveContent({ [key]: value }))

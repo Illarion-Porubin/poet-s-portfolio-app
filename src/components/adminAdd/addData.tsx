@@ -2,14 +2,14 @@ import React, { memo } from 'react';
 import SimpleMDE from "react-simplemde-editor";
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { useCustomDispatch } from '../../hooks/store';
-import { ComonTypes } from '../../types/types';
+import { ContentT } from '../../types/types';
 import axios from '../../http';
 import s from './add.module.scss';
 import "easymde/dist/easymde.min.css";
 
 interface Props {
     id: string | null | undefined,
-    setData: (poem: ComonTypes) => void,
+    setData: (poem: ContentT) => void,
     componentName: string,
 }
 
@@ -22,10 +22,11 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
 
     const onChange = React.useCallback((value: string) => {
         setDataText(value);
+        /// вынести onChange в SimpleMDE 
     }, []);
 
     const completed = () => {
-        setData({ title: dataTitle, text: dataText, id: dataId.current })
+        setData({ title: dataTitle, text: dataText, id: dataId.current! })
         setActive(true)
     }
 
@@ -57,7 +58,6 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
         }
         reset()
     }, [dispatch, id, componentName])
-
 
     const options: any = React.useMemo(
         () => ({
@@ -106,7 +106,6 @@ export const AddData: React.FC<Props> = memo(({ setData, id, componentName }) =>
                         </div>
                     </div>
                 </div>
-
             </h1>
         </>
     );

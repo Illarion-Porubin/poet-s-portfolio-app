@@ -8,8 +8,7 @@ import { AdminPage } from './pages/admin/adminPage';
 import { ArticlesPage } from './pages/articles/articlesPage';
 import { fetchAuthMe } from "./redux/slices/authSlice";
 import { useCustomDispatch } from './hooks/store';
-
-
+import { Menu } from './components/menu/menu';
 
 
 function App() {
@@ -20,6 +19,7 @@ function App() {
 
   return (
     <>
+    <Menu/>
       <Routes>
         <Route path='/' element={<MainPage />} />
         <Route path='/poem' element={<PoemPage />} />

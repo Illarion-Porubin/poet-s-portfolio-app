@@ -32,13 +32,13 @@ export const fetchSearchArticles = createAsyncThunk<Creativity[], string, { reje
     return articles;
 });
 
-export const fetchPostArticle = createAsyncThunk<Creativity[], Creativity, { rejectValue: string }>(
+export const fetchPostArticle = createAsyncThunk<Creativity, Creativity, { rejectValue: string }>(
     "api/fetchPostArticle", async (params, { rejectWithValue }) => {
         const { data } = await axios.post("/api/article", params);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const articles: Creativity[] = data;
+        const articles: Creativity = data;
         return articles;
     });
 
@@ -121,18 +121,19 @@ const articleSlice = createSlice({
                 state.isLoading = 'error';
             })
             ///fetchPostArticle
-            .addCase(fetchPostArticle.pending, (state) => {
-                state.data = [];
-                state.isLoading = "loading";
-            })
-            .addCase(fetchPostArticle.fulfilled, (state, action) => {
-                state.data = action.payload;
-                state.isLoading = "loaded";
-            })
-            .addCase(fetchPostArticle.rejected, (state) => {
-                state.data = [];
-                state.isLoading = "error";
-            })
+            // .addCase(fetchPostArticle.pending, (state) => {
+            //     state.data = [];
+            //     state.isLoading = "loading";
+            // })
+            // .addCase(fetchPostArticle.fulfilled, (state, action) => {
+            //     console.log(action.payload);
+            //     state.data = action.payload;
+            //     state.isLoading = "loaded";
+            // })
+            // .addCase(fetchPostArticle.rejected, (state) => {
+            //     state.data = [];
+            //     state.isLoading = "error";
+            // })
             ///fetchUpdateArticle
             .addCase(fetchUpdateArticle.pending, (state) => {
                 state.data = [];

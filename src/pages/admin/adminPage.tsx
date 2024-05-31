@@ -11,8 +11,8 @@ import { AddData } from '../../components/adminAdd/addData';
 import { ChangeData } from '../../components/adminDeleteEdit/changeData';
 import { fetchPostPoem, fetchUpdatePoem } from '../../redux/slices/poemSlice';
 import { fetchPostArticle, fetchUpdateArticle } from '../../redux/slices/articleSlice';
-import { fetchAuthMe, fetchUpdateInfo } from '../../redux/slices/authSlice';
-import { ComonTypes, AdminTypes } from '../../types/types';
+// import { fetchAuthMe, fetchUpdateInfo } from '../../redux/slices/authSlice';
+import { ContentT } from '../../types/types';
 
 
 export const AdminPage: React.FC = memo(() => {
@@ -20,21 +20,23 @@ export const AdminPage: React.FC = memo(() => {
     const auth = useCustomSelector(selectAuthData);
     const contentState = useCustomSelector(selectContentData);
     const [component, setComponent] = React.useState<string>('Личная информация');
-    const [data, setData] = React.useState<ComonTypes | null>(null);
+    const [data, setData] = React.useState<ContentT | null>(null);
     const articleId = React.useRef<string>('');
     const poemId = React.useRef<string>('');
-    const [active, setActive] = React.useState<boolean>(false);
 
-    const menuId = (value: string) => {
-        setComponent(value)
-    }
+
+    const menuId = (value: string) => setComponent(value);
+
+    React.useEffect(() => {
+        dispatch(fetchGetContetn());
+    }, [dispatch]);
 
     const addId = (id: string | null | undefined, component: string) => {
         if (component === 'Изменить, удалить стих') {
-            setComponent('Добавить стих')
+            // setComponent('Добавить стих')
             poemId.current = id ? id : ''
         } else {
-            setComponent('Добавить статью')
+            // setComponent('Добавить статью')
             articleId.current = id ? id : ''
         }
     }
@@ -43,64 +45,51 @@ export const AdminPage: React.FC = memo(() => {
         if (contentState.isLoading === `loaded`)
             switch (component) {
                 case 'Личная информация':
-                    const newData: AdminTypes = {
-                        firstName: data?.firstName,
-                        lastName: data?.lastName,
-                        email: data?.email,
-                        id: data?.id,
-                        phone: data?.phone,
-                        card: data?.card
-                    }
-                    dispatch(fetchUpdateInfo({ ...newData }))
-                    dispatch(fetchUpdateContent({
-                        ...contentState.data?.content,
-                        main_firstName: data?.firstName,
-                        main_lastName: data?.lastName,
-                        main_email: data?.email,
-                        main_phone: data?.phone,
-                        main_card: data?.card,
-                    }))
-                    setActive(false)
-                    setTimeout(() => {
-                        dispatch(fetchAuthMe())
-                    }, 200);
-                    setTimeout(() => {
-                        dispatch(fetchGetContetn())
-                    }, 200);
+                    dispatch(fetchUpdateContent({...data!}))  
+                    setData(null)
+                    setTimeout(() => dispatch(fetchGetContetn()), 200);
                     break
                 case 'Основной контент':
-                    dispatch(fetchUpdateContent({ ...contentState.data?.content, ...contentState.newData }))
-                    setTimeout(() => {
-                        dispatch(fetchGetContetn())
-                    }, 200);
+                    dispatch(fetchUpdateContent({...contentState.data!}))
+                    setData(null)
+                    setTimeout(() => dispatch(fetchGetContetn()), 200);
                     break
                 case 'Добавить стих':
                     if (data?.id) {
-                        dispatch(fetchUpdatePoem({_id: data?.id, text: data?.text, title: data?.title }))
-                        setTimeout(() => {
-                            window.location.reload()
-                        }, 200);
+                        const updateArticle = async () => {
+                            const article = await dispatch(fetchUpdateArticle({...data }))
+                            if(article.meta.requestStatus){
+                             setData(null)
+                             setTimeout(() => dispatch(fetchGetContetn()), 200);
+                            }
+                         } 
+                         updateArticle()   
+                        // dispatch(fetchUpdateArticle({...data }))
+                        // setTimeout(() =>  window.location.reload(), 200);
                     }
                     else {
-                        dispatch(fetchPostPoem({_id: data?.id, text: data?.text, title: data?.title }))
-                        setTimeout(() => {
-                            window.location.reload()
-                        }, 200);
+                        const postArticle = async () => {
+                           const article = await dispatch(fetchPostArticle({...data }))
+                           if(article.meta.requestStatus){
+                            setData(null)
+                            setTimeout(() => dispatch(fetchGetContetn()), 200);
+                           }
+                        } 
+                        postArticle()         
                     }
                     break
                 case 'Добавить статью':
                     if (data?.id) {
-                        dispatch(fetchUpdateArticle({_id: data?.id, text: data?.text, title: data?.title }))
-                        setTimeout(() => {
-                            window.location.reload()
-                        }, 200);
+                        console.log(data, 3);
+                        // dispatch(fetchUpdateArticle({_id: data?.id, text: data?.text, title: data?.title }))
+                        // dispatch(fetchUpdateArticle({...data }))
+                        // setTimeout(() =>  window.location.reload(), 200);
                     }
                     else {
                         if (data) {
-                            dispatch(fetchPostArticle({_id: data?.id, text: data?.text, title: data?.title }))
-                            setTimeout(() => {
-                                window.location.reload()
-                            }, 200);
+                            console.log(data, 4);
+                            // dispatch(fetchUpdateArticle({...data }))
+                            // setTimeout(() =>  window.location.reload(), 200);
                         }
                     }
                     break
@@ -109,11 +98,7 @@ export const AdminPage: React.FC = memo(() => {
                         null
                     );
             }
-    }, [dispatch, data, component, contentState.newData, contentState.data?.content, contentState.isLoading])
-
-    const deleteChange = () => {
-        window.location.reload()
-    }
+    }, [dispatch, data, component, contentState.data, contentState.isLoading])
 
     if (auth.isLoading === 'error' && auth.data?.accessToken === undefined) {
         return (<Navigate to='/' />)
@@ -122,9 +107,9 @@ export const AdminPage: React.FC = memo(() => {
     const ChildComponent = (name: string) => {
         switch (name) {
             case 'Личная информация':
-                return <MyInfo setData={setData} active={active} setActive={setActive}/>
+                return <MyInfo setData={setData}/>
             case 'Основной контент':
-                return <Content contentState={contentState} />
+                return <Content />
             case 'Добавить стих':
                 return <AddData id={poemId.current} setData={setData} componentName={component} />
             case 'Добавить статью':
@@ -135,7 +120,7 @@ export const AdminPage: React.FC = memo(() => {
                 return <ChangeData updateData={addId} componentName={component} />
             default:
                 return (
-                    <MyInfo setData={setData} active={active} setActive={setActive}/>
+                    <MyInfo setData={setData}/>
                 );
         }
     }
@@ -149,7 +134,7 @@ export const AdminPage: React.FC = memo(() => {
                         <h3 className={s.adminPage__title}>{component}</h3>
                         <div className={s.adminPage__action}>
                             <button className={s.adminPage__action_btn} onClick={updateContent}>Сохранить</button>
-                            <button className={s.adminPage__action_btn} onClick={deleteChange}>Отмена</button>
+                            <button className={s.adminPage__action_btn} onClick={() => window.location.reload()}>Отмена</button>
                         </div>
                     </div>
                     <div className={s.adminPage__container} >{ChildComponent(component)}</div>

@@ -1,7 +1,7 @@
 .icons {
     &__list {
         display: flex;
-        margin-right: 120px;
+        margin-right: 60px;
     }
 
     &__svg {
@@ -14,7 +14,7 @@
 }
 
 
-@media(max-width: 1195px) {
+@media(max-width: 800px) {
     .icons__list {
         position: absolute;
         left: 0;

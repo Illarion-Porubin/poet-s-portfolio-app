@@ -1,51 +1,51 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from "../../http/index";
-import { Content, NewContent, SendEmail } from '../../types/types';
+import { ContentT, NewContent, SendEmail } from '../../types/types';
 
-export const fetchGetContetn = createAsyncThunk<Content, undefined, { rejectValue: string }>(
+export const fetchGetContetn = createAsyncThunk<ContentT, undefined, { rejectValue: string }>(
   "api/fetchGetContetn", async (_, { rejectWithValue }) => {
     const { data } = await axios.get("/api/content");
     if (!data) {
       return rejectWithValue("Server Error!");
     }
-    const content: Content = data
+    const content: ContentT = data
     return content;
   });
 
-export const fetchUpdateContent = createAsyncThunk<Content, NewContent, { rejectValue: string }>(
+export const fetchUpdateContent = createAsyncThunk<ContentT, ContentT, { rejectValue: string }>(
   "api/fetchUpdateContent",
   async (params, { rejectWithValue }) => {
-    const { data }: { data: any } = await axios.put("/api/content", params);
+    const { data }: { data: any } = await axios.patch(`/api/content/${params.id}`, params);
     if (!data) {
       return rejectWithValue("Server Error!");
     }
-    const content: Content = data
+    const content: ContentT = data
     return content;
   }
 );
 
-export const fetchSendMaeesage = createAsyncThunk<Content, SendEmail, { rejectValue: string }>(
+export const fetchSendMaeesage = createAsyncThunk<ContentT, SendEmail, { rejectValue: string }>(
   "api/fetchUpdateContent",
   async (params, { rejectWithValue }) => {
     const { data }: { data: any } = await axios.post("/api/message", params);
     if (!data) {
       return rejectWithValue("Server Error!");
     }
-    const content: Content = data
+    const content: ContentT = data
     return content;
   }
 );
 
 export type ContentState = {
-  data: Content | null;
-  newData: Content | {};
+  data: ContentT | null;
+  newData: ContentT | null;
   isLoading: "idle" | "loading" | "loaded" | "error";
   error: string | null;
 }
 
 const initialState: ContentState = {
   data: null,
-  newData: {},
+  newData: null,
   isLoading: "idle",
   error: null,
 }
@@ -55,7 +55,7 @@ export const contentSlice = createSlice({
   initialState,
   reducers: {
     saveContent: (state, action) => {
-      state.newData = { ...state.newData, ...action.payload }
+      state.newData = { ...state.data, ...action.payload }
     }
   },
   extraReducers: (builder) => {

@@ -58,8 +58,8 @@ export const ChangeData: React.FC<Props> = memo(({ componentName, updateData }) 
             dispatch(fetchGetPoems())
             dispatch(fetchGetArticles())
         }
-    }, [dispatch, debounce, componentName]);
-
+    }, []);
+// dispatch, debounce, componentName
 
     React.useEffect(() => {
         if (content.data) {
@@ -69,8 +69,10 @@ export const ChangeData: React.FC<Props> = memo(({ componentName, updateData }) 
                 })
             );
         }
-    }, [dispatch, page, content.data]);
+    }, []);
     
+//dispatch, page, content.data
+
     return (
         <>{
             filterData ?
@@ -88,8 +90,8 @@ export const ChangeData: React.FC<Props> = memo(({ componentName, updateData }) 
                             {
                                 filterData.map((item: Creativity) =>
                                     <div className={s.data__item_wrapp} key={item.title}>
-                                        <li className={s.data__item} onClick={() => updateData(item._id, componentName)}>{item.title || 'загрузка'}</li>
-                                        <div className={s.data__delete} onClick={() => deleteItem(item._id, componentName)}><GlobalSvgSelecotr id='cancel' /></div>
+                                        <li className={s.data__item} onClick={() => updateData(item.id, componentName)}>{item.title || 'загрузка'}</li>
+                                        <div className={s.data__delete} onClick={() => deleteItem(item.id, componentName)}><GlobalSvgSelecotr id='cancel' /></div>
                                     </div>
                                 )
                             }
