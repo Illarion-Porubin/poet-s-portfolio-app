@@ -52,7 +52,8 @@ export const fetchDeletePoem = createAsyncThunk<Creativity[], string, { rejectVa
     });
 
 export type ContentPoem = {
-    data:  [] | Creativity[] ;
+    data: Creativity[];
+    poem: Creativity | null;
     pages: number;
     isLoading: "idle" | "loading" | "loaded" | "error";
     error: string | null;
@@ -60,6 +61,7 @@ export type ContentPoem = {
 
 const initialState: ContentPoem = {
     data: [],
+    poem: null,
     pages: 1,
     isLoading: "idle",
     error: null,
@@ -68,7 +70,19 @@ const initialState: ContentPoem = {
 export const poemSlice = createSlice({
     name: 'poem',
     initialState,
-    reducers: {},
+    reducers: {
+        saveData: (state, action) => {
+            state.data.push(action.payload)
+            console.log(state.data);
+        },
+        deltePoem: (state, action) => {
+            state.data = state.data.filter((item) => item._id !== action.payload ? item : undefined)
+        },
+        setPoem: (state, action) => {
+            state.poem = action.payload
+            console.log(state.poem, 'setPoem');
+        },
+    },
     extraReducers: (builder) => {
         builder
             ///fetchGetPoems

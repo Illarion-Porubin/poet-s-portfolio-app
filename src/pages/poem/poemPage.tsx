@@ -20,7 +20,7 @@ export const PoemPage: React.FC = memo(() => {
   const debounce = useDebounce(search, 400)
   const poemState = useCustomSelector(selectPoemData);
   const renderItems = 24;
-  const amontPages = poemState.data.length / renderItems;
+  // const amontPages = poemState.data.length / renderItems;
 
   const hideContent = () => {
     setDisplay(prev => !prev)
@@ -41,13 +41,13 @@ export const PoemPage: React.FC = memo(() => {
   }, [dispatch, debounce]);
 
 
-  React.useEffect(() => {
-    setFilterData(
-      poemState.data.filter((_: any, index: number) => {
-        return (index >= page * renderItems) && (index < (page + 1) * renderItems);
-      })
-    );
-  }, [dispatch, page, poemState.data]);
+  // React.useEffect(() => {
+  //   setFilterData(
+  //     poemState.data.filter((_: any, index: number) => {
+  //       return (index >= page * renderItems) && (index < (page + 1) * renderItems);
+  //     })
+  //   );
+  // }, [dispatch, page, poemState.data]);
 
   return (
     <>
@@ -65,7 +65,7 @@ export const PoemPage: React.FC = memo(() => {
               <button className={s.poem__search_btn}>поиск</button>
             </div>
           </div>
-          {display ?
+          {/* {display ?
             <div className={s.poem__content}>
               <div className={s.poem__content_wrapp}>
                 <ul className={s.poem__list}>
@@ -87,15 +87,15 @@ export const PoemPage: React.FC = memo(() => {
             </div>
             :
             <PopupPoem item={poemState.data[id]} hideContent={hideContent} display={display} />
-          }
+          } */}
         </div>
         <>
-        {
+        {/* {
           display ?
           <Pagination setPage={setPage} amontPages={amontPages}/>
           :
           <Copyright/>
-        }
+        } */}
         </>
       </section>
     </>

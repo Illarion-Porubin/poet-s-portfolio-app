@@ -1,81 +1,49 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import s from './adminDeleteEdit.module.scss'
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
-import { fetchDeletePoem, fetchGetPoems, fetchSearchPoems } from '../../redux/slices/poemSlice';
+import { fetchDeletePoem, fetchGetPoems, fetchSearchPoems, poemSlice } from '../../redux/slices/poemSlice';
 import { fetchDeleteArticle, fetchGetArticles, fetchSearchArticles } from '../../redux/slices/articleSlice';
-import { selectArticleData, selectPoemData } from '../../redux/selectors';
+import { selectArticleData, selectContentData, selectPoemData } from '../../redux/selectors';
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import ReactPaginate from 'react-paginate';
 import useDebounce from '../../hooks/useDebounce';
 import { Creativity } from '../../types/types';
 
 
-interface Props {
-    updateData: (_id: string | null | undefined, comonentName: string) => void,
-    componentName: string
-}
-
-export const ChangeData: React.FC<Props> = memo(({ componentName, updateData }) => {
+export const ChangeData: React.FC = memo(() => {
     const dispatch = useCustomDispatch();
+    const contentState = useCustomSelector(selectContentData)
     const poems = useCustomSelector(selectPoemData);
     const articles = useCustomSelector(selectArticleData);
     const [search, setSearch] = React.useState<string>('');
-    const [page, setPage] = React.useState<number>(0);
-    const [filterData, setFilterData] = React.useState<Creativity[]>();
-    const debounce = useDebounce(search, 400);
-    const renderItems = 24;
-    const content = componentName === 'Изменить, удалить стих' ? poems : articles
-    const amontPages = content.data.length / renderItems;
+    const debounce = useDebounce(search, 200);
 
-    const deleteItem = (_id: string | null | undefined, component: string) => {
-        if (component === 'Изменить, удалить стих') {
-            dispatch(fetchDeletePoem(_id ? _id : ''))
-            setTimeout(() => {
-                dispatch(fetchGetPoems())
-            }, 200)
+    const creativity = contentState.category === 'Изменить, удалить стих' ?  poems : articles;
+
+    const deleteItem = (id: string, category: string) => {
+        if(category === 'Изменить, удалить стих'){
+            dispatch(fetchDeletePoem(id))
+            dispatch(poemSlice.actions.deltePoem(id))
+        } else {
+            dispatch(fetchDeleteArticle(id))
         }
-        dispatch(fetchDeleteArticle(_id ? _id : ''))
-        setTimeout(() => {
-            dispatch(fetchGetArticles())
-        }, 200)
     }
 
-    React.useEffect(() => {
-        dispatch(fetchGetPoems())
-        dispatch(fetchGetArticles())
-    }, [dispatch])
+    const updateData = (id: string, category: string) => {
 
-    React.useEffect(() => {
-        if (debounce) {
-            if (componentName === 'Изменить, удалить стих') {
-                dispatch(fetchSearchPoems(debounce));
-            }
-            else if (componentName === 'Изменить, удалить статью') {
-                dispatch(fetchSearchArticles(debounce));
-            }
-        }
-        else {
-            dispatch(fetchGetPoems())
-            dispatch(fetchGetArticles())
-        }
-    }, []);
-// dispatch, debounce, componentName
-
-    React.useEffect(() => {
-        if (content.data) {
-            setFilterData(
-                content.data.filter((_: Creativity, index: number) => {
-                    return (index >= page * renderItems) && (index < (page + 1) * renderItems);
-                })
-            );
-        }
-    }, []);
+    }
     
-//dispatch, page, content.data
+    useEffect(() => {
+        if(debounce){
+            dispatch(fetchSearchArticles(debounce))
+        }
+    }, [debounce, dispatch])
+
+    console.log(poems);
 
     return (
         <>{
-            filterData ?
+            creativity.isLoading === "loaded" ?
                 <div className={s.data}>
                     <div className={s.data__content}>
                         <div className={s.data__content_search}>
@@ -88,10 +56,12 @@ export const ChangeData: React.FC<Props> = memo(({ componentName, updateData }) 
                         </div>
                         <ul className={s.data__list}>
                             {
-                                filterData.map((item: Creativity) =>
+                                creativity.data.map((item: Creativity) =>
                                     <div className={s.data__item_wrapp} key={item.title}>
-                                        <li className={s.data__item} onClick={() => updateData(item.id, componentName)}>{item.title || 'загрузка'}</li>
-                                        <div className={s.data__delete} onClick={() => deleteItem(item.id, componentName)}><GlobalSvgSelecotr id='cancel' /></div>
+                                        <li className={s.data__item} onClick={() => updateData(item._id!, contentState.category)}>{item.title || 'загрузка'}</li>
+                                        <div className={s.data__delete} onClick={() => deleteItem(item._id!, contentState.category)}>
+                                            <GlobalSvgSelecotr id='cancel' />
+                                        </div>
                                     </div>
                                 )
                             }
@@ -103,10 +73,11 @@ export const ChangeData: React.FC<Props> = memo(({ componentName, updateData }) 
                                 className={s.root}
                                 previousLabel="<"
                                 nextLabel=">"
-                                pageCount={Math.ceil(amontPages)}
-                                onPageChange={(e) =>
-                                    setPage(e.selected)
-                                }
+                                // pageCount={Math.ceil(amontPages)}
+                                pageCount={Math.ceil(1)}
+                                // onPageChange={(e) =>
+                                //     setPage(e.selected)
+                                // }
                                 renderOnZeroPageCount={null || undefined}
                             />
                         </div>

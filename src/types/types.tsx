@@ -47,12 +47,13 @@ export type ContentT = {
   about_block_text_2?: string;
 };
 
-export type Creativity = {
-  id?: string | null | undefined;
-  title?: string;
-  text?: string;
+export interface Creativity {
+  _id?: string;
+  title: string;
+  text: string;
   createdAt?: number;
 };
+
 
 export type NewContent = {
       id?: string | undefined;

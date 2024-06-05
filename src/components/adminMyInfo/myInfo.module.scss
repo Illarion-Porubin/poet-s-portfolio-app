@@ -59,6 +59,10 @@ input:focus {outline: none;}
         border-radius: 12px;
     }
 
+    &__action_btn{
+        background-color: transparent;
+        border: none;
+    }
 
     &__completed {
         position: absolute;

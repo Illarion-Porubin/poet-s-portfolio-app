@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { ContentT, SendEmail } from '../../types/types';
 import axios from "../../http/index";
-import { ContentT, NewContent, SendEmail } from '../../types/types';
 
 export const fetchGetContetn = createAsyncThunk<ContentT, undefined, { rejectValue: string }>(
   "api/fetchGetContetn", async (_, { rejectWithValue }) => {
@@ -15,6 +15,7 @@ export const fetchGetContetn = createAsyncThunk<ContentT, undefined, { rejectVal
 export const fetchUpdateContent = createAsyncThunk<ContentT, ContentT, { rejectValue: string }>(
   "api/fetchUpdateContent",
   async (params, { rejectWithValue }) => {
+    console.log(params);
     const { data }: { data: any } = await axios.patch(`/api/content/${params.id}`, params);
     if (!data) {
       return rejectWithValue("Server Error!");
@@ -25,7 +26,7 @@ export const fetchUpdateContent = createAsyncThunk<ContentT, ContentT, { rejectV
 );
 
 export const fetchSendMaeesage = createAsyncThunk<ContentT, SendEmail, { rejectValue: string }>(
-  "api/fetchUpdateContent",
+  "api/fetchSendMaeesage",
   async (params, { rejectWithValue }) => {
     const { data }: { data: any } = await axios.post("/api/message", params);
     if (!data) {
@@ -39,6 +40,7 @@ export const fetchSendMaeesage = createAsyncThunk<ContentT, SendEmail, { rejectV
 export type ContentState = {
   data: ContentT | null;
   newData: ContentT | null;
+  category: string;
   isLoading: "idle" | "loading" | "loaded" | "error";
   error: string | null;
 }
@@ -46,6 +48,7 @@ export type ContentState = {
 const initialState: ContentState = {
   data: null,
   newData: null,
+  category: 'Лична информация',
   isLoading: "idle",
   error: null,
 }
@@ -55,7 +58,17 @@ export const contentSlice = createSlice({
   initialState,
   reducers: {
     saveContent: (state, action) => {
-      state.newData = { ...state.data, ...action.payload }
+      state.data = action.payload
+      state.newData = null
+    },
+    newContent: (state, action) => {
+      if(!state.newData){
+        state.newData = {...state.data, ...action.payload}
+      }
+      state.newData = {...state.newData, ...action.payload}
+    },
+    setCategory: (state, action) => {
+      state.category = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -73,21 +86,7 @@ export const contentSlice = createSlice({
         state.data = null;
         state.isLoading = "error";
       })
-      ///fetchUpdateContent
-      .addCase(fetchUpdateContent.pending, (state) => {
-        state.data = null;
-        state.isLoading = "loading";
-      })
-      .addCase(fetchUpdateContent.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.isLoading = "loaded";
-      })
-      .addCase(fetchUpdateContent.rejected, (state) => {
-        state.data = null;
-        state.isLoading = "error";
-      })
   },
 })
 
-export const { saveContent } = contentSlice.actions
 export default contentSlice.reducer;

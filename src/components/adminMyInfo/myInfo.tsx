@@ -5,21 +5,11 @@ import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
 import { selectAuthData, selectContentData } from '../../redux/selectors';
 // import { UploadWidget } from '../Upload/UploadWidget';
 import { InputMask } from 'primereact/inputmask';
-import { fetchGetContetn } from '../../redux/slices/contentSlice';
+import { contentSlice, fetchGetContetn } from '../../redux/slices/contentSlice';
 
-interface Props {
-    setData: (data: {
-        firstName: string,
-        photo_url: string,
-        lastName: string,
-        email: string,
-        phone: string,
-        card: string,
-        id: string
-    }) => void,
-}
 
-export const MyInfo: React.FC<Props> = memo(({ setData }) => {
+
+export const MyInfo: React.FC = memo(() => {
     const dispatch = useCustomDispatch()
     const contentState = useCustomSelector(selectContentData);
     const [active, setActive] = React.useState<boolean>(false);
@@ -32,16 +22,10 @@ export const MyInfo: React.FC<Props> = memo(({ setData }) => {
         phone: '',
         card: '',
     })
-
-    React.useEffect(() => {
-        if (contentState.data) {
-            return setUserData({...contentState.data});
-        }
-    }, [contentState.data])
-
+    
     const saveData = () => {
-        setActive(!active)
-        setData( Object({ ...userData, id: contentState.data!.id }))
+        setActive(true)
+        dispatch(contentSlice.actions.newContent(Object({...contentState.data, ...userData})))
     }
 
     const deleteData = () => {
@@ -49,17 +33,35 @@ export const MyInfo: React.FC<Props> = memo(({ setData }) => {
         dispatch(fetchGetContetn())
     }
 
+    React.useEffect(() => {
+        if (contentState.data) {
+            setActive(false)
+            setUserData({
+                firstName: contentState.data.firstName!,
+                photo_url: contentState.data.photo_url!,
+                lastName: contentState.data.lastName!,
+                email: contentState.data.email!,
+                phone: contentState.data.phone!,
+                card: contentState.data.card!,  
+            });
+        }
+    }, [contentState.data])
+
     return (
         <>
             <div className={s.myInfo}>
                 <div className={s.myInfo__header}>
-                    <div className={s.myInfo__completed} onClick={saveData}><GlobalSvgSelecotr id={!active ? 'completed' : 'pencil'} /></div>
-                    <div className={s.myInfo__cancel} onClick={deleteData}><GlobalSvgSelecotr id='cancel' /></div>
+                    <button className={`${s.myInfo__completed} ${s.myInfo__action_btn}`} disabled={active} onClick={saveData}>
+                        <GlobalSvgSelecotr id={!active ? 'completed' : 'pencil'} />
+                    </button>
+                    <button className={`${s.myInfo__cancel} ${s.myInfo__action_btn}`} onClick={deleteData}>
+                        <GlobalSvgSelecotr id='cancel' />
+                    </button>
                 </div>
                 <div className={s.myInfo__content}>
-                    <div className={s.myInfo__avatar}>
-                        {/* <UploadWidget requestFrom={'admin'} /> */}
-                    </div>
+                    {/* <div className={s.myInfo__avatar}>
+                        <UploadWidget requestFrom={'admin'} />
+                    </div> */}
                     <div className={s.myInfo__inputs}>
                         <div className={s.myInfo__content_input}>
                             <label htmlFor="firstName" className={s.myInfo__desc}>Имя:</label>

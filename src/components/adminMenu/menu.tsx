@@ -1,13 +1,14 @@
 import React, { memo } from "react";
 import s from "./menu.module.scss";
 import { Link } from "react-router-dom";
+import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
+import { contentSlice } from "../../redux/slices/contentSlice";
+import { selectContentData } from "../../redux/selectors";
 
-interface Props {
-  menuId: (value: string) => void;
-}
 
-export const Menu: React.FC<Props> = memo(({ menuId }) => {
-  const [id, setId] = React.useState<number>(0);
+export const Menu: React.FC = memo(() => {
+  const dispatch = useCustomDispatch();
+  const content = useCustomSelector(selectContentData);
   const menu = React.useMemo(
     () => [
       "Личная информация",
@@ -20,10 +21,6 @@ export const Menu: React.FC<Props> = memo(({ menuId }) => {
     []
   );
 
-  const style = (index: number, item: string) => {
-    setId(index);
-    menuId(item);
-  };
 
   return (
     <>
@@ -35,9 +32,9 @@ export const Menu: React.FC<Props> = memo(({ menuId }) => {
           <ul className={s.adminMenu__content}>
             {menu.map((item, index) => (
               <div
-                onClick={() => style(index, item)}
+                onClick={() => dispatch(contentSlice.actions.setCategory(item))}
                 className={
-                  index === id
+                  item === content.category
                     ? `${s.adminMenu__items} ${s.active}`
                     : s.adminMenu__items
                 }

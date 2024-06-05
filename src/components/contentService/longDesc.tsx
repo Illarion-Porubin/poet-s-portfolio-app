@@ -3,8 +3,9 @@ import s from './desc.module.scss';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
-import { useCustomDispatch } from '../../hooks/store';
-import { saveContent } from "../../redux/slices/contentSlice";
+import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
+import { contentSlice } from "../../redux/slices/contentSlice";
+import { selectContentData } from '../../redux/selectors';
 
 interface Props {
     data: { key: string, desc: string, maxValue: number, text: string };
@@ -12,6 +13,7 @@ interface Props {
 
 export const LongDesc: React.FC<Props> = memo(({ data }) => {
     const dispatch = useCustomDispatch();
+    const contentState = useCustomSelector(selectContentData);
     const tagsInput = React.useRef<HTMLDivElement>(null);
     const [value, setValue] = React.useState<string>(data.text);
     const [active, setActive] = React.useState<boolean>(false);
@@ -26,14 +28,15 @@ export const LongDesc: React.FC<Props> = memo(({ data }) => {
             alert('Ключ для сохранения не выбран')
         }
         setActive(true)
-        dispatch(saveContent({ [key]: value }))
+        dispatch(contentSlice.actions.newContent({...contentState.newData,  [key]: value }))
     }
 
-    React.useMemo(() => {
-        if (value !== data.text) {
+    React.useEffect(() => {
+        if (contentState.data) {
             setActive(false)
         }
-    }, [value, data.text])
+    }, [contentState.data])
+
 
     const style = () => {
         if (active) {
