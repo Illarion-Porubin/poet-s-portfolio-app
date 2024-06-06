@@ -1,132 +1,113 @@
 import React, { memo } from "react";
+import s from "./add.module.scss";
+import "easymde/dist/easymde.min.css";
 import SimpleMDE from "react-simplemde-editor";
 import { GlobalSvgSelecotr } from "../../assets/global/GlobalSvgSelecotr";
 import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
-import axios from "../../http";
-import s from "./add.module.scss";
-import "easymde/dist/easymde.min.css";
-import { selectContentData } from "../../redux/selectors";
+import {
+  selectArticleData,
+  selectContentData,
+  selectPoemData,
+} from "../../redux/selectors";
 import { poemSlice } from "../../redux/slices/poemSlice";
-import { title } from "process";
-
+import { articleSlice } from "../../redux/slices/articleSlice";
+import { Creativity } from "../../types/types";
 
 export const AddCreativity: React.FC = memo(() => {
   const dispatch = useCustomDispatch();
-  const content = useCustomSelector(selectContentData);
-  const [creativity, setCreativity] = React.useState({ title: "", text: "" });
-
+  const contentState = useCustomSelector(selectContentData);
+  const articleState = useCustomSelector(selectArticleData);
+  const poemState = useCustomSelector(selectPoemData);
   const [active, setActive] = React.useState<boolean>(false);
-  const dataId = React.useRef<null | string | undefined>();
-
+  const [creativity, setCreativity] = React.useState<Creativity>({
+    title: "",
+    text: "",
+  });
 
   const completed = () => {
-    dispatch(poemSlice.actions.setPoem({...creativity}))
+    if (contentState.category === "Добавить статью") {
+      setActive(true);
+      return dispatch(articleSlice.actions.setArticle({ ...creativity }));
+    }
     setActive(true);
+    dispatch(poemSlice.actions.setPoem({ ...creativity }));
   };
 
   const reset = () => {
-    setCreativity({
-      title: "",
-      text: "",
-    });
-    dataId.current = null;
-    setActive(false);
+    if (contentState.category === "Добавить статью") {
+      setCreativity({ title: "", text: "" });
+      setActive(false);
+      dispatch(articleSlice.actions.setArticle(null));
+    } else {
+      setCreativity({ title: "", text: "" });
+      setActive(false);
+      dispatch(poemSlice.actions.setPoem(null));
+    }
   };
 
   React.useEffect(() => {
-    if (dataId.current) {
-      if (content.category === "Добавить статью") {
-        axios.get(`api/article/${dataId.current}`).then((res) => {
-          const data = res.data.article;
-          setCreativity({
-            title: data.text,
-            text: data.title,
-          });
-          dataId.current = data._id;
-        });
-      } else {
-        axios.get(`api/poem/${dataId.current}`).then((res) => {
-          const data = res.data.poem;
-          setCreativity({
-            title: data.text,
-            text: data.title,
-          });
-          dataId.current = data._id;
-        });
-      }
+    if (articleState.article && contentState.category === "Добавить статью") {
+      setCreativity(articleState.article);
+    } else if (poemState.poem && contentState.category === "Добавить стих") {
+      setCreativity(poemState.poem);
+    } else {
+      setCreativity({ title: "", text: "" });
+      setActive(false);
     }
-    reset();
-  }, [content.category, dispatch]);
-
-//   const options: any = React.useMemo(
-//     () => ({
-//       spellChecker: false,
-//       maxHeight: "400px",
-//       placeholder: "Введите текст...",
-//       status: false,
-//     }),
-//     []
-//   );
+  }, [articleState.article, contentState.category, poemState.poem]);
 
   return (
     <>
-      <h1>
-        <div className={s.description}>
-          <div className={s.description__items}>
-            <div
-              className={
-                active
-                  ? `${s.description__item} ${s.active}`
-                  : s.description__item
-              }
-            >
-              <div className={s.description__item_header}>
-                <div className={s.description__item_btns}>
-                  <button
-                    disabled={
-                      creativity.text || creativity.title ? false : true
-                    }
-                    className={s.description__item_btn}
-                    onClick={completed}
-                  >
-                    <GlobalSvgSelecotr id="completed" />
-                  </button>
-                  <button
-                    className={s.description__item_btn}
-                    onClick={() => reset()}
-                  >
-                    <GlobalSvgSelecotr id={"cancel"} />
-                  </button>
-                </div>
-              </div>
-              <div>
-                <input
-                  className={s.description__item_content}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setCreativity({ ...creativity, title: e.target.value })
-                  }
-                  placeholder="Название"
-                  disabled={active}
-                  value={creativity.title}
-                />
-              </div>
-              <div>
-                {/* <SimpleMDE value={creativity.text} onChange={onChange} options={options} /> */}
-                <textarea
-                  name="text"
-                  id="text"
-                  value={creativity.text}
-                  disabled={active}
-                  placeholder="Стих"
-                  onChange={(e) =>
-                    setCreativity({ ...creativity, text: e.target.value })
-                  }
-                />
+      <div className={s.description}>
+        <div className={s.description__items}>
+          <div
+            className={
+              active
+                ? `${s.description__item} ${s.active}`
+                : s.description__item
+            }
+          >
+            <div className={s.description__item_header}>
+              <h1>{creativity._id ? "Редактировать" : "Создать"}</h1>
+              <div className={s.description__item_btns}>
+                <button
+                  disabled={creativity.text || creativity.title ? false : true}
+                  className={s.description__item_btn}
+                  onClick={completed}
+                >
+                  <GlobalSvgSelecotr id="completed" />
+                </button>
+                <button
+                  className={s.description__item_btn}
+                  onClick={() => reset()}
+                >
+                  <GlobalSvgSelecotr id={"cancel"} />
+                </button>
               </div>
             </div>
+            <input
+                className={s.description__item_title}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setCreativity({ ...creativity, title: e.target.value })
+                }
+                placeholder="Название"
+                disabled={active}
+                value={creativity.title}
+              />
+            <textarea
+                className={s.description__item_content}
+                name="text"
+                id="text"
+                value={creativity.text}
+                disabled={active}
+                placeholder="Описание"
+                onChange={(e) =>
+                  setCreativity({ ...creativity, text: e.target.value })
+                }
+              />
           </div>
         </div>
-      </h1>
+      </div>
     </>
   );
 });

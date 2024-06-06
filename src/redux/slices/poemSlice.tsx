@@ -1,15 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from '../../http/index';
-import { Creativity } from '../../types/types';
+import { Creativity, ICreativityData } from '../../types/types';
 
-export const fetchGetPoems = createAsyncThunk<Creativity[], number | undefined, { rejectValue: string }>('api/fetchGetPoems', async (page: number | undefined, { rejectWithValue }) => {
-    const chackPage = page ? page : 1
-    const { data }: any = await axios.get('/api/poems?p=' + chackPage)
+export const fetchGetPoems = createAsyncThunk<ICreativityData, number | undefined, { rejectValue: string }>('api/fetchGetPoems', async (page: number | undefined, { rejectWithValue }) => {
+    const { data }: {data: ICreativityData } = await axios.get('/api/poems?p=' + page)
     if (!data) {
         return rejectWithValue('Server Error!');
     }
-    const poem: Creativity[] = data;
-    return poem;
+    return data;
 });
 
 export const fetchSearchPoems = createAsyncThunk<Creativity[], string, { rejectValue: string }>('api/fetchSearchPoems', async (value: string, { rejectWithValue }) => {
@@ -91,7 +89,9 @@ export const poemSlice = createSlice({
                 state.isLoading = 'loading';
             })
             .addCase(fetchGetPoems.fulfilled, (state, action) => {
-                state.data = action.payload;
+                state.pages = action.payload.pages;
+                state.data = action.payload.poems;
+                // state.data = action.payload;
                 state.isLoading = 'loaded';
             })
             .addCase(fetchGetPoems.rejected, (state) => {

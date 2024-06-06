@@ -32,12 +32,10 @@ export const MainPage: React.FC = memo(() => {
           <div className={s.main__wrapp}>
             <div className={s.main__preface}>
               <h1 className={s.main__title}>{contentState.data?.title || `Стих - это частичка души автора, подаренная читателю...`}</h1>
-              <button className={s.main__btn} onClick={() => setDonate(true)}>{contentState.data?.btn || "Поддержать моё творчество"}</button>
+              <button className={s.main__btn} onClick={() => setDonate(true)}>{contentState.data?.btn || "Поддержать меня"}</button>
             </div>
             <div className={s.main__info}>
-              <div className={s.main__avatar}>
-                {/* <UploadWidget requestFrom={''} /> */}
-              </div>
+              <img className={s.main__avatar} src={contentState.data?.photo_url} alt="img" />
               <div className={s.main__avatar_wrapp}>
                 { 
                   contentState.isLoading === 'loaded'
@@ -48,7 +46,7 @@ export const MainPage: React.FC = memo(() => {
                 }
                 <div className={s.main__info_underline}></div>
               </div>
-              <button className={s.main__info_btn} onClick={() => setDonate(true)}>{contentState.data?.btn || "Поддержать моё творчество"}</button>
+              <button className={s.main__info_btn} onClick={() => setDonate(true)}>{contentState.data?.btn || "Поддержать меня"}</button>
             </div>
           </div>
         </div>

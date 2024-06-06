@@ -64,21 +64,35 @@ export const fetchDeleteArticle = createAsyncThunk<Creativity[], string, { rejec
 
 
 export type ArticleState = {
-    data: [] | Creativity[];
+    data: Creativity[];
+    article: Creativity | null;
     isLoading: "idle" | "loading" | "loaded" | "error";
     error: string | null;
 }
 
 const initialState: ArticleState = {
     data: [],
+    article: null,
     isLoading: "idle",
     error: null
 }
 
-const articleSlice = createSlice({
+export const articleSlice = createSlice({
     name: 'article',
     initialState,
-    reducers: {},
+    reducers: {
+        saveData: (state, action) => {
+            state.data.push(action.payload)
+            console.log(state.data);
+        },
+        delteArticle: (state, action) => {
+            state.data = state.data.filter((item) => item._id !== action.payload ? item : undefined)
+        },
+        setArticle: (state, action) => {
+            state.article = action.payload
+            console.log(state.article, 'setArticle');
+        },
+    },
     extraReducers(builder) {
         builder
             // ///fetchGetArticles

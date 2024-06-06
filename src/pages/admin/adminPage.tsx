@@ -4,24 +4,26 @@ import { Menu } from '../../components/adminMenu/menu';
 import { Content } from '../../components/adminContent/content';
 import { MyInfo } from '../../components/adminMyInfo/myInfo';
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
-import { selectAuthData, selectContentData, selectPoemData } from '../../redux/selectors';
+import { selectArticleData, selectAuthData, selectContentData, selectPoemData } from '../../redux/selectors';
 import { contentSlice, fetchGetContetn, fetchUpdateContent } from '../../redux/slices/contentSlice';
 import { Navigate } from 'react-router-dom';
 import { AddCreativity } from '../../components/adminAdd/AddCreativity';
 import { ChangeData } from '../../components/adminDeleteEdit/changeData';
 import { fetchGetPoems, fetchPostPoem, fetchUpdatePoem, poemSlice } from '../../redux/slices/poemSlice';
-import { fetchPostArticle, fetchUpdateArticle } from '../../redux/slices/articleSlice';
+import { articleSlice, fetchGetArticles, fetchPostArticle, fetchUpdateArticle } from '../../redux/slices/articleSlice';
 // import { fetchAuthMe, fetchUpdateInfo } from '../../redux/slices/authSlice';
 
 
 export const AdminPage: React.FC = memo(() => {
     const dispatch = useCustomDispatch();
-    const auth = useCustomSelector(selectAuthData);
+    const authState = useCustomSelector(selectAuthData);
+    const poemState = useCustomSelector(selectPoemData);
     const contentState = useCustomSelector(selectContentData);
-    const poemState = useCustomSelector(selectPoemData)
+    const articleState = useCustomSelector(selectArticleData);
  
 
     React.useEffect(() => {
+        dispatch(fetchGetArticles());
         dispatch(fetchGetContetn());
         dispatch(fetchGetPoems());
     }, [dispatch]);
@@ -50,28 +52,25 @@ export const AdminPage: React.FC = memo(() => {
             case 'Добавить стих':
                 if (poemState.poem?._id) {
                     dispatch(fetchUpdatePoem({...poemState.poem}))
-                    if(poemState.isLoading === "error"){
-                        window.alert("Ошибка сохранения данных") 
-                    }
+                    dispatch(poemSlice.actions.setPoem(null))
+                    if(poemState.isLoading === "error") window.alert("Ошибка сохранения данных") 
                 }
                 else {
-                    dispatch(fetchPostPoem({...poemState.poem!}))         
-                    if(poemState.isLoading === "error"){
-                        window.alert("Ошибка сохранения данных") 
-                    }
+                    dispatch(fetchPostPoem({...poemState.poem!}))  
+                    dispatch(poemSlice.actions.setPoem(null))       
+                    if(poemState.isLoading === "error") window.alert("Ошибка сохранения данных") 
                 }
                 break
             case 'Добавить статью':
-                if (poemState.poem) {
-                    // dispatch(fetchUpdateArticle({_id: data?.id, text: data?.text, title: data?.title }))
-                    // dispatch(fetchUpdateArticle({...data }))
-                    // setTimeout(() =>  window.location.reload(), 200);
+                if (articleState.article?._id) {
+                    dispatch(fetchUpdateArticle({...articleState.article}))
+                    dispatch(articleSlice.actions.setArticle(null))
+                    if(poemState.isLoading === "error") window.alert("Ошибка сохранения данных") 
                 }
                 else {
-                    if (poemState.poem) {
-                        // dispatch(fetchUpdateArticle({...data }))
-                        // setTimeout(() =>  window.location.reload(), 200);
-                    }
+                    dispatch(fetchPostArticle({...articleState.article!}))    
+                    dispatch(articleSlice.actions.setArticle(null))
+                    if(poemState.isLoading === "error") window.alert("Ошибка сохранения данных") 
                 }
                 break
             default:
@@ -79,7 +78,7 @@ export const AdminPage: React.FC = memo(() => {
         }
     }
 
-    if (auth.isLoading === 'error' && auth.data?.accessToken === undefined) {
+    if (authState.isLoading === 'error' && authState.data?.accessToken === undefined) {
         return (<Navigate to='/' />)
     }
 

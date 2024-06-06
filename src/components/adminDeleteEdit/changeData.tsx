@@ -2,12 +2,13 @@ import React, { memo, useEffect } from 'react';
 import s from './adminDeleteEdit.module.scss'
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
 import { fetchDeletePoem, fetchGetPoems, fetchSearchPoems, poemSlice } from '../../redux/slices/poemSlice';
-import { fetchDeleteArticle, fetchGetArticles, fetchSearchArticles } from '../../redux/slices/articleSlice';
+import { articleSlice, fetchDeleteArticle, fetchGetArticles, fetchSearchArticles } from '../../redux/slices/articleSlice';
 import { selectArticleData, selectContentData, selectPoemData } from '../../redux/selectors';
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import ReactPaginate from 'react-paginate';
 import useDebounce from '../../hooks/useDebounce';
 import { Creativity } from '../../types/types';
+import { contentSlice } from '../../redux/slices/contentSlice';
 
 
 export const ChangeData: React.FC = memo(() => {
@@ -20,17 +21,26 @@ export const ChangeData: React.FC = memo(() => {
 
     const creativity = contentState.category === 'Изменить, удалить стих' ?  poems : articles;
 
-    const deleteItem = (id: string, category: string) => {
-        if(category === 'Изменить, удалить стих'){
+    const deleteItem = (id: string) => {
+        if(contentState.category === 'Изменить, удалить стих'){
             dispatch(fetchDeletePoem(id))
             dispatch(poemSlice.actions.deltePoem(id))
         } else {
             dispatch(fetchDeleteArticle(id))
+            dispatch(articleSlice.actions.delteArticle(id))
         }
     }
 
-    const updateData = (id: string, category: string) => {
-
+    const updateData = (item: Creativity) => {
+        if(contentState.category === 'Изменить, удалить стих'){
+            dispatch(contentSlice.actions.setCategory('Добавить стих'))
+            dispatch(articleSlice.actions.setArticle(null))
+            dispatch(poemSlice.actions.setPoem(item))
+        } else {
+            dispatch(contentSlice.actions.setCategory('Добавить статью'))
+            dispatch(poemSlice.actions.setPoem(null))
+            dispatch(articleSlice.actions.setArticle(item))
+        }
     }
     
     useEffect(() => {
@@ -38,8 +48,6 @@ export const ChangeData: React.FC = memo(() => {
             dispatch(fetchSearchArticles(debounce))
         }
     }, [debounce, dispatch])
-
-    console.log(poems);
 
     return (
         <>{
@@ -58,8 +66,8 @@ export const ChangeData: React.FC = memo(() => {
                             {
                                 creativity.data.map((item: Creativity) =>
                                     <div className={s.data__item_wrapp} key={item.title}>
-                                        <li className={s.data__item} onClick={() => updateData(item._id!, contentState.category)}>{item.title || 'загрузка'}</li>
-                                        <div className={s.data__delete} onClick={() => deleteItem(item._id!, contentState.category)}>
+                                        <li className={s.data__item} onClick={() => updateData(item)}>{item.title || 'загрузка'}</li>
+                                        <div className={s.data__delete} onClick={() => deleteItem(item._id!)}>
                                             <GlobalSvgSelecotr id='cancel' />
                                         </div>
                                     </div>

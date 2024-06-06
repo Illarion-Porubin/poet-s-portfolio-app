@@ -75,7 +75,7 @@ export const ContactsPage: React.FC = memo(() => {
         <div className={s.contacts__whait_wrapp}>
           <div className={s.contacts__whait}>
             <p className={s.contacts__whait_text}>
-              {contentState.data?.contact_title || 'здесь должен быть текст, но что-то пошло не так'}
+              {contentState.data?.contact_title || 'здесь должен быть текст, но сервер не запущен'}
             </p>
           </div>
         </div>

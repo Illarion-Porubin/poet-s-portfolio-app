@@ -2,9 +2,8 @@ import React, { memo } from 'react';
 import s from './myInfo.module.scss';
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
-import { selectAuthData, selectContentData } from '../../redux/selectors';
-// import { UploadWidget } from '../Upload/UploadWidget';
-import { InputMask } from 'primereact/inputmask';
+import { selectContentData } from '../../redux/selectors';
+import { UploadWidget } from '../Upload/UploadWidget';
 import { contentSlice, fetchGetContetn } from '../../redux/slices/contentSlice';
 
 
@@ -59,9 +58,9 @@ export const MyInfo: React.FC = memo(() => {
                     </button>
                 </div>
                 <div className={s.myInfo__content}>
-                    {/* <div className={s.myInfo__avatar}>
+                    <div className={s.myInfo__avatar}>
                         <UploadWidget requestFrom={'admin'} />
-                    </div> */}
+                    </div>
                     <div className={s.myInfo__inputs}>
                         <div className={s.myInfo__content_input}>
                             <label htmlFor="firstName" className={s.myInfo__desc}>Имя:</label>

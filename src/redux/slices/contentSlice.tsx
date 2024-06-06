@@ -15,7 +15,6 @@ export const fetchGetContetn = createAsyncThunk<ContentT, undefined, { rejectVal
 export const fetchUpdateContent = createAsyncThunk<ContentT, ContentT, { rejectValue: string }>(
   "api/fetchUpdateContent",
   async (params, { rejectWithValue }) => {
-    console.log(params);
     const { data }: { data: any } = await axios.patch(`/api/content/${params.id}`, params);
     if (!data) {
       return rejectWithValue("Server Error!");
