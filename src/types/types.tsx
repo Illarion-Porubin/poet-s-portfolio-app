@@ -56,7 +56,7 @@ export interface Creativity {
 
 export interface ICreativityData {
   pages: number;
-  poems: Creativity[]
+  data: Creativity[]
 }
 
 // export type NewContent = {

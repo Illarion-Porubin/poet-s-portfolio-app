@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Creativity } from '../../types/types';
+import { Creativity, ICreativityData } from '../../types/types';
 import axios from '../../http/index';
 
 
-export const fetchGetArticles = createAsyncThunk<Creativity[], undefined, { rejectValue: string }>(
-    "api/fetchGetArticles", async (_, { rejectWithValue }) => {
-        const { data } = await axios.get("/api/articles");
+export const fetchGetArticles = createAsyncThunk<ICreativityData, number | undefined, { rejectValue: string }>(
+    "api/fetchGetArticles", async (page: number | undefined, { rejectWithValue }) => {
+        const { data }: {data: ICreativityData} = await axios.get("/api/articles?p=" + page);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const articles: Creativity[] = data;
-        return articles;
+        return data;
     });
 
 export const fetchSortArticles = createAsyncThunk<Creativity[], string, { rejectValue: string }>(
@@ -66,6 +65,7 @@ export const fetchDeleteArticle = createAsyncThunk<Creativity[], string, { rejec
 export type ArticleState = {
     data: Creativity[];
     article: Creativity | null;
+    pages: number;
     isLoading: "idle" | "loading" | "loaded" | "error";
     error: string | null;
 }
@@ -73,8 +73,9 @@ export type ArticleState = {
 const initialState: ArticleState = {
     data: [],
     article: null,
+    pages: 1,
     isLoading: "idle",
-    error: null
+    error: null,
 }
 
 export const articleSlice = createSlice({
@@ -101,7 +102,8 @@ export const articleSlice = createSlice({
                 state.isLoading = "loading";
             })
             .addCase(fetchGetArticles.fulfilled, (state, action) => {
-                state.data = action.payload;
+                state.pages = action.payload.pages;
+                state.data = action.payload.data;
                 state.isLoading = "loaded";
             })
             .addCase(fetchGetArticles.rejected, (state) => {

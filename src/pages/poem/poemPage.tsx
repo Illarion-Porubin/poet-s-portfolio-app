@@ -6,7 +6,6 @@ import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
 import { selectPoemData } from "../../redux/selectors";
 import { fetchGetPoems, fetchSearchPoems } from "../../redux/slices/poemSlice";
 import { Copyright } from "../../components/copyright/copyright";
-import { Creativity } from "../../types/types";
 import useDebounce from "../../hooks/useDebounce";
 
 export const PoemPage: React.FC = memo(() => {
@@ -16,9 +15,6 @@ export const PoemPage: React.FC = memo(() => {
   const [id, setId] = React.useState<number>(0);
   const debounce = useDebounce(search, 400);
   const poemState = useCustomSelector(selectPoemData);
-
-
-  console.log(poemState);
 
   const hideContent = () => {
     setDisplay((prev) => !prev);
@@ -36,15 +32,6 @@ export const PoemPage: React.FC = memo(() => {
       dispatch(fetchGetPoems());
     }
   }, [dispatch, debounce]);
-
-  // React.useEffect(() => {
-  //   setFilterData(
-  //     poemState.data.filter((_: any, index: number) => {
-  //       return (index >= page * renderItems) && (index < (page + 1) * renderItems);
-  //     })
-  //   );
-  // }, [dispatch, page, poemState.data]);
-
 
   return (
     <>

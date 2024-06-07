@@ -10,10 +10,6 @@ export const Pagination: React.FC = memo(() => {
     const pooemState = useCustomSelector(selectPoemData);
     const dispatch = useCustomDispatch();
 
-    const changePage = (page: number) => {
-        dispatch(fetchGetPoems(page))
-    }
-
     return (
         <>
             <div className={s.pagination}>
@@ -23,9 +19,7 @@ export const Pagination: React.FC = memo(() => {
                             className={s.root}
                             previousLabel="<"
                             nextLabel=">"
-                            onPageChange={(e) =>
-                                changePage(e.selected)
-                            }
+                            onPageChange={(e) => dispatch(fetchGetPoems(e.selected))}
                             pageCount={pooemState.pages}
                             renderOnZeroPageCount={null || undefined}
                         />
