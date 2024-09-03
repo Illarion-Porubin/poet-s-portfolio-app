@@ -41,13 +41,15 @@
 
     &__list {
         display: grid;
-        grid-template-columns: auto auto auto;
-        height: auto;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        height: 60dvh;
         justify-content: center;
-        grid-column-gap: 200px;
+        grid-column-gap: 4%;
         grid-row-gap: 0px;
         padding: 0 50px;
         position: relative;
+        overflow-y: scroll;
         bottom: -20px;
     }
 
@@ -130,25 +132,13 @@
             }
         }
     }
-
 }
 
-@media(max-width: 1501px) {
-    .data {
-        &__list {
-            grid-template-columns: auto auto;
-            overflow-y: scroll;
-            height: 530px;
-        }
-    }
-}
-
-@media(max-width: 1201px) {
-    .data {
-        &__list {
-            grid-template-columns: auto;
-            overflow-y: scroll;
-            height: 530px;
+:global {
+    .selected {
+        a {
+            background-color: #fff;
+            color: #000;
         }
     }
 }

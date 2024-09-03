@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
 import ReactPaginate from 'react-paginate';
 import s from './pagintaion.module.scss';
+import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
+import { selectPoemData } from '../../redux/selectors';
+import { fetchGetPoems } from '../../redux/slices/poemSlice';
 
-interface Props {
-    setPage: (num: number) => void,
-    amontPages: number,
-}
 
-export const Pagination: React.FC<Props> = memo(({ setPage, amontPages}) => {
+export const Pagination: React.FC = memo(() => {
+    const pooemState = useCustomSelector(selectPoemData);
+    const dispatch = useCustomDispatch();
 
     return (
         <>
@@ -18,10 +19,8 @@ export const Pagination: React.FC<Props> = memo(({ setPage, amontPages}) => {
                             className={s.root}
                             previousLabel="<"
                             nextLabel=">"
-                            onPageChange={(e) =>
-                                setPage(e.selected)
-                            }
-                            pageCount={Math.ceil(amontPages)}
+                            onPageChange={(e) => dispatch(fetchGetPoems(e.selected))}
+                            pageCount={pooemState.pages}
                             renderOnZeroPageCount={null || undefined}
                         />
                     </div>

@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import s from './desc.module.scss';
 import { GlobalSvgSelecotr } from '../../assets/global/GlobalSvgSelecotr';
-import { useCustomDispatch } from '../../hooks/store';
-import { saveContent } from "../../redux/slices/contentSlice";
-
+import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
+import { contentSlice } from "../../redux/slices/contentSlice";
+import { selectContentData } from '../../redux/selectors';
 
 interface Props {
     data: { key: string, desc: string, maxValue: number, text: string };
@@ -11,6 +11,7 @@ interface Props {
 
 export const ShortDesc: React.FC<Props> = memo(({ data }) => {
     const dispatch = useCustomDispatch();
+    const contentState = useCustomSelector(selectContentData);
     const tagsInput = React.useRef<HTMLDivElement>(null);
     const [value, setValue] = React.useState<string>(data.text);
     const [active, setActive] = React.useState<boolean>(false);
@@ -18,10 +19,11 @@ export const ShortDesc: React.FC<Props> = memo(({ data }) => {
     const completed = () => {
         const key = data.key ? data.key : '';
         if (!key) {
-            alert('Ключ для сохранения не выбран')
+            return alert('Ключ для сохранения не выбран')
         }
         setActive(true)
-        dispatch(saveContent({ [key]: value }))
+        console.log({ [key]: value });
+        dispatch(contentSlice.actions.newContent({...contentState.newData,  [key]: value }))
     }
 
     const cancel = () => {
@@ -29,11 +31,11 @@ export const ShortDesc: React.FC<Props> = memo(({ data }) => {
         setActive(false)
     }
 
-    React.useMemo(() => {
-        if (value !== data.text) {
+    React.useEffect(() => {
+        if (contentState.data) {
             setActive(false)
         }
-    }, [value, data.text])
+    }, [contentState.data])
 
     const style = () => {
         if (active) {
@@ -64,6 +66,7 @@ export const ShortDesc: React.FC<Props> = memo(({ data }) => {
                             <div className={s.description__item_btns}>
                                 <button className={s.description__item_btn}
                                     onClick={completed}
+                                    disabled={active}
                                 >
                                     <GlobalSvgSelecotr id='completed' />
                                 </button>
@@ -79,6 +82,7 @@ export const ShortDesc: React.FC<Props> = memo(({ data }) => {
                         <div>
                             <input
                                 className={s.description__item_content}
+                                disabled={active}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
                                 placeholder="Поменять текст..."
                                 value={value}

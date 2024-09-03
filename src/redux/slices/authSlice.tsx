@@ -1,59 +1,58 @@
 import { createSlice, createAsyncThunk, AnyAction, PayloadAction } from "@reduxjs/toolkit";
-import { AdminTypes, UserTypes } from "../../types/types";
+import { IUserInfo, IAdmin } from "../../types/types";
 import axios from "../../http/index";
 
-export const fetchRegister = createAsyncThunk<UserTypes, UserTypes, { rejectValue: string }>(
+export const fetchRegister = createAsyncThunk<{ status: number, message: string}, { email: string, password: string, confPass: string, securePass: string }, { rejectValue: { status: number, message: string} }>(
   "api/fetchRegister", async (params, { rejectWithValue }) => {
-    const { data }: { data: UserTypes } = await axios.post("/api/register", params);
+    const { data }: { data: {status: number, message: string} } = await axios.post("/api/registration", params);
     if (!data) {
-      return rejectWithValue("Server Error!");
+      return rejectWithValue({status: 401, message: "Registarion error"});
     }
-    const auth: UserTypes = data
-    return auth;
+    return data;
   });
 
-export const fetchLogin = createAsyncThunk<UserTypes, { email: string, password: string }, { rejectValue: string }>(
+export const fetchLogin = createAsyncThunk<IAdmin, { email: string, password: string }, { rejectValue: string }>(
   "api/fetchLogin", async (params, { rejectWithValue }) => {
-    const { data }: { data: UserTypes } = await axios.post("/api/login", params);
+    const { data }: { data: IAdmin } = await axios.post("/api/login", params);
     if (!data) {
       return rejectWithValue("Server Error!");
     }
-    const auth: UserTypes = data
+    const auth: IAdmin = data
     return auth;
   }
 );
 
-export const fetchAuthMe = createAsyncThunk<UserTypes, void, { rejectValue: string }>(
+export const fetchAuthMe = createAsyncThunk<IAdmin, void, { rejectValue: string }>(
   "api/fetchAuthMe", async (_, { rejectWithValue }) => {
-    const { data }: { data: UserTypes } = await axios.get("/api/me");
+    const { data }: { data: IAdmin } = await axios.get("/api/me");
     if (!data) {
       return rejectWithValue("Server Error!");
     }
-    const auth: UserTypes = data
+    const auth: IAdmin = data
     return auth;
   }
 );
 
-export const fetchUpdateInfo = createAsyncThunk<UserTypes, AdminTypes, { rejectValue: string }>(
+export const fetchUpdateInfo = createAsyncThunk<IAdmin, IUserInfo, { rejectValue: string }>(
   "api/fetchUpdateInfo",
   async (params, { rejectWithValue }) => {
-    const { data }: { data: UserTypes } = await axios.put("/api/update", params);
+    const { data }: { data: IAdmin } = await axios.put("/api/update", params);
     if (!data) {
       return rejectWithValue("Server Error!");
     }
-    const auth: UserTypes = data
+    const auth: IAdmin = data
     return auth;
   }
 );
 
-export const fetchDeleteAvatar = createAsyncThunk<UserTypes, string, { rejectValue: string }>(
+export const fetchDeleteAvatar = createAsyncThunk<IAdmin, string, { rejectValue: string }>(
   "api/fetchDeleteAvatar",
   async (id, { rejectWithValue }) => {
-    const { data }: { data: UserTypes } = await axios.delete("/api/avatar/" + id);
+    const { data }: { data: IAdmin } = await axios.delete("/api/avatar/" + id);
     if (!data) {
       return rejectWithValue("Server Error!");
     }
-    const auth: UserTypes = data
+    const auth: IAdmin = data
     return auth;
   }
 );
@@ -61,7 +60,7 @@ export const fetchDeleteAvatar = createAsyncThunk<UserTypes, string, { rejectVal
 
 
 export type AuthState = {
-  data: UserTypes | null;
+  data: IAdmin | null;
   isLoading: "idle" | "loading" | "loaded" | "error";
   error: string | null;
 }
@@ -83,19 +82,6 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      ///fetchRegister
-      .addCase(fetchRegister.pending, (state) => {
-        state.data = null;
-        state.isLoading = "loading";
-      })
-      .addCase(fetchRegister.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.isLoading = "loaded";
-      })
-      .addCase(fetchRegister.rejected, (state) => {
-        state.data = null;
-        state.isLoading = "error";
-      })
       ///fetchLogin
       .addCase(fetchLogin.pending, (state) => {
         state.data = null;

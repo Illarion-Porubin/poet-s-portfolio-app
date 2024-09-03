@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Creativity } from '../../types/types';
+import { Creativity, ICreativityData } from '../../types/types';
 import axios from '../../http/index';
 
 
-export const fetchGetArticles = createAsyncThunk<Creativity[], undefined, { rejectValue: string }>(
-    "api/fetchGetArticles", async (_, { rejectWithValue }) => {
-        const { data } = await axios.get("/api/articles");
+export const fetchGetArticles = createAsyncThunk<ICreativityData, number | undefined, { rejectValue: string }>(
+    "api/fetchGetArticles", async (page: number | undefined, { rejectWithValue }) => {
+        const { data }: {data: ICreativityData} = await axios.get("/api/articles?p=" + page);
         if (!data) {
             return rejectWithValue("Server Error!");
         }
-        const articles: Creativity[] = data;
-        return articles;
+        return data;
     });
 
 export const fetchSortArticles = createAsyncThunk<Creativity[], string, { rejectValue: string }>(
@@ -64,21 +63,37 @@ export const fetchDeleteArticle = createAsyncThunk<Creativity[], string, { rejec
 
 
 export type ArticleState = {
-    data: [] | Creativity[];
+    data: Creativity[];
+    article: Creativity | null;
+    pages: number;
     isLoading: "idle" | "loading" | "loaded" | "error";
     error: string | null;
 }
 
 const initialState: ArticleState = {
     data: [],
+    article: null,
+    pages: 1,
     isLoading: "idle",
-    error: null
+    error: null,
 }
 
-const articleSlice = createSlice({
+export const articleSlice = createSlice({
     name: 'article',
     initialState,
-    reducers: {},
+    reducers: {
+        saveData: (state, action) => {
+            state.data.push(action.payload)
+            console.log(state.data);
+        },
+        delteArticle: (state, action) => {
+            state.data = state.data.filter((item) => item._id !== action.payload ? item : undefined)
+        },
+        setArticle: (state, action) => {
+            state.article = action.payload
+            console.log(state.article, 'setArticle');
+        },
+    },
     extraReducers(builder) {
         builder
             // ///fetchGetArticles
@@ -87,7 +102,8 @@ const articleSlice = createSlice({
                 state.isLoading = "loading";
             })
             .addCase(fetchGetArticles.fulfilled, (state, action) => {
-                state.data = action.payload;
+                state.pages = action.payload.pages;
+                state.data = action.payload.data;
                 state.isLoading = "loaded";
             })
             .addCase(fetchGetArticles.rejected, (state) => {

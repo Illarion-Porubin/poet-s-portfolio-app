@@ -9,8 +9,7 @@
     }
 
     &__avatar_wrapp {
-        margin-top: 140px;
-        max-width: 480px;
+        width: 480px;
         max-height: 480px;
         margin: 0;
         padding: 0;
@@ -37,6 +36,13 @@
         transform: rotate(-7deg);
     }
 
+    &__avatar_img{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     &__biography {
         max-width: 740px;
         height: auto;
@@ -60,6 +66,7 @@
         border-bottom: 1px solid black;
         display: inline-block;
         margin-bottom: 50px;
+        word-break: keep-all;
     }
 
     &__text {

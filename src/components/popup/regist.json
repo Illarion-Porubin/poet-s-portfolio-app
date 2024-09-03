@@ -1,0 +1,26 @@
+[
+  {
+    "key": 0,
+    "type": "email",
+    "placeholder": "Email",
+    "value": "email"
+  },
+  {
+    "key": 1,
+    "type": "password",
+    "placeholder": "Password",
+    "value": "pass"
+  },
+  {
+    "key": 2,
+    "type": "password",
+    "placeholder": "ConfPassword",
+    "value": "confPass"
+  },
+  {
+    "key": 3,
+    "type": "password",
+    "placeholder": "SecuePassword",
+    "value": "securePass"
+  }
+]

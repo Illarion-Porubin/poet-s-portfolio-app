@@ -85,6 +85,7 @@
         width: 300px;
         height: 300px;
         border-radius: 50%;
+        object-fit: cover;
     }
 
     &__avatar_wrapp {
@@ -356,7 +357,7 @@
             width: 700px;
             height: 900px;
             position: relative;
-            padding-bottom: 180px;
+            // padding-bottom: 180px;
             top: 30px;
         }
 
@@ -452,7 +453,9 @@
 
         &__info {
             width: 500px;
-            height: 740px;
+            height: 700px;
+            position: relative;
+            top: 20px;
         }
     }
 }

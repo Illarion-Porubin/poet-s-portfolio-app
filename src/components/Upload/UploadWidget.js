@@ -1,11 +1,10 @@
 import React, { useCallback } from "react";
-//////////////////////////Cloudinary//////////////////////////////
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
-import { selectAuthData, selectContentData } from "../../redux/selectors";
+import { selectContentData } from "../../redux/selectors";
 import { useCustomSelector, useCustomDispatch } from "../../hooks/store";
-import { fetchDeleteAvatar, fetchUpdateInfo } from "../../redux/slices/authSlice";
-import { fetchGetContetn, fetchUpdateContent } from "../../redux/slices/contentSlice";
+import { fetchDeleteAvatar } from "../../redux/slices/authSlice";
+import { fetchUpdateContent } from "../../redux/slices/contentSlice";
 import Avatar from "../../assets/png/avatar.png";
 import s from "./UploadWidget.module.scss";
 
@@ -13,15 +12,14 @@ import s from "./UploadWidget.module.scss";
 
 export const UploadWidget = ({ ...props }) => {
   const dispatch = useCustomDispatch();
-  const authState = useCustomSelector(selectAuthData);
   const contentState = useCustomSelector(selectContentData);
   const cloudinaryRef = React.useRef();
   const widgetRef = React.useRef();
-  const [avatar, setAvatar] = React.useState("");
+  const [avatar, setAvatar] = React.useState(null);
 
   const cld = new Cloudinary({
     cloud: {
-      cloudName: "dkxn6kyl0",
+      cloudName: "dnyxxxt88",
     },
   });
 
@@ -29,8 +27,8 @@ export const UploadWidget = ({ ...props }) => {
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget(
       {
-        cloudName: "dkxn6kyl0",
-        uploadPreset: "gk0getn8",
+        cloudName: "dnyxxxt88",
+        uploadPreset: "od0cmi2t",
         sources: [
           "local",
           "camera",
@@ -40,61 +38,47 @@ export const UploadWidget = ({ ...props }) => {
       },
       function (error, result) {
         try {
-          const photoId = result.info.public_id;
-          if (photoId) {
-            const data = { id: authState?.data?.user?.id, photoId };
-            const contentData = { _id: contentState.data?.content?._id,  main_photo_id: photoId }
-            setAvatar(photoId);
-            dispatch(fetchDeleteAvatar(authState.data?.user.photoId))
-            setTimeout(() => {
-              dispatch(fetchUpdateInfo({ ...data }));
-              dispatch(fetchUpdateContent({...contentData}));
-            }, 500)
+            if (result.event === "success" && contentState.isLoading === 'loaded') {
+              console.log(result.info);
+              const photoId = result.info.public_id;
+              const photoUrl = result.info.secure_url;
+              const newAvatar = {id:contentState.data.id, photo_id: photoId, photo_url: photoUrl};
+              setAvatar(photoId);
+              dispatch(fetchUpdateContent({ ...newAvatar }));
+              setTimeout(() => {
+                  dispatch(fetchDeleteAvatar(avatar))
+              }, 300)
           }
-        } catch (e) {
+        } catch {
           console.log(error);
         }
       }
     )
     widgetRef.current.open()
-  }, [dispatch, authState?.data?.user?.id, authState.data?.user.photoId, contentState.data?.content?._id])
+  }, [contentState.isLoading])
 
   React.useEffect(() => {
-    if (!avatar && authState.isLoading === 'loaded') {
-      setAvatar(authState.data?.user.photoId);
-    }
-    dispatch(fetchGetContetn())
-  }, [
-    dispatch,
-    authState.data?.user.photoId,
-    avatar,
-    authState,
-  ]);
+    if (!avatar && contentState.isLoading === 'loaded') {
+        return setAvatar(contentState.data.photo_id);
+    } 
+  }, [contentState.isLoading]);
 
   const myImage = cld.image(avatar ? avatar : contentState.data?.content?.main_photo_id).format('auto').quality('auto');
 
-  if (!avatar && !contentState.data?.content?.main_photo_id) {
-    return <img className={s.notPhoto} src={Avatar} alt="avatar" />
-  } else {
-    return avatar && props.requestFrom === 'admin' ? (
-      <>
-        <div className={s.photo__wrap}>
-          <AdvancedImage
-            className={s.photo}
-            onClick={() => upload()}
-            cldImg={myImage}
-          />
-        </div>
-      </>
-    ) : (
-      <>
-        <AdvancedImage
-          className={s.img}
-          cldImg={myImage}
-        />
-      </>
-    );
-  };
+  return (
+    <>
+      <div className={s.photo__wrap}>
+        {
+          myImage.publicID ?
+            <AdvancedImage
+              className={s.photo}
+              onClick={() => upload()}
+              cldImg={myImage}
+            />
+            :
+            <img className={s.notPhoto} src={Avatar} alt="avatar" onClick={() => upload()} />
+        }
+      </div>
+    </>
+  )
 }
-
-

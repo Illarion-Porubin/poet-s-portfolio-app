@@ -1,15 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from '../../http/index';
-import { Creativity } from '../../types/types';
+import { Creativity, ICreativityData } from '../../types/types';
 
-export const fetchGetPoems = createAsyncThunk<Creativity[], number | undefined, { rejectValue: string }>('api/fetchGetPoems', async (page: number | undefined, { rejectWithValue }) => {
-    const chackPage = page ? page : 1
-    const { data }: any = await axios.get('/api/poems?p=' + chackPage)
+export const fetchGetPoems = createAsyncThunk<ICreativityData, number | undefined, { rejectValue: string }>(
+    'api/fetchGetPoems', async (page: number | undefined, { rejectWithValue }) => {
+    const { data }: {data: ICreativityData } = await axios.get('/api/poems?p=' + page)
     if (!data) {
         return rejectWithValue('Server Error!');
     }
-    const poem: Creativity[] = data;
-    return poem;
+    return data;
 });
 
 export const fetchSearchPoems = createAsyncThunk<Creativity[], string, { rejectValue: string }>('api/fetchSearchPoems', async (value: string, { rejectWithValue }) => {
@@ -52,7 +51,8 @@ export const fetchDeletePoem = createAsyncThunk<Creativity[], string, { rejectVa
     });
 
 export type ContentPoem = {
-    data:  [] | Creativity[] ;
+    data: Creativity[];
+    poem: Creativity | null;
     pages: number;
     isLoading: "idle" | "loading" | "loaded" | "error";
     error: string | null;
@@ -60,6 +60,7 @@ export type ContentPoem = {
 
 const initialState: ContentPoem = {
     data: [],
+    poem: null,
     pages: 1,
     isLoading: "idle",
     error: null,
@@ -68,7 +69,19 @@ const initialState: ContentPoem = {
 export const poemSlice = createSlice({
     name: 'poem',
     initialState,
-    reducers: {},
+    reducers: {
+        saveData: (state, action) => {
+            state.data.push(action.payload)
+            console.log(state.data);
+        },
+        deltePoem: (state, action) => {
+            state.data = state.data.filter((item) => item._id !== action.payload ? item : undefined)
+        },
+        setPoem: (state, action) => {
+            state.poem = action.payload
+            console.log(state.poem, 'setPoem');
+        },
+    },
     extraReducers: (builder) => {
         builder
             ///fetchGetPoems
@@ -77,7 +90,9 @@ export const poemSlice = createSlice({
                 state.isLoading = 'loading';
             })
             .addCase(fetchGetPoems.fulfilled, (state, action) => {
-                state.data = action.payload;
+                state.pages = action.payload.pages;
+                state.data = action.payload.data;
+                // state.data = action.payload;
                 state.isLoading = 'loaded';
             })
             .addCase(fetchGetPoems.rejected, (state) => {
